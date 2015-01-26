@@ -3,5 +3,5 @@
 Transport network database application for Weardale Community Transport.
 PHP/MySQL based.
 
-PHP PDF creator API: http://www.tcpdf.org/
-Jquery calendar API: http://fullcalendar.io
+PHP PDF creator API: http://www.tcpdf.org/  
+Jquery calendar API: http://fullcalendar.io  
