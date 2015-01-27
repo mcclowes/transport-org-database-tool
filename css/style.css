@@ -85,3 +85,34 @@ nav {
 	right:0;
 	top: 0;
 }
+
+fieldset {
+	padding: 20px;
+	margin:10px;
+}
+
+input[type=text] {
+
+	background: #fff;
+	width: 280px;
+	height: 20px;
+	padding: 10px;
+	margin: 0 0 0 10px;
+	line-height: 1;
+	/*border: none;*/
+
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+}
+
+select {
+	margin: 0 0 0 10px;
+	width:120px;
+}
+
+input[type=checkbox] {
+
+	margin: 0 0 0 10px;
+}
