@@ -1,0 +1,148 @@
+
+<html>
+    <head>
+        <title>WCT Tool | Home</title>
+        <link rel="icon" type="image/png" href="./img/wct_icon.png">
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+
+        <script type="text/javascript">
+            function CheckColors(val){
+             var element=document.getElementById('mobility');
+             if(val=='...'||val=='other')
+               element.style.display='block';
+             else  
+               element.style.display='none';
+            }
+        </script> 
+    </head>
+    <body>
+        <div id="wctLogo"></div>
+        <nav>
+            <ul>
+                <li><a href="/index.php">Home</a></li>
+                <li><a href="./journeys.html">Journeys</a>
+                    <ul>
+                        <li><a href="/manage_journeys.php">Manage Journeys</a></li>
+                        <li><a href="/add_journeys.php">Add Journeys</a></li>
+                    </ul>
+                </li>
+                <li><a href="./groups.html">Groups</a>
+                    <ul>
+                        <li><a href="/manage_groups.php">Manage Groups</a></li>
+                        <li><a href="/add_group.php">Add group</a></li>
+                    </ul>
+                </li>
+                <li><a href="./members.html">Members</a>
+                    <ul>
+                        <li><a href="/manage_members.php">Manage Members</a></li>
+                        <li><a href="/add_member.php">Add Member</a></li>
+                    </ul>
+                </li>
+                <li><a href="./vehicles.html">Vehicles</a>
+                    <ul>
+                        <li><a href="/manage_vehicles.php">Manage Vehicles</a></li>
+                        <li><a href="/add_vehicle.php">Add vehicle</a></li>
+                    </ul>
+                </li>
+                <li><a href="./drivers.html">Drivers</a>
+                    <ul>
+                        <li><a href="/manage_drivers.php">Manage Drivers</a></li>
+                        <li><a href="/add_driver.php">Add Driver</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="main">
+            <form method="POST" action="">
+            <!-- bother with for attribute? -->
+                <fieldset>
+                    <legend>Personal Details</legend>
+                    <label for "firstName">First Name: </label><input type="text" name="firstName:" id="input_name"/> </br>
+                    <label>Surname: </label><input type="text" name="Name:" id="input_name"/> </br>
+                    <label>Date of Birth: </label><input type="text" name="Name:" id="input_name"/> </br>
+                </fieldset>
+                <fieldset>
+                    <legend>Address</legend>
+                    <label>Address line 1: </label><input type="text" name="Name:" id="input_name"/> </br>
+                    <label>Address line 2: </label><input type="text" name="Name:" id="input_name"/> </br>
+                    <label>Address line 3: </label><input type="text" name="Name:" id="input_name"/> </br>
+                    <label>Address line 4: </label><input type="text" name="Name:" id="input_name"/> </br>
+                    <label>Address line 5: </label><input type="text" name="Name:" id="input_name"/> </br>
+                    <label>Postcode: </label><input type="text" name="Name:" id="input_name"/> </br>
+                    <label>Contact Number: </label><input type="text" name="Name:" id="input_name"/> </br>
+                </fieldset>
+                <fieldset>
+                    <legend>Emergency Contact</legend>
+                    <label>Emergency Contact Name: </label><input type="text" name="Name:" id="input_name"/> </br>
+                    <label>Emergency Contact Number: </label><input type="text" name="Name:" id="input_name"/> </br>
+                    <label>Emergency Contact Relationship:</label><input type="text" name="Name:" id="input_name"/></br>
+                </fieldset>
+                <fieldset>
+                    <legend>Additional Details</legend>
+                    <label>Do you use a wheelchair? </label><select name="mobility"> 
+                        <option>...</option> <option value="yes">Yes</option> <option value="no">No</option> <option value="maybe">Maybe</option>
+                    </select> </br>
+
+                    <label>What type of wheelchair do you use? </label><select name="mobility"> 
+                        <option>...</option> <option value="folding">Folding</option> <option value="fixed">Fixed</option> <option value="power">Power</option>
+                    </select> </br>
+
+                    <label>Do you want to transfer from your wheelchair to a seat on our vehicle? </label><select name="mobility"> 
+                        <option>...</option> <option value="yes">Yes</option> <option value="no">No</option>
+                    </select> </br>
+
+                    <label>Do you use a scooter? </label><select name="mobility"> 
+                        <option>...</option> <option value="yes">Yes</option> <option value="no">No</option>
+                    </select> </br>
+
+                    <label>Do you use a mobility aid?</label><select name="mobility" onchange='CheckMobility(this.value);'> 
+                        <option>...</option> <option value="wheelchair">Walking frame</option> <option value="zimmerframe">Walking stick</option> 
+                        <option value="wheelchair">Crutches</option> <option value="zimmerframe">Tri-walker</option> <option value="wheelchair">4-Wheeled walker</option>
+                        <option value="other">Other</option>
+                    </select></br>
+
+                    <label>If shopping, do you use a shopping trolley?</label><select name="mobility"> 
+                        <option>...</option> <option value="yes">Yes</option> <option value="no">No</option>
+                    </select> </br>
+
+                    <label>Will you be travelling with a guide dog?</label><select name="mobility"> 
+                        <option>...</option> <option value="yes">Yes</option> <option value="no">No</option>
+                    </select> </br>
+
+                    <label>Can you get into a 'people carrier' style car? </label><select name="mobility"> 
+                        <option>...</option> <option value="yes">Yes</option> <option value="no">No</option>
+                    </select> </br>
+
+                    <label>Do you need a passenger assistant?</label><select name="mobility"> 
+                        <option>...</option> <option value="yes">Yes</option> <option value="no">No</option>
+                    </select> </br>
+
+                    <label>Do you have a Concessionary Travelcard?</label><select name="mobility"> 
+                        <option>...</option> <option value="yes">Yes</option> <option value="no">No</option>
+                    </select> </br>
+                </fieldset>
+                <fieldset>
+                    <legend>Please tick all the boxes that apply to show the reasons why you need to use the service.</legend>
+                    <label>Public transport is not available to me </label><input type="checkbox" name="" value=""><br>
+                    <label>I need to feel reassurance that the bus will stop when required </label><input type="checkbox" name="" value=""><br>
+                    <label>I have anxiety about using public transport </label><input type="checkbox" name="" value=""><br>
+                    <label>I need a door to door service </label><input type="checkbox" name="" value=""><br>
+                    <label>I need additional handrails and grips </label><input type="checkbox" name="" value=""><br>
+                    <label>I need to use a passenger lift to access the bus </label><input type="checkbox" name="" value=""><br>
+                    <label>I need the floors to be level </label><input type="checkbox" name="" value=""><br>
+                    <label>I need low steps to board and exit from the bus </label><input type="checkbox" name="" value=""><br>
+                    <label>I need personal assistance </label><input type="checkbox" name="" value=""><br>
+                    <label>I need time to board and exit form the bus</label><input type="checkbox" name="" value=""><br>
+                    <label>I need wheelchair access and restraining systems for my chair and myself</label><input type="checkbox" name="" value=""><br>
+                    <label>Other: </label><input type="text" name="Name:" id="input_name"/> </br>
+                </fieldset>
+
+                <input type="text" name="mobility" id="mobility" style='display:none;'/>
+                </br>
+                </br>
+                <input type="submit" name="submitButton" value="Continue">
+                <input type="submit" name="cancelButton" value="Cancel">
+            </form>
+        </div>
+    </body>
+</html>
