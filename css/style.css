@@ -2,6 +2,12 @@
 body {
 	font-family: helvetica;
 }
+
+#page_wrapper {
+	width: 800px;
+    margin: 0 auto;
+}
+
 /*Navigation Bar Styling*/
 nav {
 	margin: -30px 0px 10px -20px;
@@ -86,13 +92,31 @@ nav {
 	top: 0;
 }
 
+/* Form styling */
+
 fieldset {
 	padding: 20px;
 	margin:10px;
+	background-color: #d0d1c9;
+	border: none;
+}
+
+legend {
+	padding-top: 0px;
+	font-weight: bold;
+	padding: 0.2em 0.5em;
+	border:1px solid green;
+	color:green;
+	font-size:90%;
+	text-align:left;
+	background-color: white;
+}
+
+label {
+	padding: 5px;
 }
 
 input[type=text] {
-
 	background: #fff;
 	width: 280px;
 	height: 20px;
@@ -109,10 +133,21 @@ input[type=text] {
 
 select {
 	margin: 0 0 0 10px;
-	width:120px;
+	width:150px;
 }
 
 input[type=checkbox] {
-
 	margin: 0 0 0 10px;
 }
+
+#nextButton, #submitButton, #cancelButton {
+	background-color: #106500;
+	color: white;
+	font-size: 18pt;
+	padding: 5px;
+	border: none;
+	cursor: pointer;	
+	display: inline;
+}
+
+
