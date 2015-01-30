@@ -84,8 +84,10 @@
                 if (i == pages.length - 1){
                     $('#nextButton').animate({
                         height : "toggle"
+                    }, 250, function(){
+                        $('#submitButton').show();
                     });
-                    $('#submitButton').show();
+                    
                 }
 
 
