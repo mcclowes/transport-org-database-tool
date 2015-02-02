@@ -181,35 +181,34 @@ function addPickup($Pickup){
 		$result = $mysqli->query($query);
 		$Pickup_ID = $result + 1;
 
-<<<<<<< Updated upstream
-	function addTCMember($TC_Member){
 
-		if( $statement = $mysqli->prepare("INSERT INTO TC_Members (TC_Member_ID, fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship, DOB,
-											Details_Wheelchair, Details_Wheelchair_Type, Details_Wheelchair_Seat, Details_Scooter, Details_Mobility_Aid, Details_Shopping_Trolley, 
-											Details_Guide_Dog, Details_People_Carrier, Details_Assistant, Details_Travelcard, Reasons_Transport, Reasons_Bus_Stop, Reasons_Anxiety,
-											Reasons_Door, Reasons_Handrails, Reasons_Lift, Reasons_Level_Floors, Reasons_Low_Steps, Reasons_Assistance, Reasons_Board_Time,
-											Reasons_Wheelchair_Access,  ) VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?;") ){
-			$TC_Member_ID = mysql_result(mysql_db_query("Xgfjl56_WCT", "SELECT MAX(TC_Member_ID) AS Last_ID FROM TC_Members;"), 0, 'Last_ID') + 1;
-			$Address_ID = addAddress($TC_Member['Address']);
-			$statement->bind_param("ississssssssssssssiiiiiiiiiiis",
-									"$TC_Member_ID","$TC_Member['fName']","$TC_Member['sName']", "$Address_ID","$TC_Member['Tel_No']","$TC_Member['Emergency_Name']","$TC_Member['Emergency_Tel']", "$TC_Member['Emergency_Relationship']", "TC_Member['DOB']",
-									"$TC_Member['Details_Wheelchair']", "$TC_Member['Details_Wheelchair_Type']", "$TC_Member['Details_Wheelchair_Seat']", "$TC_Member['Details_Scooter']", "$TC_Member['Details_Mobility_Aid']", "$TC_Member['Details_Shopping_Trolley']", 
-									"$TC_Member['Details_Guide_Dog']", "$TC_Member['Details_People_Carrier']", "$TC_Member['Invoice_Sent']", "$TC_Member['Details_Travelcard']","TC_Member['Reasons_Transport']","TC_Member['Reasons_Bus_Stop']","TC_Member['Reasons_Anxiety']",
-									"TC_Member['Reasons_Door']","TC_Member['Reasons_Handrails']","TC_Member['Reasons_Lift']","TC_Member['Reasons_Level_Floors']","$TC_Member['Reasons_Low_Steps']", "$TC_Member['Reasons_Assistance']", "$TC_Member['Reasons_Board_Time']",
-									"$TC_Member['Reasons_Wheelchair_Access']", "$TC_Member['Reasons_Other']" );
-			$statement->execute();
-			$statement->store_result();
-		}
-		echo json_encode('success12345');
-		
-=======
-		$Address_ID = addAddress($Pickup['Address']);
-		$statement->bind_param("iii",$Pickup_ID,$Pickup['Journey_ID'],$Address_ID);
+function addTCMember($TC_Member){
+
+	if( $statement = $mysqli->prepare("INSERT INTO TC_Members (TC_Member_ID, fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship, DOB,
+										Details_Wheelchair, Details_Wheelchair_Type, Details_Wheelchair_Seat, Details_Scooter, Details_Mobility_Aid, Details_Shopping_Trolley, 
+										Details_Guide_Dog, Details_People_Carrier, Details_Assistant, Details_Travelcard, Reasons_Transport, Reasons_Bus_Stop, Reasons_Anxiety,
+										Reasons_Door, Reasons_Handrails, Reasons_Lift, Reasons_Level_Floors, Reasons_Low_Steps, Reasons_Assistance, Reasons_Board_Time,
+										Reasons_Wheelchair_Access, Reasons_Other) VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?;") ){
+		$TC_Member_ID = mysql_result(mysql_db_query("Xgfjl56_WCT", "SELECT MAX(TC_Member_ID) AS Last_ID FROM TC_Members;"), 0, 'Last_ID') + 1;
+		$Address_ID = addAddress($TC_Member['Address']);
+		$statement->bind_param("ississsssssssssssssiiiiiiiiiiis",
+								$TC_Member_ID,$TC_Member['fName'],$TC_Member['sName'], $Address_ID,$TC_Member['Tel_No'],$TC_Member['Emergency_Name'],$TC_Member['Emergency_Tel'], $TC_Member['Emergency_Relationship'], $TC_Member['DOB'],
+								$TC_Member['Details_Wheelchair'], $TC_Member['Details_Wheelchair_Type'], $TC_Member['Details_Wheelchair_Seat'], $TC_Member['Details_Scooter'], $TC_Member['Details_Mobility_Aid'], $TC_Member['Details_Shopping_Trolley'], 
+								$TC_Member['Details_Guide_Dog'], $TC_Member['Details_People_Carrier'], $TC_Member['Invoice_Sent'], $TC_Member['Details_Travelcard'],$TC_Member['Reasons_Transport'],$TC_Member['Reasons_Bus_Stop'],$TC_Member['Reasons_Anxiety'],
+								$TC_Member['Reasons_Door'],$TC_Member['Reasons_Handrails'],$TC_Member['Reasons_Lift'],$TC_Member['Reasons_Level_Floors'],$TC_Member['Reasons_Low_Steps'], $TC_Member['Reasons_Assistance'], $TC_Member['Reasons_Board_Time'],
+								$TC_Member['Reasons_Wheelchair_Access'], $TC_Member['Reasons_Other'] );
 		$statement->execute();
 		$statement->store_result();
->>>>>>> Stashed changes
 	}
-}
+	echo json_encode('success12345');
+	
+
+	$Address_ID = addAddress($Pickup['Address']);
+	$statement->bind_param("iii",$Pickup_ID,$Pickup['Journey_ID'],$Address_ID);
+	$statement->execute();
+	$statement->store_result();
+	}
+
 
 
 function addReturn($Return){
