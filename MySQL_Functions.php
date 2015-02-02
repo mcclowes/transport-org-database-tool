@@ -191,6 +191,8 @@ function addAddress($Address)
 			$statement->execute();
 			$statement->store_result();
 		}
+		echo json_encode('success12345');
+		
 	}
 
 

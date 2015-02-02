@@ -265,11 +265,11 @@
 					</div>
                     <input type="text" name="mobility" id="mobility" style='display:none;'/>
                     </br>
-                    <div id="nextButton" onclick="next()">Next</div>
-                    <div id="submitButton" onclick="submit('addTcMember');">Submit</div>
-                    <div id="cancelButton" onclick="cancel()">Cancel</div>
-                    <div id='result'></div> 
                 </form>
+				<div id="nextButton" onclick="next()">Next</div>
+				<div id="submitButton" onclick="submit('addTcMember');">Submit</div>
+				<div id="cancelButton" onclick="cancel()">Cancel</div>
+				<div id='result'></div> 
             </div>
         </div>
     </body>
