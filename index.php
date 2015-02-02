@@ -25,7 +25,7 @@
                 <li><a href="./members.html">Members</a>
                     <ul>
                         <li><a href="/manage_members.php">Manage Members</a></li>
-                        <li><a href="/add_member.html">Add Member</a></li>
+                        <li><a href="/add_member.php">Add Member</a></li>
                     </ul>
                 </li>
                 <li><a href="./vehicles.html">Vehicles</a>
