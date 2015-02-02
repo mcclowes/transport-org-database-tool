@@ -1,7 +1,4 @@
 <?php 
-//NEEDS DOING: build 'x' pickups into Journey (Zack send No_Of_Picups, call addPickup in loop, Generating ID's, Sending queries back
-
-$mysqli = connect();
 
 $type = $_POST['form_type'];
 $data = $_POST['form_data'];
@@ -15,7 +12,7 @@ switch ($type) {
 		break;
 
 	case 'addDriver':
-		addDriver()$data;
+		addDriver($data);
 		break;
 
 	case 'addGroup';
@@ -27,15 +24,18 @@ switch ($type) {
 		break;
 
 	case 'addJourney':
-		addJourney($data);
-		break;
+		$Journey_ID = addJourney($data);
+		$x = $data['No_Pickups']; 
+		$Y = $data['No_Returns']; 
 
-	case 'addPickup':
-		addPickup($data);
-		break;
+		for ($xx = 0; $xx <= $x; $xx++){
+			addPickup($Journey_ID, $data[$Pickup]);
+		}
 
-	case 'addReturn'
-		addReturn($data);
+		for ($yy = 0; $yy <= $y; $yy++){
+			addReturn($Journey_ID, $data[$Return]);
+		}
+
 		break;
 
 	case 'addTCJourneyMember':
@@ -45,7 +45,9 @@ switch ($type) {
 	case 'addVehicleCheckProblem':
 		addVehicleCheckProblem($data);
 		break;
-		
+	
+	case 'getJourneys':
+		getJourneys();
 	default:
 		echo json_encode("error");
 		break;
@@ -67,11 +69,29 @@ function connect(){
 	return $conn;
 }
 
+
+function getVehicles(){}
+function getDrivers(){}
+function getDamageReports(){}
+function getGroups(){}
+function getJourneys(){}
+function getJourneyMembers($Journey_ID){}
+function getPickups(){}
+function getTCMembers(){}
+function getVehicleCheckProblems(){}
+
+
+ 
 function addAddress($Address){
 	$mysqli = connect();
 
 	if( $statement = $mysqli->prepare("INSERT INTO Addresses (Address_ID, Line1, Line2, Line3, Line4, Line5, Post_Code) VALUES ?, ?, ?, ?, ?, ?, ? ;")){
-		$Address_ID = mysql_result(mysql_db_query("Xgfjl56_WCT", "SELECT MAX(Address_ID) AS Last_ID FROM Addresses;"), 0, 'Last_ID') + 1;
+		
+
+		$query = "SELECT MAX(Address_ID) AS Last_ID FROM Addresses;";
+		$result = $mysqli->query($query);
+		$Address_ID = $result +1;
+		
 		$statement->bind_param("issssss",$Address_ID,$Address['Line1'],$Address['Line2'],$Address['Line3'],$Address['Line4'],$Address['Line5'],$Address['Post_Code']);
 		$statement->execute();
 		$statement->store_result();
@@ -84,7 +104,11 @@ function addVehicle($Vehicle){
 	$mysqli = connect();
 
 	if( $statement = $mysqli->prepare("INSERT INTO Vehicles (Vehicle_ID, Nickname, Licence, Brand, Colour, Capacity_Passengers, Capacity_With_Wheelchairs, Capacity_Wheelchairs) VALUES ?, ?, ?, ?, ?, ?, ?, ? ;") ){
-		$Vehicle_ID = mysql_result(mysql_db_query("Xgfjl56_WCT", "SELECT MAX(Vehicle_ID) AS Last_ID FROM Vehicles;"), 0, 'Last_ID') + 1;
+		
+		$query = "SELECT MAX(Vehicle_ID) AS Last_ID FROM Vehicles;";
+		$result = $mysqli->query($query);
+		$Vehicle_ID = $result+1;
+		
 		$statement->bind_param("issssiii",$Vehicle_ID,$Vehicle['Nickname'],$Vehicle['Licence'],$Vehicle['Brand'],$Vehicle['Colour'],$Vehicle['Capacity_Passengers'],$Vehicle['Capacity_With_Wheelchairs'],$Vehicle['Capacity_Wheelchairs']);
 		$statement->execute();
 		$statement->store_result();
@@ -97,8 +121,13 @@ function addDriver($Driver){
 	$mysqli = connect();
 
 	if( $statement = $mysqli->prepare("INSERT INTO Drivers (Driver_ID, fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer) VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?;") ){
-		$Driver_ID = mysql_result(mysql_db_query("Xgfjl56_WCT", "SELECT MAX(Driver_ID) AS Last_ID FROM Drivers;"), 0, 'Last_ID') + 1;
+		
+		$query = "SELECT MAX(Driver_ID) AS Last_ID FROM Drivers;";
+		$result = $mysqli->query($query);
+		$Driver_ID = $result+1;
+		
 		$Address_ID = addAddress($Driver['Address']);
+
 		$statement->bind_param("ississssi",$Driver_ID,$Driver['fName'],$Driver['sName'],$Address_ID,$Driver['Tel_No'],$Driver['Emergency_Name'],$Driver['Emergency_Tel'],$Driver['Emergency_Relationship'],$Driver['Is_Volunteer']);
 		$statement->execute();
 		$statement->store_result();
@@ -110,9 +139,9 @@ function addDriver($Driver){
 function addDamageReport($Damage_Report){
 	$mysqli = connect();
 
-	if( $statement = $mysqli->prepare("INSERT INTO Damage_Report (Damage_ID, Vehicle_ID, Damage_description, Date_Added, Date_Resolved) VALUES ?, ?, ?, ?, ?;") ){
+	if( $statement = $mysqli->prepare("INSERT INTO Damage_Reports (Damage_ID, Vehicle_ID, Damage_description, Date_Added, Date_Resolved) VALUES ?, ?, ?, ?, ?;") ){
 		
-		$query = "SELECT MAX(Vehicle_ID) AS Last_ID FROM Vehicles;";
+		$query = "SELECT MAX(Vehicle_ID) AS Last_ID FROM Damage_Reports;";
 		$result = $mysqli->query($query);
 		$Damage_ID = $result + 1; 
 		
@@ -138,6 +167,7 @@ function addGroup($Group){
 
 		$Address_ID1 = addAddress($Driver['Address']);
 		$Address_ID2 = addAddress($Driver['Invoice_Address']);
+
 		$statement->bind_param("isississsiiiissiiiiiisiiiiiiiiiiiiiiis",
 								$Group_ID,$Group['Name'],$Address_ID1,$Group['Tel'],$Group['Invoice_Email'], $Address_ID2,$Group['Invoice_Tel'],$Group['Emergency_Name'],$Group['Emergency_Tel'], $Group['Profitable'], $Group['Community'], 
 								$Group['Social'], $Group['Statutory'], $Group['Charity_No'], $Group['Org_Aim'], $Group['Activities_Education'], $Group['Activities_Recreation'], $Group['Activities_Health'], $Group['Activities_Religion'], $Group['Activities_Social'], $Group['Activities_Inclusion'],
@@ -162,17 +192,19 @@ function addJourney($Journey){
 
 		$Address_ID1 = addAddress($Journey['Address']);
 		$Address_ID2 = addAddress($Driver['Destination']);
+
 		$statement->bind_param("isssisisisisiisssssdss",
 								$Journey_ID,$Journey['Booking_Date'],$Journey['fName'],$Journey['sName'], $Address_ID1,$Journey['Tel_No'],$Journey['Group_ID'],$Journey['Jouney_Date'], $Address_ID2, $Journey['Return_Time'], 
 								$Journey['No_Passengers'], $Journey['Passengers_Note'], $Journey['Wheelchairs'], $Journey['Transferees'], $Journey['Other_Access'], $Journey['Booked_By'], $Journey['Driver_ID'], $Journey['Vehicle'], 
 								$Journey['Keys_To_Collect'], $Journey['Quote'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
 		$statement->execute();
 		$statement->store_result();
+		return Journey_ID;
 	}
 }
 
 
-function addPickup($Pickup){
+function addPickup($Journey_ID,$Pickup){
 	$mysqli = connect();
 
 	if( $statement = $mysqli->prepare("INSERT INTO Pickups (Pickup_ID, Journey_ID, Address_ID) VALUES ?, ?, ?;") ){
@@ -180,6 +212,14 @@ function addPickup($Pickup){
 		$query = "SELECT MAX(Pickup_ID) AS Last_ID FROM Pickups;";
 		$result = $mysqli->query($query);
 		$Pickup_ID = $result + 1;
+
+		$Address_ID = addAddress($Pickup['Address']);
+
+		$statement->bind_param("iii",$Pickup_ID,$Journey_ID,$Address_ID);
+		$statement->execute();
+		$statement->store_result();
+	}
+}
 
 
 function addTCMember($TC_Member){
@@ -189,8 +229,13 @@ function addTCMember($TC_Member){
 										Details_Guide_Dog, Details_People_Carrier, Details_Assistant, Details_Travelcard, Reasons_Transport, Reasons_Bus_Stop, Reasons_Anxiety,
 										Reasons_Door, Reasons_Handrails, Reasons_Lift, Reasons_Level_Floors, Reasons_Low_Steps, Reasons_Assistance, Reasons_Board_Time,
 										Reasons_Wheelchair_Access, Reasons_Other) VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?;") ){
-		$TC_Member_ID = mysql_result(mysql_db_query("Xgfjl56_WCT", "SELECT MAX(TC_Member_ID) AS Last_ID FROM TC_Members;"), 0, 'Last_ID') + 1;
+		
+		$query = "SELECT MAX(TC_Member_ID) AS Last_ID FROM TC_Members;";
+		$result = $mysqli->query($query);
+		$TC_Member_ID = $result+1;
+
 		$Address_ID = addAddress($TC_Member['Address']);
+
 		$statement->bind_param("ississsssssssssssssiiiiiiiiiiis",
 								$TC_Member_ID,$TC_Member['fName'],$TC_Member['sName'], $Address_ID,$TC_Member['Tel_No'],$TC_Member['Emergency_Name'],$TC_Member['Emergency_Tel'], $TC_Member['Emergency_Relationship'], $TC_Member['DOB'],
 								$TC_Member['Details_Wheelchair'], $TC_Member['Details_Wheelchair_Type'], $TC_Member['Details_Wheelchair_Seat'], $TC_Member['Details_Scooter'], $TC_Member['Details_Mobility_Aid'], $TC_Member['Details_Shopping_Trolley'], 
@@ -200,7 +245,6 @@ function addTCMember($TC_Member){
 		$statement->execute();
 		$statement->store_result();
 	}
-	echo json_encode('success12345');
 	
 
 	$Address_ID = addAddress($Pickup['Address']);
@@ -211,7 +255,7 @@ function addTCMember($TC_Member){
 
 
 
-function addReturn($Return){
+function addReturn($Journey_ID,$Return){
 	$mysqli = connect();
 
 	if( $statement = $mysqli->prepare("INSERT INTO Returns (Return_ID, Journey_ID, Address_ID) VALUES ?, ?, ?;") ){
@@ -221,7 +265,8 @@ function addReturn($Return){
 		$Return_ID = $result+1;
 
 		$Address_ID = addAddress($Return['Address']);
-		$statement->bind_param("iii",$Return_ID,$Return['Journey_ID'],$Address_ID);
+
+		$statement->bind_param("iii",$Return_ID, $Journey_ID, $Address_ID);
 		$statement->execute();
 		$statement->store_result();
 	}
@@ -241,6 +286,7 @@ function addTCMember($TC_Member){
 		$TC_Member_ID = $result +1;
 		
 		$Address_ID = addAddress($TC_Member['Address']);
+
 		$statement->bind_param('ississsssssssssssssiiiiiiiiiiis',
 								$TC_Member_ID,$TC_Member['fName'],$TC_Member['sName'], $Address_ID,$TC_Member['Tel_No'],$TC_Member['Emergency_Name'],$TC_Member['Emergency_Tel'], $TC_Member['Emergency_Relationship'], $TC_Member['DOB'],
 								$TC_Member['Details_Wheelchair'], $TC_Member['Details_Wheelchair_Type'], $TC_Member['Details_Wheelchair_Seat'], $TC_Member['Details_Scooter'], $TC_Member['Details_Mobility_Aid'], $TC_Member['Details_Shopping_Trolley'], 
@@ -250,10 +296,6 @@ function addTCMember($TC_Member){
 		$statement->execute();
 		$statement->store_result();
 	}
-	else {
-		/* Error */
-		printf("Prepared Statement Error: %s\n", $mysqli->error);
-		}
 }
 
 function addTCJourneyMember($TC_Journey_Members){
