@@ -1,49 +1,52 @@
 <?php 
 
+
+$mysqli = connect();
+
 $type = $_POST['form_type'];
 $data = $_POST['form_data'];
 switch ($type) {
 	case 'addTcMember':
-		addTCMembers($data);
+		addTCMember($mysqli,$data);
 		break;
 
 	case 'addVehicle':
-		addVehicle($data);
+		addVehicle($mysqli,$data);
 		break;
 
 	case 'addDriver':
-		addDriver($data);
+		addDriver($mysqli,$data);
 		break;
 
 	case 'addGroup';
-		addGroup($data);
+		addGroup($mysqli,$data);
 		break;
 
 	case 'addDamageReport':
-		addDamageReport($data);
+		addDamageReport($mysqli,$data);
 		break;
 
 	case 'addJourney':
-		$Journey_ID = addJourney($data);
+		$Journey_ID = addJourney($mysqli,$data);
 		$x = $data['Pickups']['No_Pickups']; 
 		$Y = $data['Returns']['No_Returns']; 
 
 		for ($xx = 0; $xx <= $x; $xx++){
-			addPickup($Journey_ID, $data['Pickups'][$x]);
+			addPickup($mysqli,$Journey_ID, $data['Pickups'][$xx]);
 		}
 
 		for ($yy = 0; $yy <= $y; $yy++){
-			addReturn($Journey_ID, $data[$Return][$]);
+			addReturn($mysqli, $Journey_ID, $data[$Return][$yy]);
 		}
 
 		break;
 
 	case 'addTCJourneyMember':
-		addTCJourneyMember($data);
+		addTCJourneyMember($mysqli,$data);
 		break;
 
 	case 'addVehicleCheckProblem':
-		addVehicleCheckProblem($data);
+		addVehicleCheckProblem($mysqli,$data);
 		break;
 	
 	case 'getJourneys':
@@ -51,8 +54,9 @@ switch ($type) {
 	default:
 		echo json_encode("error");
 		break;
-}
 
+}
+echo json_encode("Success! ed");
 //Connects to the database storing questions etc.
 
 function connect(){
@@ -85,7 +89,9 @@ function getVehicleCheckProblems($mysqli){}
  
 function addAddress($mysqli,$Address){
 	
-	if( $statement = $mysqli->prepare("INSERT INTO Addresses ( Line1, Line2, Line3, Line4, Line5, Post_Code) VALUES  (?, ?, ?, ?, ?, ? );")){
+	print_r($Address);
+
+	if( $statement = $mysqli->prepare("INSERT INTO Addresses (Line1, Line2, Line3, Line4, Line5, Post_Code) VALUES  (?, ?, ?, ?, ?, ?);")){
 		
 		$statement->bind_param("ssssss",$Address['Line1'],$Address['Line2'],$Address['Line3'],$Address['Line4'],$Address['Line5'],$Address['Post_Code']);
 
@@ -191,6 +197,7 @@ function addJourney($mysqli,$Journey){
 function addTCMember($mysqli,$TC_Member){
 
 	$Address_ID = addAddress($mysqli,$TC_Member['Address']);
+
 	if( $statement = $mysqli->prepare("INSERT INTO TC_Members ( fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship, DOB,
 										Details_Wheelchair, Details_Wheelchair_Type, Details_Wheelchair_Seat, Details_Scooter, Details_Mobility_Aid, Details_Shopping_Trolley, 
 										Details_Guide_Dog, Details_People_Carrier, Details_Assistant, Details_Travelcard, Reasons_Transport, Reasons_Bus_Stop, Reasons_Anxiety,
@@ -200,7 +207,7 @@ function addTCMember($mysqli,$TC_Member){
 		$statement->bind_param('ssisssssssssssssssiiiiiiiiiiis',
 								$TC_Member['fName'],$TC_Member['sName'], $Address_ID,$TC_Member['Tel_No'],$TC_Member['Emergency_Name'],$TC_Member['Emergency_Tel'], $TC_Member['Emergency_Relationship'], $TC_Member['DOB'],
 								$TC_Member['Details_Wheelchair'], $TC_Member['Details_Wheelchair_Type'], $TC_Member['Details_Wheelchair_Seat'], $TC_Member['Details_Scooter'], $TC_Member['Details_Mobility_Aid'], $TC_Member['Details_Shopping_Trolley'], 
-								$TC_Member['Details_Guide_Dog'], $TC_Member['Details_People_Carrier'], $TC_Member['Invoice_Sent'], $TC_Member['Details_Travelcard'],$TC_Member['Reasons_Transport'],$TC_Member['Reasons_Bus_Stop'],$TC_Member['Reasons_Anxiety'],
+								$TC_Member['Details_Guide_Dog'], $TC_Member['Details_People_Carrier'], $TC_Member['Details_Assistant'], $TC_Member['Details_Travelcard'],$TC_Member['Reasons_Transport'],$TC_Member['Reasons_Bus_Stop'],$TC_Member['Reasons_Anxiety'],
 								$TC_Member['Reasons_Door'],$TC_Member['Reasons_Handrails'],$TC_Member['Reasons_Lift'],$TC_Member['Reasons_Level_Floors'],$TC_Member['Reasons_Low_Steps'], $TC_Member['Reasons_Assistance'], $TC_Member['Reasons_Board_Time'],
 								$TC_Member['Reasons_Wheelchair_Access'], $TC_Member['Reasons_Other'] );
 
