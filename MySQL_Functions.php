@@ -56,7 +56,6 @@ switch ($type) {
 		break;
 
 }
-echo json_encode("Success! ed");
 //Connects to the database storing questions etc.
 
 function connect(){
@@ -73,16 +72,63 @@ function connect(){
 	return $conn;
 }
 
+function getAddress($mysqli, $Address_ID){
+	$Address = [];
+	if($statement = $mysqli->prepare(" SELECT (Line1, Line2, Line3, Line4, Line5, Post_Code) FROM Addresses WHERE Address_ID = $Address_ID ;")){
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($Address['Line1'],$Address['Line2'],$Address['Line3'],$Address['Line4'],$Address['Line5'],$Address['Post_Code']);
+		$statement->fetch();
+
+	}
+	return $Address;
+}
 
 function getVehicles($mysqli){}
+
+
 function getDrivers($mysqli){}
+
+
 function getDamageReports($mysqli){}
+
+
 function getGroups($mysqli){}
-function getJourneys($mysqli){}
+
+
+function getJourneys($mysqli){
+	$rdata = []
+	if($statement = $mysqli->prepare(" SELECT (Journey_ID Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Jouney_Date, Destination, Return_Time,
+										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
+										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid) FROM Journeys ORDER BY Jouney_Date , Journey_ID DESC|DESC;")){
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($Journey_ID, $rdata['Booking_Date'],$rdata['fName'],$rdata['sName'], $Address_ID1, $rdata['Tel_No'], $rdata['Group_ID'],$rdata['Jouney_Date'], $Address_ID2, $rdata['Return_Time'], 
+								$rdata['No_Passengers'], $rdata['Passengers_Note'], $rdata['Wheelchairs'], $rdata['Transferees'], $rdata['Other_Access'], $rdata['Booked_By'], $rdata['Driver_ID'], $rdata['Vehicle'], 
+								$rdata['Keys_To_Collect'], $rdata['Quote'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']););
+		$statement->fetch();
+		
+		$rdata['Address'] = getAddress($mysqli, $Address_ID1);
+		$rdata['Destination'] = getAddress($mysqli, $Address_ID2);
+	}
+
+	return $rdata;
+
+}
+
+
 function getJourneyMembers($mysqli,$Journey_ID){}
+
+
 function getTCMembers($mysqli){}
+
+
 function getPickups($mysqli,$Journey_ID){}
+
+
 function getReturns($mysqli,$Journey_ID){}
+
+
 function getVehicleCheckProblems($mysqli){}
 
 
@@ -126,7 +172,7 @@ function addDriver($mysqli,$Driver){
 	
 	if( $statement = $mysqli->prepare("INSERT INTO Drivers (fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);") ){
 		
-		$statement->bind_param("ssissssi",$Driver['fName'],$Driver['sName'],$Address_ID,$Driver['Tel_No'],$Driver['Emergency_Name'],$Driver['Emergency_Tel'],$Driver['Emergency_Relationship'],$Driver['Is_Volunteer']);
+		$statement->bind_param("ssisssss",$Driver['fName'],$Driver['sName'],$Address_ID,$Driver['Tel_No'],$Driver['Emergency_Name'],$Driver['Emergency_Tel'],$Driver['Emergency_Relationship'],$Driver['Is_Volunteer']);
 		$statement->execute();
 		$statement->store_result();
 		
@@ -160,7 +206,7 @@ function addGroup($mysqli,$Group){
 										Concerned_Rurally_Isolated, Concerned_Other) VALUES ( ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?, ?, ?, ?, ?);") ){
 
 
-		$statement->bind_param("sississsiiiissiiiiiisiiiiiiiiiiiiiiis",
+		$statement->bind_param("sississsiiiisssssssssssssssssssssssss",
 								$Group['Name'],$Address_ID1,$Group['Address_Tel'],$Group['Invoice_Email'], $Address_ID2,$Group['Invoice_Tel'],$Group['Emergency_Name'],$Group['Emergency_Tel'], $Group['Profitable'], $Group['Community'], 
 								$Group['Social'], $Group['Statutory'], $Group['Charity_No'], $Group['Org_Aim'], $Group['Activities_Education'], $Group['Activities_Recreation'], $Group['Activities_Health'], $Group['Activities_Religion'], $Group['Activities_Social'], $Group['Activities_Inclusion'],
 								$Group['Activities_Other'], $Group['Concerned_Physical'], $Group['Concerned_Learning'], $Group['Concerned_Mental_Health'], $Group['Concerned_Ethnic'], $Group['Concerned_Alcohol'], $Group['Concerned_Drug'], $Group['Concerned_HIV_AIDS'], 
@@ -204,7 +250,7 @@ function addTCMember($mysqli,$TC_Member){
 										Reasons_Door, Reasons_Handrails, Reasons_Lift, Reasons_Level_Floors, Reasons_Low_Steps, Reasons_Assistance, Reasons_Board_Time,
 										Reasons_Wheelchair_Access, Reasons_Other) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)") ){
 
-		$statement->bind_param('ssisssssssssssssssiiiiiiiiiiis',
+		$statement->bind_param('ssisssssssssssssssssssssssssss',
 								$TC_Member['fName'],$TC_Member['sName'], $Address_ID,$TC_Member['Tel_No'],$TC_Member['Emergency_Name'],$TC_Member['Emergency_Tel'], $TC_Member['Emergency_Relationship'], $TC_Member['DOB'],
 								$TC_Member['Details_Wheelchair'], $TC_Member['Details_Wheelchair_Type'], $TC_Member['Details_Wheelchair_Seat'], $TC_Member['Details_Scooter'], $TC_Member['Details_Mobility_Aid'], $TC_Member['Details_Shopping_Trolley'], 
 								$TC_Member['Details_Guide_Dog'], $TC_Member['Details_People_Carrier'], $TC_Member['Details_Assistant'], $TC_Member['Details_Travelcard'],$TC_Member['Reasons_Transport'],$TC_Member['Reasons_Bus_Stop'],$TC_Member['Reasons_Anxiety'],
