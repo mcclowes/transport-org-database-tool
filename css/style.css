@@ -8,6 +8,19 @@ body {
     margin: 0 auto;
 }
 
+#calendar {
+	width: 900px;
+	margin: 0 auto;
+}
+
+#cTitle {
+	width: 175px;
+	height: 100px;
+	font-size: 20px;
+	text-align: centre;
+	margin: 0 auto;
+}
+
 /*Navigation Bar Styling*/
 nav {
 	margin: -30px 0px 10px -20px;
