@@ -140,6 +140,16 @@ input[type=checkbox] {
 	margin: 0 0 0 10px;
 }
 
+input[type=textbox] {
+	margin: 0 0 0 10px;
+	width: 280px;
+	height: 80px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+}
+
 #nextButton, #submitButton, #cancelButton {
 	background-color: #106500;
 	color: white;

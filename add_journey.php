@@ -146,7 +146,7 @@
                 <!-- bother with for attribute? -->
 					<div id="page1">
 						<fieldset id="bookeeDetails">
-							<legend>Journey Details</legend>
+							<legend>Bookee Details</legend>
 							<table>
 								<tr><td><label>First Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
 								<tr><td><label>Surname: </label></td><td><input type="text" id="input-sName"/> <td></tr>
@@ -155,7 +155,7 @@
 							</table>
 						</fieldset>
 						<fieldset id="bookeeAddress">
-							<legend>Address</legend>
+							<legend>Bookee Address</legend>
 							<table>
 								<tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Line1"/> </td></tr>
 								<tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Line2"/> </td></tr>
@@ -169,12 +169,14 @@
 					<div id="page2">
 						<fieldset id="journeyDetails">
 							<legend>Booking Details</legend>
-                            <tr><td><label>Journey Description: </label></td><td><input type="text" id="input-fName" placeholder="E.g. WI to Wolsingham Pool"/> <td></tr>
-							<tr><td><label>Date required: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                            <tr><td><label>No. of passengers: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                            <tr><td><label>No. of wheelchair users/ transfers: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                            <tr><td><label>Other access needs: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                            <tr><td><label>Booking taken by: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+                            <table>
+                                <tr><td><label>Journey Description: </label></td><td><input type="text" id="input-fName" placeholder="E.g. WI to Wolsingham Pool"/> <td></tr>
+    							<tr><td><label>Date required: </label></td><td><input type="date" id="input-fName"/> <td></tr>
+                                <tr><td><label>No. of passengers: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+                                <tr><td><label>No. of wheelchair users/ transfers: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+                                <tr><td><label>Other access needs: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+                                <tr><td><label>Booking taken by: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+                            </table>
                         </fieldset>
                         <fieldset id="destinationAddress">
                             <legend>Destination Address</legend>
@@ -202,24 +204,30 @@
                         <!--add new pickup-->
                         <fieldset id="returnDetails">
                             <legend>Pickup Address</legend>
-                            <tr><td><label>Return time: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                            <tr><td><label>Return note: </label></td><td><input type="textarea" id="input-fName"/> <td></tr>
+                            <table>
+                                <tr><td><label>Return time: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+                                <tr><td><label>Return note: </label></td><td><input type="textbox" id="input-fName"/> <td></tr>
+                            </table>
                         </fieldset>
                         <!--add new return-->
 					</div>
 					<div id="page3">
 						<fieldset id="officeUse">
-							<tr><td><label>Driver: </label></td><td><input type="text" id="input-"/> <td></tr>
-                            <tr><td><label>Allocated Vehicle: </label></td><td><input type="text" id="input-"/> <td></tr>
-                            <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-"/> <td></tr>
-                            <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-"/> <td></tr>
-                            <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-"/> <td></tr>
-                            <tr><td><label>Invoiced cost: </label></td><td><input type="text" id="input-"/> <td></tr>
-                            <tr><td><label>Invoice sent on: </label></td><td><input type="text" id="input-"/> <td></tr>
-                            <tr><td><label>Invoice paid on: </label></td><td><input type="text" id="input-"/> <td></tr>
+                            <legend>Other Details</legend>
+                            <table>
+    							<tr><td><label>Driver: </label></td><td><input type="text" id="input-"/> <td></tr>
+                                <tr><td><label>Allocated Vehicle: </label></td><td><input type="text" id="input-"/> <td></tr>
+                                <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-"/> <td></tr>
+                                <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-"/> <td></tr>
+                                <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-"/> <td></tr>
+                                <tr><td><label>Invoiced cost: </label></td><td><input type="text" id="input-"/> <td></tr>
+                                <tr><td><label>Invoice sent on: </label></td><td><input type="text" id="input-"/> <td></tr>
+                                <tr><td><label>Invoice paid on: </label></td><td><input type="text" id="input-"/> <td></tr>
+                            </table>
                         </fieldset>
                         <fieldset id="notes">
-                            <input type="textarea" id="input-fName"/>
+                            <legend>Journey Notes</legend>
+                            <input type="textbox" id="input-fName"/>
                         </fieldset>
 					</div>
                     <input type="text" name="mobility" id="mobility" style='display:none;'/>
