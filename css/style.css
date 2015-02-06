@@ -41,10 +41,10 @@ nav ul li {
 	float: left;
 }
 	nav ul li:hover {
-		background: #4b545f;
-		background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
-		background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
-		background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
+		background: #106500;
+		background: linear-gradient(top, #106500 0%, #57934c 40%);
+		background: -moz-linear-gradient(top, #106500 0%, #57934c 40%);
+		background: -webkit-linear-gradient(top, #106500 0%, #57934c 40%);
 	}
 		nav ul li:hover a {
 			color: #fff;
@@ -56,7 +56,7 @@ nav ul li {
 	}
 
 nav ul ul {
-	background: #5f6975; border-radius: 0px; padding: 0;
+	background: #57934c; border-radius: 0px; padding: 0;
 	position: absolute; top: 100%;
 }
 	nav ul ul li {
@@ -70,7 +70,7 @@ nav ul ul {
 			color: #fff;
 		}	
 			nav ul ul li a:hover {
-				background: #4b545f;
+				background: #106500;
 			}
 nav {
 	width:100%;
