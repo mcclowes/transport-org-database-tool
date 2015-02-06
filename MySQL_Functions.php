@@ -1,5 +1,5 @@
 <?php 
-
+#delete functions, getAddresses, add current date, 
 
 $mysqli = connect();
 
@@ -50,7 +50,15 @@ switch ($type) {
 		break;
 	
 	case 'getJourneys':
-		getJourneys();
+		$rdata = getJourneys($mysqli);
+		echo json_encode($rdata);
+		break;
+
+	case 'getJourney':
+		$rdata = getJourney($mysqli, $data['Journey_ID']);
+		echo json_encode($rdata);
+		break;
+
 	default:
 		echo json_encode("error");
 		break;
@@ -73,8 +81,9 @@ function connect(){
 }
 
 function getAddress($mysqli, $Address_ID){
-	$Address = [];
-	if($statement = $mysqli->prepare(" SELECT (Line1, Line2, Line3, Line4, Line5, Post_Code) FROM Addresses WHERE Address_ID = $Address_ID ;")){
+	$Address = array();
+	if($statement = $mysqli->prepare(" SELECT (Line1, Line2, Line3, Line4, Line5, Post_Code) FROM Addresses WHERE Address_ID = ? ;")){
+		$statement->bind_param("i", $Address_ID);
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Address['Line1'],$Address['Line2'],$Address['Line3'],$Address['Line4'],$Address['Line5'],$Address['Post_Code']);
@@ -95,21 +104,44 @@ function getDamageReports($mysqli){}
 
 function getGroups($mysqli){}
 
+#getjouneys returns desc id first pickup and return time, 
 
 function getJourneys($mysqli){
-	$rdata = []
-	if($statement = $mysqli->prepare(" SELECT (Journey_ID Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Jouney_Date, Destination, Return_Time,
-										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
-										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid) FROM Journeys ORDER BY Jouney_Date , Journey_ID DESC|DESC;")){
+	$rdata = array();
+	if($statement = $mysqli->prepare(" SELECT (Journey_ID, Journey_Description, Jouney_Date, Return_Time) FROM Journeys;")){
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($Journey_ID, $rdata['Booking_Date'],$rdata['fName'],$rdata['sName'], $Address_ID1, $rdata['Tel_No'], $rdata['Group_ID'],$rdata['Jouney_Date'], $Address_ID2, $rdata['Return_Time'], 
+		$statement->bind_result($rdata['Journey_ID'], $rdata['Journey_Description'], $rdata['Jouney_Date'], $rdata['Return_Time']);
+		$statement->fetch();
+	}
+
+	if($statement = $mysqli->prepare(" SELECT MAX(Time) FROM Pickups WHERE Journey_ID = ?;")){
+		$statement->bind_param("i", $rdata['Journey_ID']);
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($rdata['Pickup_Time']);
+		$statement->fetch();
+	}
+	return $rdata;
+
+}
+
+function getJourney($mysqli, $Journey_ID){
+	$rdata = array();
+	if($statement = $mysqli->prepare(" SELECT (Journey_ID, Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Jouney_Date, Destination, Return_Time,
+										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
+										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid) FROM Journeys WHERE Journey_ID = ?;")){
+		$statement->bind_param("i", $Journey_ID);
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($rdata['Journey_ID'], $rdata['Journey_Description'], $rdata['Booking_Date'],$rdata['fName'],$rdata['sName'], $Address_ID1, $rdata['Tel_No'], $rdata['Group_ID'],$rdata['Jouney_Date'], $Address_ID2, $rdata['Return_Time'], 
 								$rdata['No_Passengers'], $rdata['Passengers_Note'], $rdata['Wheelchairs'], $rdata['Transferees'], $rdata['Other_Access'], $rdata['Booked_By'], $rdata['Driver_ID'], $rdata['Vehicle'], 
-								$rdata['Keys_To_Collect'], $rdata['Quote'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']););
+								$rdata['Keys_To_Collect'], $rdata['Quote'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']);
 		$statement->fetch();
 		
 		$rdata['Address'] = getAddress($mysqli, $Address_ID1);
 		$rdata['Destination'] = getAddress($mysqli, $Address_ID2);
+
 	}
 
 	return $rdata;
@@ -120,7 +152,19 @@ function getJourneys($mysqli){
 function getJourneyMembers($mysqli,$Journey_ID){}
 
 
-function getTCMembers($mysqli){}
+#return fName, sName, PostCode
+function getTCMembers($mysqli){
+	$TC_Member = array();
+	if($statement = $mysqli->prepare(" SELECT (fName, sName, Address_ID) FROM TC_Members")){
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($TC_Member['Line1'],$TC_Member['Line2'],$Address_ID);
+		$statement->fetch();
+
+	}
+	return $Address;
+
+}
 
 
 function getPickups($mysqli,$Journey_ID){}
@@ -130,6 +174,12 @@ function getReturns($mysqli,$Journey_ID){}
 
 
 function getVehicleCheckProblems($mysqli){}
+
+
+
+
+
+
 
 
  
@@ -222,12 +272,12 @@ function addJourney($mysqli,$Journey){
 		$Address_ID1 = addAddress($mysqli,$Journey['Address']);
 		$Address_ID2 = addAddress($mysqli,$Driver['Destination']);
 
-	if( $statement = $mysqli->prepare("INSERT INTO Journeys ( Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Jouney_Date, Destination, Return_Time,
+	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Jouney_Date, Destination, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
 										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
 		$statement->bind_param("sssisisisisiisssssdss",
-								$Journey['Booking_Date'],$Journey['fName'],$Journey['sName'], $Address_ID1,$Journey['Tel_No'],$Journey['Group_ID'],$Journey['Jouney_Date'], $Address_ID2, $Journey['Return_Time'], 
+								$Journey['Journey_Description'],$Journey['Booking_Date'],$Journey['fName'],$Journey['sName'], $Address_ID1,$Journey['Tel_No'],$Journey['Group_ID'],$Journey['Jouney_Date'], $Address_ID2, $Journey['Return_Time'], 
 								$Journey['No_Passengers'], $Journey['Passengers_Note'], $Journey['Wheelchairs'], $Journey['Transferees'], $Journey['Other_Access'], $Journey['Booked_By'], $Journey['Driver_ID'], $Journey['Vehicle'], 
 								$Journey['Keys_To_Collect'], $Journey['Quote'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
 		$statement->execute();
