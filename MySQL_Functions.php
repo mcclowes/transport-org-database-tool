@@ -3,8 +3,14 @@
 
 $mysqli = connect();
 
-$type = $_POST['form_type'];
-$data = $_POST['form_data'];
+if (isset($_POST['form_type'])) {
+	$type = $_POST['form_type'];
+}
+if (isset($_POST['form_data'])) {
+	$data = $_POST['form_data'];
+}
+
+
 switch ($type) {
 	case 'addTcMember':
 		addTCMember($mysqli,$data);
@@ -29,14 +35,9 @@ switch ($type) {
 	case 'addJourney':
 		$Journey_ID = addJourney($mysqli,$data);
 		$x = $data['Pickups']['No_Pickups']; 
-		$Y = $data['Returns']['No_Returns']; 
 
-		for ($xx = 0; $xx <= $x; $xx++){
+		for ($xx = 0; $xx < $x; $xx++){
 			addPickup($mysqli,$Journey_ID, $data['Pickups'][$xx]);
-		}
-
-		for ($yy = 0; $yy <= $y; $yy++){
-			addReturn($mysqli, $Journey_ID, $data[$Return][$yy]);
 		}
 
 		break;
@@ -81,16 +82,21 @@ function connect(){
 }
 
 function getAddress($mysqli, $Address_ID){
+	$Addresses = array();
 	$Address = array();
+	$i = 0;
 	if($statement = $mysqli->prepare(" SELECT (Line1, Line2, Line3, Line4, Line5, Post_Code) FROM Addresses WHERE Address_ID = ? ;")){
 		$statement->bind_param("i", $Address_ID);
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Address['Line1'],$Address['Line2'],$Address['Line3'],$Address['Line4'],$Address['Line5'],$Address['Post_Code']);
-		$statement->fetch();
+		while($statement->fetch()){
+			$Addresses[$i] = $Address;
+			$i ++;
+		}
 
 	}
-	return $Address;
+	return $Addresses;
 }
 
 function getVehicles($mysqli){}
@@ -107,34 +113,37 @@ function getGroups($mysqli){}
 #getjouneys returns desc id first pickup and return time, 
 
 function getJourneys($mysqli){
+	$Journeys = array();
 	$rdata = array();
 	if($statement = $mysqli->prepare(" SELECT (Journey_ID, Journey_Description, Jouney_Date, Return_Time) FROM Journeys;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($rdata['Journey_ID'], $rdata['Journey_Description'], $rdata['Jouney_Date'], $rdata['Return_Time']);
 		$statement->fetch();
-	}
+		if($stm = $mysqli->prepare(" SELECT MAX(Time) FROM Pickups WHERE Journey_ID = ?;")){
+			$stm->bind_param("i", $rdata['Journey_ID']);
+			$stm->execute();
+			$stm->store_result();
+			$stm->bind_result($rdata['Pickup_Time']);
+			$stm->fetch();
+		}
 
-	if($statement = $mysqli->prepare(" SELECT MAX(Time) FROM Pickups WHERE Journey_ID = ?;")){
-		$statement->bind_param("i", $rdata['Journey_ID']);
-		$statement->execute();
-		$statement->store_result();
-		$statement->bind_result($rdata['Pickup_Time']);
-		$statement->fetch();
-	}
+}
+
+	
 	return $rdata;
 
 }
 
 function getJourney($mysqli, $Journey_ID){
 	$rdata = array();
-	if($statement = $mysqli->prepare(" SELECT (Journey_ID, Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Jouney_Date, Destination, Return_Time,
+	if($statement = $mysqli->prepare(" SELECT (Journey_ID, Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
 										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid) FROM Journeys WHERE Journey_ID = ?;")){
 		$statement->bind_param("i", $Journey_ID);
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($rdata['Journey_ID'], $rdata['Journey_Description'], $rdata['Booking_Date'],$rdata['fName'],$rdata['sName'], $Address_ID1, $rdata['Tel_No'], $rdata['Group_ID'],$rdata['Jouney_Date'], $Address_ID2, $rdata['Return_Time'], 
+		$statement->bind_result($rdata['Journey_ID'], $rdata['Journey_Description'], $rdata['Booking_Date'],$rdata['fName'],$rdata['sName'], $Address_ID1, $rdata['Tel_No'], $rdata['Group_ID'],$rdata['Journey_Date'], $Address_ID2, $rdata['Return_Time'], 
 								$rdata['No_Passengers'], $rdata['Passengers_Note'], $rdata['Wheelchairs'], $rdata['Transferees'], $rdata['Other_Access'], $rdata['Booked_By'], $rdata['Driver_ID'], $rdata['Vehicle'], 
 								$rdata['Keys_To_Collect'], $rdata['Quote'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']);
 		$statement->fetch();
@@ -185,7 +194,6 @@ function getVehicleCheckProblems($mysqli){}
  
 function addAddress($mysqli,$Address){
 	
-	print_r($Address);
 
 	if( $statement = $mysqli->prepare("INSERT INTO Addresses (Line1, Line2, Line3, Line4, Line5, Post_Code) VALUES  (?, ?, ?, ?, ?, ?);")){
 		
@@ -226,7 +234,6 @@ function addDriver($mysqli,$Driver){
 		$statement->execute();
 		$statement->store_result();
 		
-		print_r($statement);
 	}
 
 }
@@ -270,20 +277,27 @@ function addGroup($mysqli,$Group){
 function addJourney($mysqli,$Journey){
 
 		$Address_ID1 = addAddress($mysqli,$Journey['Address']);
-		$Address_ID2 = addAddress($mysqli,$Driver['Destination']);
+		$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
 
-	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Jouney_Date, Destination, Return_Time,
+	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
 										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
-		$statement->bind_param("sssisisisisiisssssdss",
-								$Journey['Journey_Description'],$Journey['Booking_Date'],$Journey['fName'],$Journey['sName'], $Address_ID1,$Journey['Tel_No'],$Journey['Group_ID'],$Journey['Jouney_Date'], $Address_ID2, $Journey['Return_Time'], 
+		$statement->bind_param("ssssisisisisiisssssdss",
+								$Journey['Journey_Description'],$Journey['Booking_Date'],$Journey['fName'],$Journey['sName'], $Address_ID1,$Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Time'], 
 								$Journey['No_Passengers'], $Journey['Passengers_Note'], $Journey['Wheelchairs'], $Journey['Transferees'], $Journey['Other_Access'], $Journey['Booked_By'], $Journey['Driver_ID'], $Journey['Vehicle'], 
 								$Journey['Keys_To_Collect'], $Journey['Quote'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
 		$statement->execute();
 		$statement->store_result();
-		return Journey_ID;
 	}
+	if($statement = $mysqli->prepare(" SELECT MAX(Journey_ID) FROM Journeys;")){
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($Journey_ID);
+		$statement->fetch();
+	}
+		return $Journey_ID;
+	
 }
 
 
@@ -319,26 +333,15 @@ function addPickup($mysqli,$Journey_ID,$Pickup){
 
 	$Address_ID = addAddress($mysqli,$Pickup['Address']);
 
-	if( $statement = $mysqli->prepare("INSERT INTO Pickups ( Journey_ID, Address_ID, Time) VALUES ( ?, ?, ?);") ){
+	if( $statement = $mysqli->prepare("INSERT INTO Pickups ( Journey_ID, Note, Address_ID, Time, Return_Note) VALUES ( ?, ?, ?, ?, ?);") ){
 
-		$statement->bind_param("iis",$Journey_ID,$Address_ID,$Pickup['Time']);
+		$statement->bind_param("isiss",$Journey_ID, $Pickup['Note'], $Address_ID, $Pickup['Time'], $Pickup['Return_Note']);
 		$statement->execute();
 		$statement->store_result();
 	}
 }
 
 
-function addReturn($mysqli,$Journey_ID,$Return){
-
-	$Address_ID = addAddress($mysqli,$Return['Address']);
-
-	if( $statement = $mysqli->prepare("INSERT INTO Returns ( Journey_ID, Address_ID) VALUES ( ?, ?);") ){
-
-		$statement->bind_param("ii", $Journey_ID, $Address_ID);
-		$statement->execute();
-		$statement->store_result();
-	}
-}
 
 
 
