@@ -213,11 +213,16 @@ function addAddress($mysqli,$Address){
 
 }
 
+
+
+
 function addVehicle($mysqli,$Vehicle){
 
-	if( $statement = $mysqli->prepare("INSERT INTO Vehicles ( Nickname, Licence, Brand, Colour, Capacity_Passengers, Capacity_With_Wheelchairs, Capacity_Wheelchairs) VALUES ( ?, ?, ?, ?, ?, ?, ?);") ){
+	if( $statement = $mysqli->prepare("INSERT INTO Vehicles ( Nickname, Registration, Make, Model, Colour, Capacity_Passengers, Tax_Due, MOT_Due, Inspection_Due,
+										 Service_Due, Tail_Service_Due, Section_19_No, Section_19_Due, Seating_Configurations) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
-		$statement->bind_param("ssssiii",$Vehicle['Nickname'],$Vehicle['Licence'],$Vehicle['Brand'],$Vehicle['Colour'],$Vehicle['Capacity_Passengers'],$Vehicle['Capacity_With_Wheelchairs'],$Vehicle['Capacity_Wheelchairs']);
+		$statement->bind_param("sssssissssssss",$Vehicle['Nickname'],$Vehicle['Registration'],$Vehicle['Make'],$Vehicle['Model'],$Vehicle['Colour'],$Vehicle['Capacity_Passengers'],$Vehicle['Tax_Due'],$Vehicle['MOT_Due'],$Vehicle['Inspection_Due,'],
+								$Vehicle['Service_Due'], $Vehicle['Tail_Service_Due'], $Vehicle['Section_19_No'], $Vehicle['Section_19_Due'], $Vehicle['Seating_Configurations']);
 		$statement->execute();
 		$statement->store_result();
 	}
@@ -225,12 +230,16 @@ function addVehicle($mysqli,$Vehicle){
 }
 
 
+
+
 function addDriver($mysqli,$Driver){
 	$Address_ID = addAddress($mysqli,$Driver['Address']);
 	
-	if( $statement = $mysqli->prepare("INSERT INTO Drivers (fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?);") ){
+	if( $statement = $mysqli->prepare("INSERT INTO Drivers (fName, sName, Address_ID, Tel_No, Mobile_No, BOD, Licence_No, Licence_Expires, Licence_Points, DBS_No, DBS_Issued, 
+										Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 		
-		$statement->bind_param("ssisssss",$Driver['fName'],$Driver['sName'],$Address_ID,$Driver['Tel_No'],$Driver['Emergency_Name'],$Driver['Emergency_Tel'],$Driver['Emergency_Relationship'],$Driver['Is_Volunteer']);
+		$statement->bind_param("ssisssssissssss",$Driver['fName'],$Driver['sName'],$Address_ID,$Driver['Tel_No'], $Driver['Mobile_No'], $Driver['BOD'], $Driver['Licence_No'], $Driver['Licence_Expires'], $Driver['Licence_Points'], $Driver['DBS_No'], $Driver['DBS_Issued'], 
+										$Driver['Emergency_Name'],$Driver['Emergency_Tel'],$Driver['Emergency_Relationship'],$Driver['Is_Volunteer']);
 		$statement->execute();
 		$statement->store_result();
 		
