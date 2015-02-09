@@ -127,8 +127,8 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="journeys.html">Journeys</a>
                     <ul>
-                        <li><a href="manage_journeys.php">Manage Journeys</a></li>
-                        <li><a href="add_journey.php">Add Journeys</a></li>
+                        <li><a href="journeys.php">Manage Journeys</a></li>
+                        <li><a href="add_journey.php">Add Journey</a></li>
                     </ul>
                 </li>
                 <li><a href="groups.html">Groups</a>

@@ -126,7 +126,7 @@
         <nav>
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="journeys.php">Journeys</a>
+                <li><a href="journeys.html">Journeys</a>
                     <ul>
                         <li><a href="journeys.php">Manage Journeys</a></li>
                         <li><a href="add_journey.php">Add Journey</a></li>
