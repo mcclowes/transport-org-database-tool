@@ -82,6 +82,21 @@ function connect(){
 }
 
 
+function outputDate($data){
+	$s = str_split($data);
+	0 1 0 4 / 2 0 / 1 6 
+	$date = "$s[8]"."$s[9]"."/"."$s[5]"."$s[6]"."/"."$s[0]"."$s[1]"."$s[2]"."$s[3]";
+	return $date;
+}
+
+function inputDate($data){
+	$s = str_split($data);
+	0 1 / 0 4 / 2 0 1 6 
+	$date = "$s[6]"."$s[7]"."$s[8]"."$s[9]"."-"."$s[3]"."$s[4]"."-"."$s[0]"."$s[1]";
+	return $date;
+}
+
+
 function getAddress($mysqli, $Address_ID){
 	$Address = array();
 	$i = 0;
@@ -125,6 +140,14 @@ function getVehicles($mysqli){
 		$statement->bind_result($Vehicle['Vehicle_ID'], $Vehicle['Nickname'],$Vehicle['Registration'],$Vehicle['Make'],$Vehicle['Model'],$Vehicle['Colour'],$Vehicle['Capacity_Passengers'],$Vehicle['Tax_Due'],$Vehicle['MOT_Due'],$Vehicle['Inspection_Due,'],
 								$Vehicle['Service_Due'], $Vehicle['Tail_Service_Due'], $Vehicle['Section_19_No'], $Vehicle['Section_19_Due'], $Vehicle['Seating_Configurations']);
 		while($statement->fetch()){
+
+			$Vehicle['Tax_Due'] = outputDate($Vehicle['Tax_Due']);
+			$Vehicle['MOT_Due'] = outputDate($Vehicle['MOT_Due']);
+			$Vehicle['Inspection_Due,'] = outputDate($Vehicle['Inspection_Due']);
+			$Vehicle['Service_Due'] = outputDate($Vehicle['Service_Due']);
+			$Vehicle['Tail_Service_Due'] = outputDate($Vehicle['Tail_Service_Due']);
+			$Vehicle['Section_19_Due'] = outputDate($Vehicle['Section_19_Due']);
+
 			$Vehicles[$i] = $Vehicle;
 			$i ++;
 		}
@@ -145,6 +168,11 @@ function getDrivers($mysqli){
 		$statement->bind_result($Driver['Driver_ID'], $Driver['fName'],$Driver['sName'],$Address_ID,$Driver['Tel_No'], $Driver['Mobile_No'], $Driver['BOD'], $Driver['Licence_No'], $Driver['Licence_Expires'], $Driver['Licence_Points'], $Driver['DBS_No'], $Driver['DBS_Issued'], 
 										$Driver['Emergency_Name'],$Driver['Emergency_Tel'],$Driver['Emergency_Relationship'],$Driver['Is_Volunteer']);
 		while($statement->fetch()){
+
+			$Driver['BOD'] = outputDate($Driver['BOD']);
+			$Driver['Licence_Expires'] = outputDate($Driver['Licence_Expires']);
+			$Driver['DBS_Issued'] = outputDate($Driver['DBS_Issued']);
+
 			$Drivers[$i] = $Driver;
 			$i++;
 		}
@@ -163,6 +191,10 @@ function getDamageReports($mysqli){
 		$statement->store_result();
 		$statement->bind_result($Damage_Report['Vehicle_ID'],$Damage_Report['Damage_description'],$Damage_Report['Date_Added'],$Damage_Report['Date_Resolved']);
 		while($statement->fetch()){
+
+			$Damage_Report['Date_Added'] = outputDate($Damage_Report['Date_Added']);
+			$Damage_Report['Date_Resolved'] = outputDate($Damage_Report['Date_Resolved']);
+
 			$Damage_Reports[$i] = $Damage_Report;
 			$i++;
 		}
@@ -183,6 +215,10 @@ function getVehicleDamageReports($mysqli,$Vehicle_ID){
 		$statement->store_result();
 		$statement->bind_result($Damage_Report['Damage_description'],$Damage_Report['Date_Added'],$Damage_Report['Date_Resolved']);
 		while($statement->fetch()){
+			
+			$Damage_Report['Date_Added'] = outputDate($Damage_Report['Date_Added']);
+			$Damage_Report['Date_Resolved'] = outputDate($Damage_Report['Date_Resolved']);
+
 			$Damage_Reports[$i] = $Damage_Report;
 			$i++;
 		}
@@ -257,6 +293,9 @@ function getJourneys($mysqli){
 				$stm->fetch();
 
 				}
+
+			$rdata['Jouney_Date'] = outputDate($rdata['Jouney_Date']);
+
 			$Journeys[$i] = $rdata;
 			$i ++;
 			}
@@ -276,7 +315,13 @@ function getJourney($mysqli, $Journey_ID){
 								$rdata['No_Passengers'], $rdata['Passengers_Note'], $rdata['Wheelchairs'], $rdata['Transferees'], $rdata['Other_Access'], $rdata['Booked_By'], $rdata['Driver_ID'], $rdata['Vehicle'], 
 								$rdata['Keys_To_Collect'], $rdata['Quote'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']);
 		$statement->fetch();
-		
+
+		$rdata['Booking_Date'] = outputDate($rdata['Booking_Date']);
+		$rdata['Jouney_Date'] = outputDate($rdata['Jouney_Date']);
+		$rdata['Invoice_Sent'] = outputDate($rdata['Invoice_Sent']);
+		$rdata['Invoice_Paid'] = outputDate($rdata['Invoice_Paid']);
+
+
 		$rdata['Address'] = getAddress($mysqli, $Address_ID1);
 		$rdata['Destination'] = getAddress($mysqli, $Address_ID2);
 
@@ -323,6 +368,10 @@ function getTCMember($mysqli, $TC_Member_ID){
 								$TC_Member['Reasons_Door'],$TC_Member['Reasons_Handrails'],$TC_Member['Reasons_Lift'],$TC_Member['Reasons_Level_Floors'],$TC_Member['Reasons_Low_Steps'], $TC_Member['Reasons_Assistance'], $TC_Member['Reasons_Board_Time'],
 								$TC_Member['Reasons_Wheelchair_Access'], $TC_Member['Reasons_Other']);
 		$statement->fetch();
+
+		$TC_Member['DOB'] = outputDate($TC_Member['DOB']);
+
+
 	}
 	return $TC_Member;
 } 
@@ -426,7 +475,7 @@ function addVehicle($mysqli,$Vehicle){
 	if( $statement = $mysqli->prepare("INSERT INTO Vehicles ( Nickname, Registration, Make, Model, Colour, Capacity_Passengers, Tax_Due, MOT_Due, Inspection_Due,
 										 Service_Due, Tail_Service_Due, Section_19_No, Section_19_Due, Seating_Configurations) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
-		$statement->bind_param("sssssissssssss",$Vehicle['Nickname'],$Vehicle['Registration'],$Vehicle['Make'],$Vehicle['Model'],$Vehicle['Colour'],$Vehicle['Capacity_Passengers'],$Vehicle['Tax_Due'],$Vehicle['MOT_Due'],$Vehicle['Inspection_Due,'],
+		$statement->bind_param("sssssissssssss",$Vehicle['Nickname'],$Vehicle['Registration'],$Vehicle['Make'],$Vehicle['Model'],$Vehicle['Colour'],$Vehicle['Capacity_Passengers'],$Vehicle['Tax_Due'],$Vehicle['MOT_Due'],$Vehicle['Inspection_Due'],
 								$Vehicle['Service_Due'], $Vehicle['Tail_Service_Due'], $Vehicle['Section_19_No'], $Vehicle['Section_19_Due'], $Vehicle['Seating_Configurations']);
 		$statement->execute();
 		$statement->store_result();
@@ -561,7 +610,7 @@ function addPickup($mysqli,$Journey_ID,$Pickup){
 
 function addTCJourneyMember($mysqli,$TC_Journey_Members){
 
-	if( $statement = $mysqli->prepare("INSERT INTO TCJourneyMember (Journey_ID, TC_Member_ID) VALUES (?, ?);") ){
+	if( $statement = $mysqli->prepare("INSERT INTO TC_Journey_Members (Journey_ID, TC_Member_ID) VALUES (?, ?);") ){
 		$statement->bind_param("ii",$TC_Journey_Members['Journey_ID'],$TCJourneyMember['TC_Member_ID']);
 		$statement->execute();
 		$statement->store_result();
@@ -572,7 +621,7 @@ function addTCJourneyMember($mysqli,$TC_Journey_Members){
 function addVehicleCheckProblem($mysqli,$Vehicle_Check_Problem){
 
 	if( $statement = $mysqli->prepare("INSERT INTO Vehicle_Check_Problems (Vehicle_ID, Problem_Description) VALUES (?, ?);") ){
-		$statement->bind_param("is",$TCJourneyMember['Vehicle_ID'],$TCJourneyMember['Problem_Description']);
+		$statement->bind_param("is",$Vehicle_Check_Problem['Vehicle_ID'],$Vehicle_Check_Problem['Problem_Description']);
 		$statement->execute();
 		$statement->store_result();
 	}
