@@ -148,9 +148,9 @@
 						<fieldset id="personalDetails">
 							<legend>Personal Details</legend>
 							<table>
-								<tr><td><label for "firstName">First Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+								<tr><td><label>First Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
 								<tr><td><label>Surname: </label></td><td><input type="text" id="input-sName"/> <td></tr>
-								<tr><td><label>Date of Birth: </label></td><td><input type="text" id="date-DOB"/> <td></tr>
+								<tr><td><label>Date of Birth: </label></td><td><input type="date" id="date-DOB"/> <td></tr>
 								<tr><td><label>Contact Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
 							</table>
 						</fieldset>
@@ -175,92 +175,22 @@
 						</fieldset>
 					</div>
 					<div id="page2">
-						<fieldset id="additionalDetails">
-							<legend>Additional Details</legend>
-							<table>
-								<tr><td><label>Do you use a wheelchair? </label></td><td>
-								<select id="dropdown-Details_Wheelchair"> 
-									<option>...</option> 
-									<option value="yes">Yes</option> 
-									<option value="no">No</option> 
-									<option value="maybe">Maybe</option>
-								</select></td></tr>
-								<tr><td><label>What type of wheelchair do you use? </label></td><td>
-								<select id="dropdown-Details_Wheelchair_Type"> 
-									<option>...</option> 
-									<option value="folding">Folding</option> 
-									<option value="fixed">Fixed</option> 
-									<option value="power">Power</option>
-								</select></td></tr>
-								<tr><td><label>Do you want to transfer from your wheelchair to a seat on our vehicle? </label></td><td>
-								<select id="dropdown-Details_Wheelchair_Seat"> 
-									<option>...</option> 
-									<option value="yes">Yes</option> 
-									<option value="no">No</option>
-								</select></td></tr>
-								<tr><td><label>Do you use a scooter? </label></td><td>
-								<select id="dropdown-Details_Scooter"> 
-									<option>...</option> 
-									<option value="yes">Yes</option> 
-									<option value="no">No</option>
-								</select></td></tr>
-								<tr><td><label>Do you use a mobility aid?</label></td><td>
-								<!--<select id="dropdown-Details_Mobility_Aid" onchange='CheckMobility(this.value);'>-->
-								<select id="dropdown-Details_Mobility_Aid">
-									<option>...</option> <option value="wheelchair">Walking frame</option> <option value="zimmerframe">Walking stick</option> 
-									<option value="wheelchair">Crutches</option> <option value="zimmerframe">Tri-walker</option> <option value="wheelchair">4-Wheeled walker</option>
-									<option value="other">Other</option>
-								</select></td></tr>
-								<tr><td><label>If shopping, do you use a shopping trolley?</label></td><td>
-								<select id="dropdown-Details_Shopping_Trolley"> 
-									<option>...</option> 
-									<option value="yes">Yes</option> 
-									<option value="no">No</option>
-								</select></td></tr>
-								<tr><td><label>Will you be travelling with a guide dog?</label></td><td>
-								<select id="dropdown-Details_Guide_Dog"> 
-									<option>...</option> 
-									<option value="yes">Yes</option> 
-									<option value="no">No</option>
-								</select></td></tr>
-								<tr><td><label>Can you get into a 'people carrier' style car? </label></td><td>
-								<select id="dropdown-Details_People_Carrier"> 
-									<option>...</option> 
-									<option value="yes">Yes</option> 
-									<option value="no">No</option>
-								</select></td></tr>
-								<tr><td><label>Do you need a passenger assistant?</label></td><td>
-								<select id="dropdown-Details_Assistant"> 
-									<option>...</option> 
-									<option value="yes">Yes</option> 
-									<option value="no">No</option>
-								</select></td></tr>
-								<tr><td><label>Do you have a Concessionary Travelcard?</label></td><td>
-								<select id="dropdown-Details_Travelcard"> 
-									<option>...</option> 
-									<option value="yes">Yes</option> 
-									<option value="no">No</option>
-								</select></td></tr>
-							</table>
-						</fieldset>
+						<fieldset id="personalDetails">
+                        licence expiry date, points on licence, DBS No., DBS issue date, emergency contact details and photo
+                            <legend>Driving License Details</legend>
+                            <table>
+                                <tr><td><label>License Number: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+                                <tr><td><label>Expiry Date: </label></td><td><input type="date" id="input-sName"/> <td></tr>
+                                <tr><td><label>Points on license: </label></td><td><input type="text" id="date-DOB"/> <td></tr>
+                                <tr><td><label>DBS Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
+                                <tr><td><label>DBS Issue Date: </label></td><td><input type="date" id="input-Tel_No"/> </td></tr>
+                            </table>
+                        </fieldset>
 					</div>
 					<div id="page3">
 						<fieldset id="serviceReasons">
-							<legend>Please tick all the boxes that apply to show the reasons why you need to use the service.</legend>
-							<table>
-								<tr><td><label>Public transport is not available to me </label></td><td><input type="checkbox" id="boolean-Reasons_Transport" value="1"><br></td></tr>
-								<tr><td><label>I need to feel reassurance that the bus will stop when required </label></td><td><input type="checkbox" id="boolean-Reasons_Bus_Stop" value="2"><br></td></tr>
-								<tr><td><label>I have anxiety about using public transport </label></td><td><input type="checkbox" id="boolean-Reasons_Anxiety" value="3"><br></td></tr>
-								<tr><td><label>I need a door to door service </label></td><td><input type="checkbox" id="boolean-Reasons_Door" value="4"><br></td></tr>
-								<tr><td><label>I need additional handrails and grips </label></td><td><input type="checkbox" id="boolean-Reasons_Handrails" value="5"><br></td></tr>
-								<tr><td><label>I need to use a passenger lift to access the bus </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-								<tr><td><label>I need the floors to be level </label></td><td><input type="checkbox" id="boolean-Reasons_Level_Floors" value="7"><br></td></tr>
-								<tr><td><label>I need low steps to board and exit from the bus </label></td><td><input type="checkbox" id="boolean-Reasons_Low_Steps" value="8"><br></td></tr>
-								<tr><td><label>I need personal assistance </label></td><td><input type="checkbox" id="boolean-Reasons_Assistance" value="9"><br></td></tr>
-								<tr><td><label>I need time to board and exit form the bus</label></td><td><input type="checkbox" id="boolean-Reasons_Board_Time" value="10"><br></td></tr>
-								<tr><td><label>I need wheelchair access and restraining systems for my chair and myself</label></td><td><input type="checkbox" id="boolean-Reasons_Wheelchair_Access" value="11"></td></tr>
-								<tr><td><label>Other: </label><input type="text" id="input-Reasons_Other"/> </br></td></tr>
-							</table>
+							<legend>Photo Upload</legend>
+							<tr><td><label>Select File: </label></td><td><input type="file" id="input-fName"/> <td></tr>
 						</fieldset>
 					</div>
                     <input type="text" name="mobility" id="mobility" style='display:none;'/>

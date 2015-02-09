@@ -10,7 +10,7 @@
             function submit(form_type) {
                 form_data = {
                     'Name':                       document.getElementById('input-Name').value,
-                    'Email':                       document.getElementById('date-Email').value,
+                    'Email':                       document.getElementById('input-Email').value,
                     'Tel_No':                       document.getElementById('input-Tel_No').value,
                     'Address':{
                         'Line1':                    document.getElementById('input-Address_Line1').value,
@@ -166,7 +166,7 @@
 							<legend>Personal Details</legend>
 							<table>
 								<tr><td><label>Organisation Name: </label></td><td><input type="text" id="input-Name"/> <td></tr>
-								<tr><td><label>Contact Email: </label></td><td><input type="email" id="date-Email"/> <td></tr>
+								<tr><td><label>Contact Email: </label></td><td><input type="email" id="input-Email"/> <td></tr>
 								<tr><td><label>Contact Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
 							</table>
 						</fieldset>
@@ -204,39 +204,39 @@
 					<div id="page2">
 						<fieldset id="orgStatus">
 							<legend>Organisational Status</legend>
-                            <h1>Is your group...</h1>
+                            <h2>Is your group...</h2>
 							<table>
 					<!-- THESE WERE GOING TO BE BOOLEAN CHECKBOXES, 
 					DO WE WANT TO CHANGE THEM AND USE DROPDOWN INSTEAD? -->
 								<tr><td><label>Profit making?</label></td><td>
 								<select id="boolean-Profitable"> 
 									<option>...</option> 
-									<option value="yes">Yes</option> 
-									<option value="no">No</option>
+									<option value="true">Yes</option> 
+									<option value="false">No</option>
 								</select></td></tr>
                                 <tr><td><label>A community/voluntary group?</label></td><td>
                                 <select id="boolean-Community"> 
                                     <option>...</option> 
-                                    <option value="yes">Yes</option> 
-                                    <option value="no">No</option>
+                                    <option value="true">Yes</option> 
+                                    <option value="false">No</option>
                                 </select></td></tr>
                                 <tr><td><label>A social/family group?</label></td><td>
                                 <select id="boolean-Social"> 
                                     <option>...</option> 
-                                    <option value="yes">Yes</option> 
-                                    <option value="no">No</option>
+                                    <option value="true">Yes</option> 
+                                    <option value="false">No</option>
                                 </select></td></tr>
                                 <tr><td><label>A statutory body?</label></td><td>
                                 <select id="boolean-Statutory"> 
                                     <option>...</option> 
-                                    <option value="yes">Yes</option> 
-                                    <option value="no">No</option>
+                                    <option value="true">Yes</option> 
+                                    <option value="false">No</option>
                                 </select></td></tr>
                                 <tr><td><label>A registered charity?</label></td><td>
                                 <select id="boolean-Charity"> 
                                     <option>...</option> 
-                                    <option value="yes">Yes</option> 
-                                    <option value="no">No</option>
+                                    <option value="true">Yes</option> 
+                                    <option value="false">No</option>
                                 </select></td></tr>
 								<tr><td><label>Charity Number:</label></td><td><input type="text" id="input-Charity_No"/></td></tr>
 							</table>
