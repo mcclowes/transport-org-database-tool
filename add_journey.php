@@ -8,44 +8,57 @@
 
         <script type="text/javascript">
             function submit(form_type) {
+            	var date = new Date();
                 form_data = {
+                	'Booking_Date':					date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate(),
                     'fName':                        document.getElementById('input-fName').value,
                     'sName':                        document.getElementById('input-sName').value,
-                    'Address':{
-                        'Line1':                    document.getElementById('input-Line1').value,
-                        'Line2':                    document.getElementById('input-Line2').value,
-                        'Line3':                    document.getElementById('input-Line3').value,
-                        'Line4':                    document.getElementById('input-Line4').value,
-                        'Line5':                    document.getElementById('input-Line5').value,
-                        'Post_Code':                document.getElementById('input-Post_Code').value
-                    },
                     'Tel_No':                       document.getElementById('input-Tel_No').value,
-                    'Emergency_Name':               document.getElementById('input-Emergency_Name').value,
-                    'Emergency_Tel':                document.getElementById('input-Emergency_Tel').value,
-                    'Emergency_Relationship':       document.getElementById('input-Emergency_Relationship').value,
-                    'DOB':                          document.getElementById('date-DOB').value,
-                    'Details_Wheelchair':           document.getElementById('dropdown-Details_Wheelchair').value,
-                    'Details_Wheelchair_Type':      document.getElementById('dropdown-Details_Wheelchair_Type').value,
-                    'Details_Wheelchair_Seat':      document.getElementById('dropdown-Details_Wheelchair_Seat').value,
-                    'Details_Scooter':              document.getElementById('dropdown-Details_Scooter').value,
-                    'Details_Mobility_Aid':         document.getElementById('dropdown-Details_Mobility_Aid').value,
-                    'Details_Shopping_Trolley':     document.getElementById('dropdown-Details_Shopping_Trolley').value,
-                    'Details_Guide_Dog':            document.getElementById('dropdown-Details_Guide_Dog').value,
-                    'Details_People_Carrier':       document.getElementById('dropdown-Details_People_Carrier').value,
-                    'Details_Assistant':            document.getElementById('dropdown-Details_Assistant').value,
-                    'Details_Travelcard':           document.getElementById('dropdown-Details_Travelcard').value,
-                    'Reasons_Transport':            document.getElementById('boolean-Reasons_Transport').checked,
-                    'Reasons_Bus_Stop':             document.getElementById('boolean-Reasons_Bus_Stop').checked,
-                    'Reasons_Anxiety':              document.getElementById('boolean-Reasons_Anxiety').checked,
-                    'Reasons_Door':                 document.getElementById('boolean-Reasons_Door').checked,
-                    'Reasons_Handrails':            document.getElementById('boolean-Reasons_Handrails').checked,
-                    'Reasons_Lift':                 document.getElementById('boolean-Reasons_Lift').checked,
-                    'Reasons_Level_Floors':         document.getElementById('boolean-Reasons_Level_Floors').checked,
-                    'Reasons_Low_Steps':            document.getElementById('boolean-Reasons_Low_Steps').checked,
-                    'Reasons_Assistance':           document.getElementById('boolean-Reasons_Assistance').checked,
-                    'Reasons_Board_Time':           document.getElementById('boolean-Reasons_Board_Time').checked,
-                    'Reasons_Wheelchair_Access':    document.getElementById('boolean-Reasons_Wheelchair_Access').checked,
-                    'Reasons_Other':                document.getElementById('input-Reasons_Other').value
+                    'Group':						document.getElementById('input-Group').value,
+                    'Address':{
+                        'Line1':                    document.getElementById('input-Address_Line1').value,
+                        'Line2':                    document.getElementById('input-Address_Line2').value,
+                        'Line3':                    document.getElementById('input-Address_Line3').value,
+                        'Line4':                    document.getElementById('input-Address_Line4').value,
+                        'Line5':                    document.getElementById('input-Address_Line5').value,
+                        'Post_Code':                document.getElementById('input-Address_Post_Code').value
+                    },
+                    'Journey_Description':			document.getElementById('input-Journey_Description').value,
+                    'Journey_Date':                	document.getElementById('date-Journey_Date').value,
+                    'No_Passengers':       			document.getElementById('number-No_Passengers').value,
+                    'Passengers_Note':              document.getElementById('input-Passengers_Note').value,
+                    'Wheelchairs':                  document.getElementById('number-Wheelchairs').value,
+                    'Transferees':                  document.getElementById('number-Transferees').value,
+                    'Other_Access':                 document.getElementById('input-Other_Access').value,
+                    'Booked_By':                    document.getElementById('input-Booked_By').value,
+                    'Destination_1':{
+                        'Line1':                    document.getElementById('input-Destination_1_Line1').value,
+                        'Line2':                    document.getElementById('input-Destination_1_Line2').value,
+                        'Line3':                    document.getElementById('input-Destination_1_Line3').value,
+                        'Line4':                    document.getElementById('input-Destination_1_Line4').value,
+                        'Line5':                    document.getElementById('input-Destination_1_Line5').value,
+                        'Post_Code':                document.getElementById('input-Destination_1_Post_Code').value
+                    },
+                    'Pickup_1':{
+                        'Line1':                    document.getElementById('input-Pickup_1_Line1').value,
+                        'Line2':                    document.getElementById('input-Pickup_1_Line2').value,
+                        'Line3':                    document.getElementById('input-Pickup_1_Line3').value,
+                        'Line4':                    document.getElementById('input-Pickup_1_Line4').value,
+                        'Line5':                    document.getElementById('input-Pickup_1_Line5').value,
+                        'Post_Code':                document.getElementById('input-Pickup_1_Post_Code').value
+                    },
+                    'Pickup_1_Time':				document.getElementById('input-Pickup_1_Time').value,
+					'Return_Time':					document.getElementById('input-Return_Time').value,
+					'Return_Note':					document.getElementById('input-Return_Note').value,
+					'Driver':						document.getElementById('dropdown-Driver').value,
+					'Vehicle':						document.getElementById('dropdown-Vehicle').value,
+					'Keys_To_Collect':				document.getElementById('input-Keys_To_Collect').value,
+					'Quote':						document.getElementById('input-Quote').value,
+					'Distance_Run':					document.getElementById('input-Distance_Run').value,
+					'Invoiced_Cost':				document.getElementById('input-Invoiced_Cost').value,
+					'Invoice_Sent':					document.getElementById('date-Invoice_Sent').value,
+					'Invoice_Paid':					document.getElementById('date-Invoice_Paid').value,
+					'Journey_Notes':				document.getElementById('input-Journey_Notes').value,
                 };
                 
                 $.ajax({
@@ -151,18 +164,20 @@
 								<tr><td><label>First Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
 								<tr><td><label>Surname: </label></td><td><input type="text" id="input-sName"/> <td></tr>
 								<tr><td><label>Contact Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
-                                <tr><td><label>Group: </label></td><td><input type="text" id="input-Group_ID"/> </td></tr><!--Make this a dropdown-->
+								
+								<!--Make this a dropdown-->
+                                <tr><td><label>Group: </label></td><td><input type="text" id="input-Group"/> </td></tr>
 							</table>
 						</fieldset>
 						<fieldset id="bookeeAddress">
 							<legend>Bookee Address</legend>
 							<table>
-								<tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Line1"/> </td></tr>
-								<tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Line2"/> </td></tr>
-								<tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Line3"/> </td></tr>
-								<tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Line4"/> </td></tr>
-								<tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Line5"/> </td></tr>
-								<tr><td><label>Postcode: </label></td><td><input type="text" id="input-Post_Code"/> </td></tr>
+								<tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Address_Line1"/> </td></tr>
+								<tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Address_Line2"/> </td></tr>
+								<tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Address_Line3"/> </td></tr>
+								<tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Address_Line4"/> </td></tr>
+								<tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Address_Line5"/> </td></tr>
+								<tr><td><label>Postcode: </label></td><td><input type="text" id="input-Address_Post_Code"/> </td></tr>
 							</table>
 						</fieldset>
 					</div>
@@ -170,43 +185,44 @@
 						<fieldset id="journeyDetails">
 							<legend>Booking Details</legend>
                             <table>
-                                <tr><td><label>Journey Description: </label></td><td><input type="text" id="input-fName" placeholder="E.g. WI to Wolsingham Pool"/> <td></tr>
-    							<tr><td><label>Date required: </label></td><td><input type="date" id="input-fName"/> <td></tr>
-                                <tr><td><label>No. of passengers: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                                <tr><td><label>No. of wheelchair users/ transfers: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                                <tr><td><label>Other access needs: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                                <tr><td><label>Booking taken by: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+                                <tr><td><label>Journey Description: </label></td><td><input type="text" id="input-Description" placeholder="E.g. WI to Wolsingham Pool"/> <td></tr>
+    							<tr><td><label>Date required: </label></td><td><input type="date" id="input-Journey_Date"/> <td></tr>
+                                <tr><td><label>No. of passengers: </label></td><td><input type="text" id="number-No_Passengers"/> <td></tr>
+                                <tr><td><label>No. of wheelchair users/ transfers: </label></td><td><input type="text" id="number-Wheelchairs"/> <td></tr>
+                                <tr><td><label>No. of wheelchair users/ transfers: </label></td><td><input type="text" id="number-Transferees"/> <td></tr>
+                                <tr><td><label>Other access needs: </label></td><td><input type="text" id="input-Other_Access"/> <td></tr>
+                                <tr><td><label>Booking taken by: </label></td><td><input type="text" id="input-Booked_By"/> <td></tr>
                             </table>
                         </fieldset>
                         <fieldset id="destinationAddress">
                             <legend>Destination Address</legend>
                             <table>
-                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Line1"/> </td></tr>
-                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Line2"/> </td></tr>
-                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Line3"/> </td></tr>
-                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Line4"/> </td></tr>
-                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Line5"/> </td></tr>
-                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Post_Code"/> </td></tr>
+                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Destination_1_Line1"/> </td></tr>
+                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Destination_1_Line2"/> </td></tr>
+                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Destination_1_Line3"/> </td></tr>
+                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Destination_1_Line4"/> </td></tr>
+                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Destination_1_Line5"/> </td></tr>
+                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Destination_1_Post_Code"/> </td></tr>
                             </table>
                         </fieldset>
                         <fieldset id="pickupDetails">
                             <legend>Pickup Address</legend>
                             <table>
-                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Line1"/> </td></tr>
-                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Line2"/> </td></tr>
-                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Line3"/> </td></tr>
-                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Line4"/> </td></tr>
-                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Line5"/> </td></tr>
-                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Post_Code"/> </td></tr>
-                                <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Pickup_1_Line1"/> </td></tr>
+                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Pickup_1_Line2"/> </td></tr>
+                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Pickup_1_Line3"/> </td></tr>
+                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Pickup_1_Line4"/> </td></tr>
+                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Pickup_1_Line5"/> </td></tr>
+                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Pickup_1_Post_Code"/> </td></tr>
+                                <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-Pickup_1_Time"/> <td></tr>
                             </table>
                         </fieldset>
                         <!--add new pickup-->
                         <fieldset id="returnDetails">
                             <legend>Pickup Address</legend>
                             <table>
-                                <tr><td><label>Return time: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                                <tr><td><label>Return note: </label></td><td><input type="textbox" id="input-fName"/> <td></tr>
+                                <tr><td><label>Return time: </label></td><td><input type="text" id="input-Return_Time"/> <td></tr>
+                                <tr><td><label>Return note: </label></td><td><input type="textbox" id="input-Return_Note"/> <td></tr>
                             </table>
                         </fieldset>
                         <!--add new return-->
@@ -215,14 +231,14 @@
 						<fieldset id="officeUse">
                             <legend>Other Details</legend>
                             <table>
-    							<tr><td><label>Driver: </label></td><td><input type="text" id="input-"/> <td></tr>
-                                <tr><td><label>Allocated Vehicle: </label></td><td><input type="text" id="input-"/> <td></tr>
-                                <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-"/> <td></tr>
-                                <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-"/> <td></tr>
-                                <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-"/> <td></tr>
-                                <tr><td><label>Invoiced cost: </label></td><td><input type="text" id="input-"/> <td></tr>
-                                <tr><td><label>Invoice sent on: </label></td><td><input type="text" id="input-"/> <td></tr>
-                                <tr><td><label>Invoice paid on: </label></td><td><input type="text" id="input-"/> <td></tr>
+    							<tr><td><label>Driver: </label></td><td><input type="text" id="dropdown-Driver"/> <td></tr>
+                                <tr><td><label>Allocated Vehicle: </label></td><td><input type="text" id="dropdown-Vehicle"/> <td></tr>
+                                <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-Keys_To_Collect"/> <td></tr>
+                                <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-Quote"/> <td></tr>
+                                <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-Distance_Run"/> <td></tr>
+                                <tr><td><label>Invoiced cost: </label></td><td><input type="text" id="input-Invoiced_Cost"/> <td></tr>
+                                <tr><td><label>Invoice sent on: </label></td><td><input type="text" id="date-Invoice_Sent"/> <td></tr>
+                                <tr><td><label>Invoice paid on: </label></td><td><input type="text" id="date-Invoice_Paid"/> <td></tr>
                             </table>
                         </fieldset>
                         <fieldset id="notes">

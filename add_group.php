@@ -9,43 +9,60 @@
         <script type="text/javascript">
             function submit(form_type) {
                 form_data = {
-                    'fName':                        document.getElementById('input-fName').value,
-                    'sName':                        document.getElementById('input-sName').value,
-                    'Address':{
-                        'Line1':                    document.getElementById('input-Line1').value,
-                        'Line2':                    document.getElementById('input-Line2').value,
-                        'Line3':                    document.getElementById('input-Line3').value,
-                        'Line4':                    document.getElementById('input-Line4').value,
-                        'Line5':                    document.getElementById('input-Line5').value,
-                        'Post_Code':                document.getElementById('input-Post_Code').value
-                    },
+                    'Name':                       document.getElementById('input-Name').value,
+                    'Email':                       document.getElementById('date-Email').value,
                     'Tel_No':                       document.getElementById('input-Tel_No').value,
+                    'Address':{
+                        'Line1':                    document.getElementById('input-Address_Line1').value,
+                        'Line2':                    document.getElementById('input-Address_Line2').value,
+                        'Line3':                    document.getElementById('input-Address_Line3').value,
+                        'Line4':                    document.getElementById('input-Address_Line4').value,
+                        'Line5':                    document.getElementById('input-Address_Line5').value,
+                        'Post_Code':                document.getElementById('input-Address_Post_Code').value
+                    },
+                    'Invoice':{
+                        'Line1':                    document.getElementById('input-Invoice_Line1').value,
+                        'Line2':                    document.getElementById('input-Invoice_Line2').value,
+                        'Line3':                    document.getElementById('input-Invoice_Line3').value,
+                        'Line4':                    document.getElementById('input-Invoice_Line4').value,
+                        'Line5':                    document.getElementById('input-Invoice_Line5').value,
+                        'Post_Code':                document.getElementById('input-Invoice_Post_Code').value
+                    },
+                    'Invoice_Email':				document.getElementById('input-Invoice_Email').value,
+                    'Invoice_Email':				document.getElementById('input-Invoice_Tel').value,
                     'Emergency_Name':               document.getElementById('input-Emergency_Name').value,
                     'Emergency_Tel':                document.getElementById('input-Emergency_Tel').value,
                     'Emergency_Relationship':       document.getElementById('input-Emergency_Relationship').value,
-                    'DOB':                          document.getElementById('date-DOB').value,
-                    'Details_Wheelchair':           document.getElementById('dropdown-Details_Wheelchair').value,
-                    'Details_Wheelchair_Type':      document.getElementById('dropdown-Details_Wheelchair_Type').value,
-                    'Details_Wheelchair_Seat':      document.getElementById('dropdown-Details_Wheelchair_Seat').value,
-                    'Details_Scooter':              document.getElementById('dropdown-Details_Scooter').value,
-                    'Details_Mobility_Aid':         document.getElementById('dropdown-Details_Mobility_Aid').value,
-                    'Details_Shopping_Trolley':     document.getElementById('dropdown-Details_Shopping_Trolley').value,
-                    'Details_Guide_Dog':            document.getElementById('dropdown-Details_Guide_Dog').value,
-                    'Details_People_Carrier':       document.getElementById('dropdown-Details_People_Carrier').value,
-                    'Details_Assistant':            document.getElementById('dropdown-Details_Assistant').value,
-                    'Details_Travelcard':           document.getElementById('dropdown-Details_Travelcard').value,
-                    'Reasons_Transport':            document.getElementById('boolean-Reasons_Transport').checked,
-                    'Reasons_Bus_Stop':             document.getElementById('boolean-Reasons_Bus_Stop').checked,
-                    'Reasons_Anxiety':              document.getElementById('boolean-Reasons_Anxiety').checked,
-                    'Reasons_Door':                 document.getElementById('boolean-Reasons_Door').checked,
-                    'Reasons_Handrails':            document.getElementById('boolean-Reasons_Handrails').checked,
-                    'Reasons_Lift':                 document.getElementById('boolean-Reasons_Lift').checked,
-                    'Reasons_Level_Floors':         document.getElementById('boolean-Reasons_Level_Floors').checked,
-                    'Reasons_Low_Steps':            document.getElementById('boolean-Reasons_Low_Steps').checked,
-                    'Reasons_Assistance':           document.getElementById('boolean-Reasons_Assistance').checked,
-                    'Reasons_Board_Time':           document.getElementById('boolean-Reasons_Board_Time').checked,
-                    'Reasons_Wheelchair_Access':    document.getElementById('boolean-Reasons_Wheelchair_Access').checked,
-                    'Reasons_Other':                document.getElementById('input-Reasons_Other').value
+                    'Profitable':           		document.getElementById('dropdown-Profitable').value,
+                    'Community':					document.getElementById('dropdown-Community').value,
+                    'Social':						document.getElementById('dropdown-Social').value,
+                    'Statutory':					document.getElementById('dropdown-Statutory').value,
+                    'Charity':						document.getElementById('dropdown-Charity').value,
+                    'Charity_No':					document.getElementById('input-Charity_No').value,
+                    'Org_Aim':						document.getElementById('input-Org_Aim').value,
+                    'Activities_Education':			document.getElementById('boolean-Activities_Education').checked,
+                    'Activities_Recreation':		document.getElementById('boolean-Activities_Recreation').checked,
+                    'Activities_Health':			document.getElementById('boolean-Activities_Health').checked,
+                    'Activities_Religion':			document.getElementById('boolean-Activities_Religion').checked,
+                    'Activities_Social':			document.getElementById('boolean-Activities_Social').checked,
+                    'Activities_Inclusion':			document.getElementById('boolean-Activities_Inclusion').checked,
+                    'input_Activities_Other':		document.getElementById('input-input_Activities_Other').value,
+                    'Concerned_Physical':			document.getElementById('boolean-Concerned_Physical').checked,
+                    'Concerned_Learning':			document.getElementById('boolean-Concerned_Learning').checked,
+                    'Concerned_Mental_Health':		document.getElementById('boolean-Concerned_Mental_Health').checked,
+                    'Concerned_Ethnic':				document.getElementById('boolean-Concerned_Ethnic').checked,
+                    'Concerned_Alcohol':			document.getElementById('boolean-Concerned_Alcohol').checked,
+                    'Concerned_Drug':				document.getElementById('boolean-Concerned_Drug').checked,
+                    'Concerned_HIV_AIDS':			document.getElementById('boolean-Concerned_HIV_AIDS').checked,
+                    'Concerned_Socially_Isolated':	document.getElementById('boolean-Concerned_Socially_Isolated').checked,
+                    'Concerned_Dementia':			document.getElementById('boolean-Concerned_Dementia').checked,
+                    'Concerned_Elderly':			document.getElementById('boolean-Concerned_Elderly').checked,
+                    'Concerned_Pre_School':			document.getElementById('boolean-Concerned_Pre_School').checked,
+                    'Concerned_Young':				document.getElementById('boolean-Concerned_Young').checked,
+                    'Concerned_Women':				document.getElementById('boolean-Concerned_Women').checked,
+                    'Concerned_Health':				document.getElementById('boolean-Concerned_Health').checked,
+                    'Concerned_Rurally_Isolated':	document.getElementById('boolean-Concerned_Rurally_Isolated').checked,
+                    'Concerned_Other':				document.getElementById('input-Concerned_Other').value
                 };
                 
                 $.ajax({
@@ -148,31 +165,31 @@
 						<fieldset id="personalDetails">
 							<legend>Personal Details</legend>
 							<table>
-								<tr><td><label>Organisation Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-								<tr><td><label>Contact Email: </label></td><td><input type="email" id="date-DOB"/> <td></tr>
+								<tr><td><label>Organisation Name: </label></td><td><input type="text" id="input-Name"/> <td></tr>
+								<tr><td><label>Contact Email: </label></td><td><input type="email" id="date-Email"/> <td></tr>
 								<tr><td><label>Contact Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
 							</table>
 						</fieldset>
 						<fieldset id="organisationAddress">
 							<legend>Organisation Address</legend>
 							<table>
-								<tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Line1"/> </td></tr>
-								<tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Line2"/> </td></tr>
-								<tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Line3"/> </td></tr>
-								<tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Line4"/> </td></tr>
-								<tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Line5"/> </td></tr>
-								<tr><td><label>Postcode: </label></td><td><input type="text" id="input-Post_Code"/> </td></tr>
+								<tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Address_Line1"/> </td></tr>
+								<tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Address_Line2"/> </td></tr>
+								<tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Address_Line3"/> </td></tr>
+								<tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Address_Line4"/> </td></tr>
+								<tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Address_Line5"/> </td></tr>
+								<tr><td><label>Postcode: </label></td><td><input type="text" id="input-Address_Post_Code"/> </td></tr>
 							</table>
 						</fieldset>
                         <fieldset id="invoiceAddress">
                             <legend>Invoice Address (If different)</legend>
                             <table>
-                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Line1"/> </td></tr>
-                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Line2"/> </td></tr>
-                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Line3"/> </td></tr>
-                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Line4"/> </td></tr>
-                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Line5"/> </td></tr>
-                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Post_Code"/> </td></tr>
+                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Invoice_Line1"/> </td></tr>
+                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Invoice_Line2"/> </td></tr>
+                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Invoice_Line3"/> </td></tr>
+                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Invoice_Line4"/> </td></tr>
+                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Invoice_Line5"/> </td></tr>
+                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Invoice_Post_Code"/> </td></tr>
                             </table>
                         </fieldset>
 						<fieldset id="emergencyContact">
@@ -189,43 +206,45 @@
 							<legend>Organisational Status</legend>
                             <h1>Is your group...</h1>
 							<table>
+					<!-- THESE WERE GOING TO BE BOOLEAN CHECKBOXES, 
+					DO WE WANT TO CHANGE THEM AND USE DROPDOWN INSTEAD? -->
 								<tr><td><label>Profit making?</label></td><td>
-								<select id="dropdown-Details_Wheelchair"> 
+								<select id="boolean-Profitable"> 
 									<option>...</option> 
 									<option value="yes">Yes</option> 
 									<option value="no">No</option>
 								</select></td></tr>
                                 <tr><td><label>A community/voluntary group?</label></td><td>
-                                <select id="dropdown-Details_Wheelchair"> 
+                                <select id="boolean-Community"> 
                                     <option>...</option> 
                                     <option value="yes">Yes</option> 
                                     <option value="no">No</option>
                                 </select></td></tr>
                                 <tr><td><label>A social/family group?</label></td><td>
-                                <select id="dropdown-Details_Wheelchair"> 
+                                <select id="boolean-Social"> 
                                     <option>...</option> 
                                     <option value="yes">Yes</option> 
                                     <option value="no">No</option>
                                 </select></td></tr>
                                 <tr><td><label>A statutory body?</label></td><td>
-                                <select id="dropdown-Details_Wheelchair"> 
+                                <select id="boolean-Statutory"> 
                                     <option>...</option> 
                                     <option value="yes">Yes</option> 
                                     <option value="no">No</option>
                                 </select></td></tr>
                                 <tr><td><label>A registered charity?</label></td><td>
-                                <select id="dropdown-Details_Wheelchair"> 
+                                <select id="boolean-Charity"> 
                                     <option>...</option> 
                                     <option value="yes">Yes</option> 
                                     <option value="no">No</option>
                                 </select></td></tr>
-								<tr><td><label>Charity Number:</label></td><td><input type="text" id="input-Emergency_Relationship"/></td></tr>
+								<tr><td><label>Charity Number:</label></td><td><input type="text" id="input-Charity_No"/></td></tr>
 							</table>
 						</fieldset>
                         <fieldset id="orgAims">
                             <legend>Aims of your organisation</legend>
                             <table>
-                                <tr><td><label>Charity Number:</label></td><td><input type="textbox" id="input-Emergency_Relationship"/></td></tr>
+                                <tr><td><label>Organisation Aims:</label></td><td><input type="textbox" id="input-Org_Aim"/></td></tr>
                             </table>
                         </fieldset>
 					</div>
@@ -233,34 +252,34 @@
 						<fieldset id="orgActivities">
 							<legend>Please tick all the boxes that apply to show the reasons why you need to use the service.</legend>
 							<table>
-								<tr><td><label>Education </label></td><td><input type="checkbox" id="boolean-Reasons_Transport" value="1"><br></td></tr>
-								<tr><td><label>Recreation </label></td><td><input type="checkbox" id="boolean-Reasons_Bus_Stop" value="2"><br></td></tr>
-								<tr><td><label>Health </label></td><td><input type="checkbox" id="boolean-Reasons_Anxiety" value="3"><br></td></tr>
-								<tr><td><label>Religion </label></td><td><input type="checkbox" id="boolean-Reasons_Door" value="4"><br></td></tr>
-								<tr><td><label>Social welfare </label></td><td><input type="checkbox" id="boolean-Reasons_Handrails" value="5"><br></td></tr>
-								<tr><td><label>Inclusion </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-								<tr><td><label>Other activity: </label></td><td><input type="text" id="input-Reasons_Other"/> </br></td></tr>
+								<tr><td><label>Education </label></td><td><input type="checkbox" id="boolean-Activities_Education" value="1"><br></td></tr>
+								<tr><td><label>Recreation </label></td><td><input type="checkbox" id="boolean-Activities_Recreation" value="2"><br></td></tr>
+								<tr><td><label>Health </label></td><td><input type="checkbox" id="boolean-Activities_Health" value="3"><br></td></tr>
+								<tr><td><label>Religion </label></td><td><input type="checkbox" id="boolean-Activities_Religion" value="4"><br></td></tr>
+								<tr><td><label>Social welfare </label></td><td><input type="checkbox" id="boolean-Activities_Social" value="5"><br></td></tr>
+								<tr><td><label>Inclusion </label></td><td><input type="checkbox" id="boolean-Activities_Inclusion" value="6"><br></td></tr>
+								<tr><td><label>Other activity: </label></td><td><input type="text" id="input-input_Activities_Other"/> </br></td></tr>
 							</table>
 						</fieldset>
                         <fieldset id="orgMembers">
                             <legend>Please tick all the boxes that apply to show the reasons why you need to use the service.</legend>
                             <table>
-                                <tr><td><label>People with a physical disability </label></td><td><input type="checkbox" id="boolean-Reasons_Transport" value="1"><br></td></tr>
-                                <tr><td><label>People with a learning disability </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>People with a mental health problem </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>People from ethnic minorities </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>People with an alcohol related problem </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>People affected by drug problems </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>People affected by HIV or AIDS</label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>People who are socially isolated </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>People with dementia </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>Elderly people </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>Pre-school age children </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>Young people </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>Women </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>Health groups </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>People who are rurally isolated </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-                                <tr><td><label>Other: </label></td><td><input type="text" id="input-Reasons_Other"/> </br></td></tr>
+                                <tr><td><label>People with a physical disability </label></td><td><input type="checkbox" id="boolean-Concerned_Physical" value="1"><br></td></tr>
+                                <tr><td><label>People with a learning disability </label></td><td><input type="checkbox" id="boolean-Concerned_Learning" value="6"><br></td></tr>
+                                <tr><td><label>People with a mental health problem </label></td><td><input type="checkbox" id="boolean-Concerned_Mental_Health" value="6"><br></td></tr>
+                                <tr><td><label>People from ethnic minorities </label></td><td><input type="checkbox" id="boolean-Concerned_Ethnic" value="6"><br></td></tr>
+                                <tr><td><label>People with an alcohol related problem </label></td><td><input type="checkbox" id="boolean-Concerned_Alcohol" value="6"><br></td></tr>
+                                <tr><td><label>People affected by drug problems </label></td><td><input type="checkbox" id="boolean-Concerned_Drug" value="6"><br></td></tr>
+                                <tr><td><label>People affected by HIV or AIDS</label></td><td><input type="checkbox" id="boolean-Concerned_HIV_AIDS" value="6"><br></td></tr>
+                                <tr><td><label>People who are socially isolated </label></td><td><input type="checkbox" id="boolean-Concerned_Socially_Isolated" value="6"><br></td></tr>
+                                <tr><td><label>People with dementia </label></td><td><input type="checkbox" id="boolean-Concerned_Dementia" value="6"><br></td></tr>
+                                <tr><td><label>Elderly people </label></td><td><input type="checkbox" id="boolean-Concerned_Elderly" value="6"><br></td></tr>
+                                <tr><td><label>Pre-school age children </label></td><td><input type="checkbox" id="boolean-Concerned_Pre_School" value="6"><br></td></tr>
+                                <tr><td><label>Young people </label></td><td><input type="checkbox" id="boolean-Concerned_Young" value="6"><br></td></tr>
+                                <tr><td><label>Women </label></td><td><input type="checkbox" id="boolean-Concerned_Women" value="6"><br></td></tr>
+                                <tr><td><label>Health groups </label></td><td><input type="checkbox" id="boolean-Concerned_Health" value="6"><br></td></tr>
+                                <tr><td><label>People who are rurally isolated </label></td><td><input type="checkbox" id="boolean-Concerned_Rurally_Isolated" value="6"><br></td></tr>
+                                <tr><td><label>Other: </label></td><td><input type="text" id="input-Concerned_Other"/> </br></td></tr>
                             </table>
                         </fieldset>
 					</div>
