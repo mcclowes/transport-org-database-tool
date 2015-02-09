@@ -150,7 +150,7 @@ input[type=checkbox] {
 	margin: 0 0 0 10px;
 }
 
-input[type=textbox] {
+input[type=textarea] {
 	margin: 0 0 0 10px;
 	width: 280px;
 	height: 80px;

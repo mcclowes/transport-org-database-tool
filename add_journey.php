@@ -1,7 +1,7 @@
 
 <html>
     <head>
-        <title>WCT Tool | Home</title>
+        <title>WCT Tool | Add Journey</title>
         <link rel="icon" type="image/png" href="./img/wct_icon.png">
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -228,7 +228,7 @@
                             <legend>Pickup Address</legend>
                             <table>
                                 <tr><td><label>Return time: </label></td><td><input type="text" id="input-Return_Time"/> <td></tr>
-                                <tr><td><label>Return note: </label></td><td><input type="textbox" id="input-Return_Note"/> <td></tr>
+                                <tr><td><label>Return note: </label></td><td><input type="textarea" id="input-Return_Note"/> <td></tr>
                             </table>
                         </fieldset>
                         <!--add new return-->
