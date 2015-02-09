@@ -91,7 +91,7 @@
 	
 			//Need to get stuff from database!
 			function loadEvents() {		
-				return "[	{		title: 'WI to Quiz Night',		start: '2015-02-03',		url: 'showJourneyInfo.php'	},	{		title: 'Shopping Trip',		start: '2015-02-09T11-00',		end: '2015-02-09T13-00', url: 'showJourneyInfo.php'	}]";	
+				return "[	{		title: 'WI to Quiz Night',		start: '2015-02-03',		url: 'show_journey_info.php?id=1'	},	{		title: 'Shopping Trip',		start: '2015-02-09T11-00',		end: '2015-02-09T13-00', url: 'show_journey_info.php?id=2'	}]";	
 			}
 			
 			function loadJourneys() {
@@ -104,7 +104,7 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                        alert(JSON.stringify(returned_data));
+                        //alert(JSON.stringify(returned_data));
                     }
                 });
 			
