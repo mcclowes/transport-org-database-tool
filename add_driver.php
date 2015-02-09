@@ -19,33 +19,18 @@
                         'Line5':                    document.getElementById('input-Line5').value,
                         'Post_Code':                document.getElementById('input-Post_Code').value
                     },
-                    'Tel_No':                       document.getElementById('input-Tel_No').value,
+                    'Home_Tel_No':					document.getElementById('input-Home_Tel_No').value,
+                    'Mobile_Tel_No':				document.getElementById('input-MobileTel_No').value,
+                    'DOB':                          document.getElementById('date-DOB').value,
                     'Emergency_Name':               document.getElementById('input-Emergency_Name').value,
                     'Emergency_Tel':                document.getElementById('input-Emergency_Tel').value,
                     'Emergency_Relationship':       document.getElementById('input-Emergency_Relationship').value,
-                    'DOB':                          document.getElementById('date-DOB').value,
-                    'Details_Wheelchair':           document.getElementById('dropdown-Details_Wheelchair').value,
-                    'Details_Wheelchair_Type':      document.getElementById('dropdown-Details_Wheelchair_Type').value,
-                    'Details_Wheelchair_Seat':      document.getElementById('dropdown-Details_Wheelchair_Seat').value,
-                    'Details_Scooter':              document.getElementById('dropdown-Details_Scooter').value,
-                    'Details_Mobility_Aid':         document.getElementById('dropdown-Details_Mobility_Aid').value,
-                    'Details_Shopping_Trolley':     document.getElementById('dropdown-Details_Shopping_Trolley').value,
-                    'Details_Guide_Dog':            document.getElementById('dropdown-Details_Guide_Dog').value,
-                    'Details_People_Carrier':       document.getElementById('dropdown-Details_People_Carrier').value,
-                    'Details_Assistant':            document.getElementById('dropdown-Details_Assistant').value,
-                    'Details_Travelcard':           document.getElementById('dropdown-Details_Travelcard').value,
-                    'Reasons_Transport':            document.getElementById('boolean-Reasons_Transport').checked,
-                    'Reasons_Bus_Stop':             document.getElementById('boolean-Reasons_Bus_Stop').checked,
-                    'Reasons_Anxiety':              document.getElementById('boolean-Reasons_Anxiety').checked,
-                    'Reasons_Door':                 document.getElementById('boolean-Reasons_Door').checked,
-                    'Reasons_Handrails':            document.getElementById('boolean-Reasons_Handrails').checked,
-                    'Reasons_Lift':                 document.getElementById('boolean-Reasons_Lift').checked,
-                    'Reasons_Level_Floors':         document.getElementById('boolean-Reasons_Level_Floors').checked,
-                    'Reasons_Low_Steps':            document.getElementById('boolean-Reasons_Low_Steps').checked,
-                    'Reasons_Assistance':           document.getElementById('boolean-Reasons_Assistance').checked,
-                    'Reasons_Board_Time':           document.getElementById('boolean-Reasons_Board_Time').checked,
-                    'Reasons_Wheelchair_Access':    document.getElementById('boolean-Reasons_Wheelchair_Access').checked,
-                    'Reasons_Other':                document.getElementById('input-Reasons_Other').value
+                    'Licence_Number':       		document.getElementById('input-Licence_Number').value,
+                    'Licence_Expiry':       		document.getElementById('date-Licence_Expiry').value,
+                    'Licence_Points':       		document.getElementById('input-Licence_Points').value,
+                    'DBS_Number':       			document.getElementById('input-DBS_Number').value,
+                    'DBS_Issue_Date':       		document.getElementById('date-DBS_Issue_Date').value,
+                    'is_Volunteer':       			document.getElementById('boolean-is_Volunteer').value
                 };
                 
                 $.ajax({
@@ -151,7 +136,13 @@
 								<tr><td><label>First Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
 								<tr><td><label>Surname: </label></td><td><input type="text" id="input-sName"/> <td></tr>
 								<tr><td><label>Date of Birth: </label></td><td><input type="date" id="date-DOB"/> <td></tr>
-								<tr><td><label>Contact Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
+								<tr><td><label>Home Number: </label></td><td><input type="text" id="input-Home_Tel_No"/> </td></tr>
+								<tr><td><label>Mobile Number: </label></td><td><input type="text" id="input-Mobile_Tel_No"/> </td></tr>
+                                <tr><td><label>Is Driver a volunteer?</label></td><td>
+                                <select id="boolean-Volunteer">
+                                    <option value="true">Yes</option> 
+                                    <option value="false">No</option>
+                                </select></td></tr>
 							</table>
 						</fieldset>
 						<fieldset id="personalAddress">
@@ -176,14 +167,13 @@
 					</div>
 					<div id="page2">
 						<fieldset id="personalDetails">
-                        licence expiry date, points on licence, DBS No., DBS issue date, emergency contact details and photo
                             <legend>Driving License Details</legend>
                             <table>
-                                <tr><td><label>License Number: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-                                <tr><td><label>Expiry Date: </label></td><td><input type="date" id="input-sName"/> <td></tr>
-                                <tr><td><label>Points on license: </label></td><td><input type="text" id="date-DOB"/> <td></tr>
-                                <tr><td><label>DBS Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
-                                <tr><td><label>DBS Issue Date: </label></td><td><input type="date" id="input-Tel_No"/> </td></tr>
+                                <tr><td><label>License Number: </label></td><td><input type="text" id="input-Licence_Number"/> <td></tr>
+                                <tr><td><label>Expiry Date: </label></td><td><input type="date" id="date-Licence_Expiry"/> <td></tr>
+                                <tr><td><label>Points on license: </label></td><td><input type="text" id="input-Licence_Points"/> <td></tr>
+                                <tr><td><label>DBS Number: </label></td><td><input type="text" id="input-DBS_Number"/> </td></tr>
+                                <tr><td><label>DBS Issue Date: </label></td><td><input type="date" id="date-DBS_Issue_Date"/> </td></tr>
                             </table>
                         </fieldset>
 					</div>

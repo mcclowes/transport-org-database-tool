@@ -9,43 +9,20 @@
         <script type="text/javascript">
             function submit(form_type) {
                 form_data = {
-                    'fName':                        document.getElementById('input-fName').value,
-                    'sName':                        document.getElementById('input-sName').value,
-                    'Address':{
-                        'Line1':                    document.getElementById('input-Line1').value,
-                        'Line2':                    document.getElementById('input-Line2').value,
-                        'Line3':                    document.getElementById('input-Line3').value,
-                        'Line4':                    document.getElementById('input-Line4').value,
-                        'Line5':                    document.getElementById('input-Line5').value,
-                        'Post_Code':                document.getElementById('input-Post_Code').value
-                    },
-                    'Tel_No':                       document.getElementById('input-Tel_No').value,
-                    'Emergency_Name':               document.getElementById('input-Emergency_Name').value,
-                    'Emergency_Tel':                document.getElementById('input-Emergency_Tel').value,
-                    'Emergency_Relationship':       document.getElementById('input-Emergency_Relationship').value,
-                    'DOB':                          document.getElementById('date-DOB').value,
-                    'Details_Wheelchair':           document.getElementById('dropdown-Details_Wheelchair').value,
-                    'Details_Wheelchair_Type':      document.getElementById('dropdown-Details_Wheelchair_Type').value,
-                    'Details_Wheelchair_Seat':      document.getElementById('dropdown-Details_Wheelchair_Seat').value,
-                    'Details_Scooter':              document.getElementById('dropdown-Details_Scooter').value,
-                    'Details_Mobility_Aid':         document.getElementById('dropdown-Details_Mobility_Aid').value,
-                    'Details_Shopping_Trolley':     document.getElementById('dropdown-Details_Shopping_Trolley').value,
-                    'Details_Guide_Dog':            document.getElementById('dropdown-Details_Guide_Dog').value,
-                    'Details_People_Carrier':       document.getElementById('dropdown-Details_People_Carrier').value,
-                    'Details_Assistant':            document.getElementById('dropdown-Details_Assistant').value,
-                    'Details_Travelcard':           document.getElementById('dropdown-Details_Travelcard').value,
-                    'Reasons_Transport':            document.getElementById('boolean-Reasons_Transport').checked,
-                    'Reasons_Bus_Stop':             document.getElementById('boolean-Reasons_Bus_Stop').checked,
-                    'Reasons_Anxiety':              document.getElementById('boolean-Reasons_Anxiety').checked,
-                    'Reasons_Door':                 document.getElementById('boolean-Reasons_Door').checked,
-                    'Reasons_Handrails':            document.getElementById('boolean-Reasons_Handrails').checked,
-                    'Reasons_Lift':                 document.getElementById('boolean-Reasons_Lift').checked,
-                    'Reasons_Level_Floors':         document.getElementById('boolean-Reasons_Level_Floors').checked,
-                    'Reasons_Low_Steps':            document.getElementById('boolean-Reasons_Low_Steps').checked,
-                    'Reasons_Assistance':           document.getElementById('boolean-Reasons_Assistance').checked,
-                    'Reasons_Board_Time':           document.getElementById('boolean-Reasons_Board_Time').checked,
-                    'Reasons_Wheelchair_Access':    document.getElementById('boolean-Reasons_Wheelchair_Access').checked,
-                    'Reasons_Other':                document.getElementById('input-Reasons_Other').value
+                    'Nickname':						document.getElementById('input-Nickname').value,
+                    'Licence':						document.getElementById('input-Licence').value,
+                    'Make':							document.getElementById('input-Make').value,
+                    'Model':						document.getElementById('input-Model').value,
+                    'Colour':						document.getElementById('input-Colout').value,
+                    'Capacity_Passengers':			document.getElementById('number-Capacity_Passengers').value,
+                    'Capacity_Note':				document.getElementById('input-Capacity_Note').value,
+                    'Tax_Due':						document.getElementById('date-Tax_Due').value,
+                    'MOT_Due':						document.getElementById('date-MOT_Due').value,
+                    'Safety_Due':					document.getElementById('date-Safety_Due').value,
+                    'Service_Due':					document.getElementById('date-Service_Due').value,
+                    'Lift_Service_Due':				document.getElementById('date-Lift_Service_Due').value,
+                    'Permit_Number':				document.getElementById('input-Permit_Number').value,
+                    'Permit_Expiry':				document.getElementById('date-Permit_Expiry').value
                 };
                 
                 $.ajax({
@@ -147,24 +124,25 @@
 						<fieldset id="personalDetails">
 							<legend>Vehicle Details</legend>
 							<table>
-								<tr><td><label>Registration Number: </label></td><td><input type="text" id="input-fName"/> <td></tr>
-								<tr><td><label>Make and model: </label></td><td><input type="text" id="input-sName"/> <td></tr>
-								<tr><td><label>Colour: </label></td><td><input type="text" id="date-DOB"/> <td></tr>
-								<tr><td><label>Passenger seating capacity: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
-                                <tr><td><label>Wheelchair seating capacity: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
-                                <!--Eventually, change to seating arrangement datatype-->
+								<tr><td><label>Nickname: </label></td><td><input type="text" id="input-Nickname"/> <td></tr>
+								<tr><td><label>Registration Number: </label></td><td><input type="text" id="input-Licence"/> <td></tr>
+								<tr><td><label>Make: </label></td><td><input type="text" id="input-Make"/> <td></tr>
+								<tr><td><label>Model: </label></td><td><input type="text" id="input-Model"/> <td></tr>
+								<tr><td><label>Colour: </label></td><td><input type="text" id="input-colour"/> <td></tr>
+								<tr><td><label>Passenger seating capacity: </label></td><td><input type="text" id="input-Capacity_Passengers"/> </td></tr>
+                                <tr><td><label>Capacity note (other configurations): </label></td><td><input type="text" id="input-Capacity_Note"/> </td></tr>
 							</table>
 						</fieldset>
 						<fieldset id="emergencyContact">
 							<legend>Maintentance Details</legend>
 							<table>
-								<tr><td><label>Tax Due: </label></td><td><input type="date" id="input-Emergency_Name"/></td></tr>
-								<tr><td><label>MOT Due: </label></td><td><input type="date" id="input-Emergency_Tel"/></td></tr>
-								<tr><td><label>Safety Inspection Due:</label></td><td><input type="text" id="input-Emergency_Relationship"/></td></tr>
-		                        <tr><td><label>Service Due: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
-                                <tr><td><label>Tail Lift Service Due: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
-                                <tr><td><label>Section 19 Permit Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
-                                <tr><td><label>Section 19 Expiry Date: </label></td><td><input type="date" id="input-Tel_No"/> </td></tr>
+								<tr><td><label>Tax Due: </label></td><td><input type="date" id="date-Tax_Due"/></td></tr>
+								<tr><td><label>MOT Due: </label></td><td><input type="date" id="date-MOT_Due"/></td></tr>
+								<tr><td><label>Safety Inspection Due:</label></td><td><input type="text" id="date-Safety_Due"/></td></tr>
+		                        <tr><td><label>Service Due: </label></td><td><input type="text" id="date-Service_Due"/> </td></tr>
+                                <tr><td><label>Tail Lift Service Due: </label></td><td><input type="text" id="date-Tail_Lift_Service_Due"/> </td></tr>
+                                <tr><td><label>Section 19 Permit Number: </label></td><td><input type="text" id="input-Permit_Number"/> </td></tr>
+                                <tr><td><label>Section 19 Expiry Date: </label></td><td><input type="date" id="date-Permit_Expiry"/> </td></tr>
                             </table>
 						</fieldset>
 					</div>
