@@ -30,24 +30,29 @@
                     'Wheelchairs':                  document.getElementById('number-Wheelchairs').value,
                     'Transferees':                  document.getElementById('number-Transferees').value,
                     'Other_Access':                 document.getElementById('input-Other_Access').value,
-                    'Booked_By':                    document.getElementById('input-Booked_By').value,
-                    'Destination_1':{
-                        'Line1':                    document.getElementById('input-Destination_1_Line1').value,
-                        'Line2':                    document.getElementById('input-Destination_1_Line2').value,
-                        'Line3':                    document.getElementById('input-Destination_1_Line3').value,
-                        'Line4':                    document.getElementById('input-Destination_1_Line4').value,
-                        'Line5':                    document.getElementById('input-Destination_1_Line5').value,
-                        'Post_Code':                document.getElementById('input-Destination_1_Post_Code').value
-                    },
-                    'Pickup_1':{
-                        'Line1':                    document.getElementById('input-Pickup_1_Line1').value,
-                        'Line2':                    document.getElementById('input-Pickup_1_Line2').value,
-                        'Line3':                    document.getElementById('input-Pickup_1_Line3').value,
-                        'Line4':                    document.getElementById('input-Pickup_1_Line4').value,
-                        'Line5':                    document.getElementById('input-Pickup_1_Line5').value,
-                        'Post_Code':                document.getElementById('input-Pickup_1_Post_Code').value
-                    },
-                    'Pickup_1_Time':				document.getElementById('input-Pickup_1_Time').value,
+                    'Booked_By': 
+                    'Destination':{
+						'Line1':					document.getElementById('input-Destination_Line1').value,
+						'Line2':					document.getElementById('input-Destination_Line2').value,
+						'Line3':					document.getElementById('input-Destination_Line3').value,
+						'Line4':					document.getElementById('input-Destination_Line4').value,
+						'Line5':					document.getElementById('input-Destination_Line5').value,
+						'Post_Code':				document.getElementById('input-Destination_Post_Code').value
+					},
+					'Pickup':{
+						'1':{
+							'Time':					document.getElementById('input-Pickup_1_Time').value,
+							'Note':					document.getElementById('input-Pickup_1_Time').value,
+							'Address':{
+								'Line1':			document.getElementById('input-Pickup_1_Line1').value,
+								'Line2':			document.getElementById('input-Pickup_1_Line2').value,
+								'Line3':			document.getElementById('input-Pickup_1_Line3').value,
+								'Line4':			document.getElementById('input-Pickup_1_Line4').value,
+								'Line5':			document.getElementById('input-Pickup_1_Line5').value,
+								'Post_Code':		document.getElementById('input-Pickup_1_Post_Code').value
+							}
+						}
+					},
 					'Return_Time':					document.getElementById('input-Return_Time').value,
 					'Return_Note':					document.getElementById('input-Return_Note').value,
 					'Driver':						document.getElementById('dropdown-Driver').value,
@@ -197,11 +202,11 @@
                         <fieldset id="destinationAddress">
                             <legend>Destination Address</legend>
                             <table>
-                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Destination_1_Line1"/> </td></tr>
-                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Destination_1_Line2"/> </td></tr>
-                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Destination_1_Line3"/> </td></tr>
-                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Destination_1_Line4"/> </td></tr>
-                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Destination_1_Line5"/> </td></tr>
+                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Destination_Line1"/> </td></tr>
+                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Destination_Line2"/> </td></tr>
+                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Destination_Line3"/> </td></tr>
+                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Destination_Line4"/> </td></tr>
+                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Destination_Line5"/> </td></tr>
                                 <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Destination_1_Post_Code"/> </td></tr>
                             </table>
                         </fieldset>
@@ -215,6 +220,7 @@
                                 <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Pickup_1_Line5"/> </td></tr>
                                 <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Pickup_1_Post_Code"/> </td></tr>
                                 <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-Pickup_1_Time"/> <td></tr>
+                                <tr><td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_1_Note"/> <td></tr>
                             </table>
                         </fieldset>
                         <!--add new pickup-->
