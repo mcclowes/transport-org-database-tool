@@ -1,5 +1,5 @@
 <?php 
-#delete functions, edit damage reports , add current date, 
+#delete functions,
 
 $mysqli = connect();
 
@@ -12,56 +12,111 @@ if (isset($_POST['form_data'])) {
 
 
 switch ($type) {
-	case 'addTcMember':
-		addTCMember($mysqli,$data);
-		break;
+	case 'addAddress': addTCMember($mysqli,$data); break;
 
-	case 'addVehicle':
-		addVehicle($mysqli,$data);
-		break;
+	case 'addVehicle': addVehicle($mysqli,$data); break;
 
-	case 'addDriver':
-		addDriver($mysqli,$data);
-		break;
+	case 'addDriver': addDriver($mysqli,$data); break;
 
-	case 'addGroup';
-		addGroup($mysqli,$data);
-		break;
+	case 'addDamageReport': addDamageReport($mysqli,$data); break;
 
-	case 'addDamageReport':
-		addDamageReport($mysqli,$data);
-		break;
+	case 'addGroup': addGroup($mysqli,$data); break;
 
-	case 'addJourney':
-		$Journey_ID = addJourney($mysqli,$data);
+	case 'addJourney': $Journey_ID = addJourney($mysqli,$data);
 		$x = $data['Pickups']['No_Pickups']; 
 
 		for ($xx = 1; $xx <= $x; $xx++){
 			addPickup($mysqli,$Journey_ID, $data['Pickups'][$xx]);
 		}
-
 		break;
 
-	case 'addTCJourneyMember':
-		addTCJourneyMember($mysqli,$data);
+	case 'addTCMember': addTCMember($mysqli,$data); break;
+
+	case 'addPickup': addTCMember($mysqli,$data); break;
+
+	case 'addTCJourneyMember': addTCJourneyMember($mysqli,$data); break;
+
+	case 'addVehicleCheckProblem': addVehicleCheckProblem($mysqli,$data); break;
+
+	case 'getAddresses': 
+		$rdata = getAddresses($mysqli);
+		echo json_encode($rdata);
 		break;
 
-	case 'addVehicleCheckProblem':
-		addVehicleCheckProblem($mysqli,$data);
+	case 'getAddress': 
+		$rdata = getAddress($mysqli,$data['Address_ID']);
+		echo json_encode($rdata);
 		break;
-	
-	case 'getJourneys':
+
+	case 'getVehicles': 
+		$rdata = getVehicles($mysqli);
+		echo json_encode($rdata);
+		break;
+
+	case 'getDrivers': 
+		$rdata = getDrivers($mysqli);
+		echo json_encode($rdata);
+		break;
+
+	case 'getDamageReports': 
+		$rdata = getDamageReports($mysqli);
+		echo json_encode($rdata);
+		break;
+
+	case 'getVehicleDamageReports': 
+		$rdata = getVehicleDamageReports($mysqli,$data['Vehicle_ID']);
+		echo json_encode($rdata);
+		break;
+
+	case 'getGroups': 
+		$rdata = getGroups($mysqli);
+		echo json_encode($rdata);
+		break;
+
+	case 'getGroup': 
+		$rdata = getGroup($mysqli,$data['Group_ID']);
+		echo json_encode($rdata);
+		break;
+
+	case 'getJourneys': 
 		$rdata = getJourneys($mysqli);
 		echo json_encode($rdata);
 		break;
 
-	case 'getJourney':
+	case 'getJourney': 
 		$rdata = getJourney($mysqli, $data['Journey_ID']);
 		echo json_encode($rdata);
 		break;
 
+	case 'getJourneyMembers':
+		$rdata = getJourneys($mysqli,$data['Journey_ID']);
+		echo json_encode($rdata);
+		break;
+
+	case 'getTCMember':
+		$rdata = getJourneyMembers($mysqli,$data['TC_Member_ID']);
+		echo json_encode($rdata);
+		break;
+
+	case 'getTCMembers':
+		$rdata = getJourneys($mysqli);
+		echo json_encode($rdata);
+		break;
+
+	case 'getPickups':
+		$rdata = getJourneys($mysqli,$data['Journey_ID']);
+		echo json_encode($rdata);
+		break;
+
+	case 'getVehicleCheckProblems':
+		$rdata = getJourneys($mysqli);
+		echo json_encode($rdata);
+		break;
+
+	case 'updateDamageReport': updateDamageReport($mysqli, $data['Date_Resolved'], $data['Damage_ID']); break;
+
 	default:
-		echo json_encode("error");
+	 	json_encode("error");
 		break;
 
 }
@@ -588,13 +643,14 @@ function addJourney($mysqli,$Journey){
 
 		$Address_ID1 = addAddress($mysqli,$Journey['Address']);
 		$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
+		$Booking_Date = date("Y-m-d"); 
 
 	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
 										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
 		$statement->bind_param("ssssisisissisiisssssdss",
-								$Journey['Journey_Description'],$Journey['Booking_Date'],$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
+								$Journey['Journey_Description'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
 								$Journey['No_Passengers'], $Journey['Passengers_Note'], $Journey['Wheelchairs'], $Journey['Transferees'], $Journey['Other_Access'], $Journey['Booked_By'], $Journey['Driver_ID'], $Journey['Vehicle'], 
 								$Journey['Keys_To_Collect'], $Journey['Quote'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
 		$statement->execute();
@@ -653,8 +709,6 @@ function addPickup($mysqli,$Journey_ID,$Pickup){
 
 
 
-
-
 function addTCJourneyMember($mysqli,$TC_Journey_Member){
 
 	if( $statement = $mysqli->prepare("INSERT INTO TC_Journey_Members (Journey_ID, TC_Member_ID) VALUES (?, ?);" ) ){
@@ -673,4 +727,14 @@ function addVehicleCheckProblem($mysqli,$Vehicle_Check_Problem){
 		$statement->store_result();
 	}
 }
+
+
+function updateDamageReport($mysqli, $Date_Resolved, $Damage_ID){
+	if( $statement = $mysqli->prepare("UPDATE Damage_Reports SET Date_Resolved = ? WHERE Damage_ID = ?;") ){
+		$statement->bind_param("si",$Date_Resolved, $Damage_ID);
+		$statement->execute();
+		$statement->store_result();
+	}
+}
+
 ?>
