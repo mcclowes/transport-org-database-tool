@@ -52,7 +52,7 @@
                     type: "POST",
                     url:"MySQL_Functions.php",
                     data: {
-                        'form_type': 'addTcMember',
+                        'form_type': 'addTCMember',
                         'form_data': form_data
                     },
                     dataType: "json",
@@ -147,7 +147,7 @@
 						<fieldset id="personalDetails">
 							<legend>Personal Details</legend>
 							<table>
-								<tr><td><label for="input-fName">First Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
+								<tr><td><label>First Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
 								<tr><td><label>Surname: </label></td><td><input type="text" id="input-sName"/> <td></tr>
 								<tr><td><label>Date of Birth: </label></td><td><input type="text" id="date-DOB"/> <td></tr>
 								<tr><td><label>Contact Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>

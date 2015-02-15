@@ -13,14 +13,14 @@
                     'Licence':						document.getElementById('input-Licence').value,
                     'Make':							document.getElementById('input-Make').value,
                     'Model':						document.getElementById('input-Model').value,
-                    'Colour':						document.getElementById('input-Colout').value,
+                    'Colour':						document.getElementById('input-Colour').value,
                     'Capacity_Passengers':			document.getElementById('number-Capacity_Passengers').value,
                     'Capacity_Note':				document.getElementById('input-Capacity_Note').value,
                     'Tax_Due':						document.getElementById('date-Tax_Due').value,
                     'MOT_Due':						document.getElementById('date-MOT_Due').value,
                     'Safety_Due':					document.getElementById('date-Safety_Due').value,
                     'Service_Due':					document.getElementById('date-Service_Due').value,
-                    'Lift_Service_Due':				document.getElementById('date-Lift_Service_Due').value,
+                    'Lift_Service_Due':				document.getElementById('date-Tail_Lift_Service_Due').value,
                     'Permit_Number':				document.getElementById('input-Permit_Number').value,
                     'Permit_Expiry':				document.getElementById('date-Permit_Expiry').value
                 };
@@ -127,8 +127,8 @@
 								<tr><td><label>Registration Number: </label></td><td><input type="text" id="input-Licence"/> <td></tr>
 								<tr><td><label>Make: </label></td><td><input type="text" id="input-Make"/> <td></tr>
 								<tr><td><label>Model: </label></td><td><input type="text" id="input-Model"/> <td></tr>
-								<tr><td><label>Colour: </label></td><td><input type="text" id="input-colour"/> <td></tr>
-								<tr><td><label>Passenger seating capacity: </label></td><td><input type="text" id="input-Capacity_Passengers"/> </td></tr>
+								<tr><td><label>Colour: </label></td><td><input type="text" id="input-Colour"/> <td></tr>
+								<tr><td><label>Passenger seating capacity: </label></td><td><input type="text" id="number-Capacity_Passengers"/> </td></tr>
                                 <tr><td><label>Capacity note (other configurations): </label></td><td><input type="text" id="input-Capacity_Note"/> </td></tr>
 							</table>
 						</fieldset>

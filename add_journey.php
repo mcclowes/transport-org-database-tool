@@ -7,6 +7,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
         <script type="text/javascript">
+        	
+        	//GLOBAL VARIABLE FOR NUMBER OF PICKUPS
+        	number_of_pickups = 1;
+        
             function submit() {
             	var date = new Date();
                 form_data = {
@@ -39,7 +43,8 @@
 						'Line5':					document.getElementById('input-Destination_Line5').value,
 						'Post_Code':				document.getElementById('input-Destination_Post_Code').value
 					},
-					'Pickup':{
+					'Pickups':{
+						'No_Pickups':				number_of_pickups,
 						'1':{
 							'Time':					document.getElementById('input-Pickup_1_Time').value,
 							'Note':					document.getElementById('input-Pickup_1_Time').value,
@@ -260,11 +265,12 @@
 						<fieldset id="journeyDetails">
 							<legend>Booking Details</legend>
                             <table>
-                                <tr><td><label>Journey Description: </label></td><td><input type="text" id="input-Description" placeholder="E.g. WI to Wolsingham Pool"/> <td></tr>
-    							<tr><td><label>Date required: </label></td><td><input type="date" id="input-Journey_Date"/> <td></tr>
+                                <tr><td><label>Journey Description: </label></td><td><input type="text" id="input-Journey_Description" placeholder="E.g. WI to Wolsingham Pool"/> <td></tr>
+    							<tr><td><label>Date required: </label></td><td><input type="date" id="date-Journey_Date"/> <td></tr>
                                 <tr><td><label>No. of passengers: </label></td><td><input type="text" id="number-No_Passengers"/> <td></tr>
-                                <tr><td><label>No. of wheelchair users/ transfers: </label></td><td><input type="text" id="number-Wheelchairs"/> <td></tr>
-                                <tr><td><label>No. of wheelchair users/ transfers: </label></td><td><input type="text" id="number-Transferees"/> <td></tr>
+                                <tr><td><label>Passenger notes: </label></td><td><input type="text" id="input-Passengers_Note"/> <td></tr>
+                                <tr><td><label>No. of wheelchair users: </label></td><td><input type="text" id="number-Wheelchairs"/> <td></tr>
+                                <tr><td><label>No. of wheelchair transfers: </label></td><td><input type="text" id="number-Transferees"/> <td></tr>
                                 <tr><td><label>Other access needs: </label></td><td><input type="text" id="input-Other_Access"/> <td></tr>
                                 <tr><td><label>Booking taken by: </label></td><td><input type="text" id="input-Booked_By"/> <td></tr>
                             </table>
@@ -277,7 +283,7 @@
                                 <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Destination_Line3"/> </td></tr>
                                 <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Destination_Line4"/> </td></tr>
                                 <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Destination_Line5"/> </td></tr>
-                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Destination_1_Post_Code"/> </td></tr>
+                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Destination_Post_Code"/> </td></tr>
                             </table>
                         </fieldset>
                         <fieldset id="pickupDetails">

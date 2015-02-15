@@ -44,6 +44,7 @@ switch ($type) {
 		for ($xx = 1; $xx <= $x; $xx++){
 			addPickup($mysqli,$Journey_ID, $data['Pickups'][$xx]);
 		}
+		echo json_encode('success!');
 		break;
 
 	case 'addTCMember': 
@@ -607,7 +608,7 @@ function addVehicle($mysqli,$Vehicle){
 		$statement->execute();
 		$statement->store_result();
 		
-		return $Vehivle['Nickname'];
+		return 'success!';
 	}
 
 }
@@ -625,7 +626,7 @@ function addDriver($mysqli,$Driver){
 		$statement->execute();
 		$statement->store_result();
 		
-		return $Driver['fName'];
+		return 'success!';
 	}
 
 }
@@ -640,7 +641,7 @@ function addDamageReport($mysqli,$Damage_Report){
 		$statement->execute();
 		$statement->store_result();
 		
-		return $Damage_Report['Damage_description'];
+		return 'success!';
 	}
 }
 
@@ -667,7 +668,7 @@ function addGroup($mysqli,$Group){
 		$statement->store_result();
 		
 	}
-	return $Group['Name'];
+	return 'success!';
 }
 
 function addJourney($mysqli,$Journey){
@@ -722,8 +723,8 @@ function addTCMember($mysqli,$TC_Member){
 
 		$statement->execute();
 		$statement->store_result();
-		
-		return $TC_Member['fName'];
+	
+		return 'success!';	
 	}
 }
 
