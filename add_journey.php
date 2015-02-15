@@ -14,7 +14,7 @@
                     'fName':                        document.getElementById('input-fName').value,
                     'sName':                        document.getElementById('input-sName').value,
                     'Tel_No':                       document.getElementById('input-Tel_No').value,
-                    'Group':						document.getElementById('input-Group').value,
+                    'Group':						document.getElementById('dropdown-Group').value,
                     'Address':{
                         'Line1':                    document.getElementById('input-Address_Line1').value,
                         'Line2':                    document.getElementById('input-Address_Line2').value,
@@ -30,7 +30,7 @@
                     'Wheelchairs':                  document.getElementById('number-Wheelchairs').value,
                     'Transferees':                  document.getElementById('number-Transferees').value,
                     'Other_Access':                 document.getElementById('input-Other_Access').value,
-                    'Booked_By': 
+                    'Booked_By': 					document.getElementById('input-Booked_By').value,
                     'Destination':{
 						'Line1':					document.getElementById('input-Destination_Line1').value,
 						'Line2':					document.getElementById('input-Destination_Line2').value,
@@ -118,10 +118,80 @@
                 $('#submitButton').hide();
                 var i = 0;
             }
+        	
+            function populateGroups(){
+            	var dropdown = document.getElementById('dropdown-Group');
+            	
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getGroups'
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                    	for(var i = 0; i < returned_data.length; i++) {
+                    		var item = document.createElement("option");
+                    		item.textContent = returned_data[i]['Name'];
+                    		item.value = returned_data[i]['Group_ID'];
+                    		dropdown.appendChild(item);
+                    	}
+                    }
+                });
+            }
+            
+            function populateDrivers(){
+            	var dropdown = document.getElementById('dropdown-Driver');
+            	
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getDrivers'
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                    	for(var i = 0; i < returned_data.length; i++) {
+                    		var item = document.createElement("option");
+                    		item.textContent = returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ' (' + returned_data[i]['Address']['Post_Code'] + ')';
+                    		item.value = returned_data[i]['Driver_ID'];
+                    		dropdown.appendChild(item);
+                    	}
+                    }
+                });
+            }
+        	
+            function populateVehicles(){
+            	var dropdown = document.getElementById('dropdown-Vehicle');
+            	
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getVehicles'
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                    	for(var i = 0; i < returned_data.length; i++) {
+                    		var item = document.createElement("option");
+                    		item.textContent = returned_data[i]['Nickname'] + ' (' + returned_data[i]['Registration'] + ')';
+                    		item.value = returned_data[i]['Vehicle_ID'];
+                    		dropdown.appendChild(item);
+                    	}
+                    }
+                });
+            }
+            
+            function init(){
+				startScreen();
+				populateGroups();
+				populateDrivers();
+				populateVehicles();
+            }
 
         </script>
     </head>
-    <body onload="startScreen()">
+    <body onload="init()">
         <div id="wctLogo"></div>
         <nav>
             <ul>
@@ -169,9 +239,10 @@
 								<tr><td><label>First Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
 								<tr><td><label>Surname: </label></td><td><input type="text" id="input-sName"/> <td></tr>
 								<tr><td><label>Contact Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
-								
-								<!--Make this a dropdown-->
-                                <tr><td><label>Group: </label></td><td><input type="text" id="input-Group"/> </td></tr>
+    							<tr><td><label>Group: </label></td><td>
+								<select id="dropdown-Group"> 
+									<option>Choose a Group</option>
+								</select><td></tr>
 							</table>
 						</fieldset>
 						<fieldset id="bookeeAddress">
@@ -237,8 +308,14 @@
 						<fieldset id="officeUse">
                             <legend>Other Details</legend>
                             <table>
-    							<tr><td><label>Driver: </label></td><td><input type="text" id="dropdown-Driver"/> <td></tr>
-                                <tr><td><label>Allocated Vehicle: </label></td><td><input type="text" id="dropdown-Vehicle"/> <td></tr>
+    							<tr><td><label>Driver: </label></td><td>
+								<select id="dropdown-Driver"> 
+									<option>Choose a Driver</option>
+								</select><td></tr>
+    							<tr><td><label>Allocated Vehicle: </label></td><td>
+								<select id="dropdown-Vehicle"> 
+									<option>Choose a Vehicle</option>
+								</select><td></tr>
                                 <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-Keys_To_Collect"/> <td></tr>
                                 <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-Quote"/> <td></tr>
                                 <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-Distance_Run"/> <td></tr>

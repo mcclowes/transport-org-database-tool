@@ -20,7 +20,7 @@
                         'Post_Code':                document.getElementById('input-Post_Code').value
                     },
                     'Home_Tel_No':					document.getElementById('input-Home_Tel_No').value,
-                    'Mobile_Tel_No':				document.getElementById('input-MobileTel_No').value,
+                    'Mobile_Tel_No':				document.getElementById('input-Mobile_Tel_No').value,
                     'DOB':                          document.getElementById('date-DOB').value,
                     'Emergency_Name':               document.getElementById('input-Emergency_Name').value,
                     'Emergency_Tel':                document.getElementById('input-Emergency_Tel').value,
@@ -30,7 +30,7 @@
                     'Licence_Points':       		document.getElementById('input-Licence_Points').value,
                     'DBS_Number':       			document.getElementById('input-DBS_Number').value,
                     'DBS_Issue_Date':       		document.getElementById('date-DBS_Issue_Date').value,
-                    'is_Volunteer':       			document.getElementById('boolean-is_Volunteer').value
+                    'is_Volunteer':       			document.getElementById('boolean-Volunteer').value
                 };
                 
                 $.ajax({
@@ -187,7 +187,7 @@
                     </br>
                 </form>
 				<div id="nextButton" onclick="next()">Next</div>
-				<div id="submitButton" onclick="submit('addTcMember');">Submit</div>
+				<div id="submitButton" onclick="submit('addDriver');">Submit</div>
 				<div id="cancelButton" onclick="cancel()">Cancel</div>
 				<div id='result'></div> 
             </div>
