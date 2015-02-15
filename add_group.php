@@ -7,7 +7,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
         <script type="text/javascript">
-            function submit(form_type) {
+            function submit() {
                 form_data = {
                     'Name':                       document.getElementById('input-Name').value,
                     'Email':                       document.getElementById('input-Email').value,
@@ -69,7 +69,7 @@
                     type: "POST",
                     url:"MySQL_Functions.php",
                     data: {
-                        'form_type': form_type,
+                        'form_type': 'addGroup',
                         'form_data': form_data
                     },
                     dataType: "json",
@@ -131,25 +131,25 @@
                         <li><a href="add_journey.php">Add Journey</a></li>
                     </ul>
                 </li>
-                <li><a href="groups.html">Groups</a>
+                <li><a href="groups.php">Groups</a>
                     <ul>
                         <li><a href="manage_groups.php">Manage Groups</a></li>
                         <li><a href="add_group.php">Add group</a></li>
                     </ul>
                 </li>
-                <li><a href="members.html">Members</a>
+                <li><a href="members.php">Members</a>
                     <ul>
                         <li><a href="manage_members.php">Manage Members</a></li>
                         <li><a href="add_member.php">Add Member</a></li>
                     </ul>
                 </li>
-                <li><a href="vehicles.html">Vehicles</a>
+                <li><a href="vehicles.php">Vehicles</a>
                     <ul>
                         <li><a href="manage_vehicles.php">Manage Vehicles</a></li>
                         <li><a href="add_vehicle.php">Add vehicle</a></li>
                     </ul>
                 </li>
-                <li><a href="drivers.html">Drivers</a>
+                <li><a href="drivers.php">Drivers</a>
                     <ul>
                         <li><a href="manage_drivers.php">Manage Drivers</a></li>
                         <li><a href="add_driver.php">Add Driver</a></li>
@@ -160,7 +160,7 @@
         <div id="page_wrapper">
             <div id="main">
                 <form method="POST" action="">
-                <!-- bother with for attribute? -->
+                <!-- bother with form attribute? -->
 					<div id="page1">
 						<fieldset id="personalDetails">
 							<legend>Personal Details</legend>
@@ -206,8 +206,6 @@
 							<legend>Organisational Status</legend>
                             <h2>Is your group...</h2>
 							<table>
-					<!-- THESE WERE GOING TO BE BOOLEAN CHECKBOXES, 
-					DO WE WANT TO CHANGE THEM AND USE DROPDOWN INSTEAD? -->
 								<tr><td><label>Profit making?</label></td><td>
 								<select id="boolean-Profitable"> 
 									<option>...</option> 
@@ -287,7 +285,7 @@
                     </br>
                 </form>
 				<div id="nextButton" onclick="next()">Next</div>
-				<div id="submitButton" onclick="submit('addTcMember');">Submit</div>
+				<div id="submitButton" onclick="submit();">Submit</div>
 				<div id="cancelButton" onclick="cancel()">Cancel</div>
 				<div id='result'></div> 
             </div>
