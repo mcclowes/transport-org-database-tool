@@ -27,8 +27,8 @@
 						'form_data': id_data
                     },
                     dataType: "json",
-                    complete: function(returned_data) {
-                        alert(JSON.stringify(returned_data));
+                    complete: function(returned_data) {						
+						$('#main').replaceWith('<div id="main">'+JSON.stringify(returned_data)+'</div>');						
                     }
                 });
 			
