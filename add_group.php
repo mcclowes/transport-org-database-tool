@@ -29,15 +29,15 @@
                         'Post_Code':                document.getElementById('input-Invoice_Post_Code').value
                     },
                     'Invoice_Email':				document.getElementById('input-Invoice_Email').value,
-                    'Invoice_Email':				document.getElementById('input-Invoice_Tel').value,
+                    'Invoice_Tel':					document.getElementById('input-Invoice_Tel').value,
                     'Emergency_Name':               document.getElementById('input-Emergency_Name').value,
                     'Emergency_Tel':                document.getElementById('input-Emergency_Tel').value,
                     'Emergency_Relationship':       document.getElementById('input-Emergency_Relationship').value,
-                    'Profitable':           		document.getElementById('dropdown-Profitable').value,
-                    'Community':					document.getElementById('dropdown-Community').value,
-                    'Social':						document.getElementById('dropdown-Social').value,
-                    'Statutory':					document.getElementById('dropdown-Statutory').value,
-                    'Charity':						document.getElementById('dropdown-Charity').value,
+                    'Profitable':           		document.getElementById('boolean-Profitable').value,
+                    'Community':					document.getElementById('boolean-Community').value,
+                    'Social':						document.getElementById('boolean-Social').value,
+                    'Statutory':					document.getElementById('boolean-Statutory').value,
+                    'Charity':						document.getElementById('boolean-Charity').value,
                     'Charity_No':					document.getElementById('input-Charity_No').value,
                     'Org_Aim':						document.getElementById('input-Org_Aim').value,
                     'Activities_Education':			document.getElementById('boolean-Activities_Education').checked,
@@ -75,7 +75,6 @@
                     dataType: "json",
                     success: function(returned_data) {
                         $('#result').replaceWith('<div id="result">'+returned_data+'</div>');
-                        window.location = "http://www.google.com/"
                     }
                 });
             }
@@ -182,8 +181,10 @@
 							</table>
 						</fieldset>
                         <fieldset id="invoiceAddress">
-                            <legend>Invoice Address (If different)</legend>
+                            <legend>Invoice Address</legend>
                             <table>
+								<tr><td><label>Email: </label></td><td><input type="email" id="input-Invoice_Email"/> <td></tr>
+								<tr><td><label>Number: </label></td><td><input type="text" id="input-Invoice_Tel"/> </td></tr>
                                 <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Invoice_Line1"/> </td></tr>
                                 <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Invoice_Line2"/> </td></tr>
                                 <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Invoice_Line3"/> </td></tr>

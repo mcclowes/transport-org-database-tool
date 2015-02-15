@@ -12,17 +12,33 @@ if (isset($_POST['form_data'])) {
 
 
 switch ($type) {
-	case 'addAddress': addTCMember($mysqli,$data); break;
+	case 'addAddress': 
+		$rdata = addTCMember($mysqli,$data); 
+		echo json_encode($rdata);
+		break;
 
-	case 'addVehicle': addVehicle($mysqli,$data); break;
+	case 'addVehicle': 
+		$rdata = addVehicle($mysqli,$data); 
+		echo json_encode($rdata);
+		break;
 
-	case 'addDriver': addDriver($mysqli,$data); break;
+	case 'addDriver': 
+		$rdata = addDriver($mysqli,$data); 
+		echo json_encode($rdata);
+		break;
 
-	case 'addDamageReport': addDamageReport($mysqli,$data); break;
+	case 'addDamageReport': 
+		$rdata = addDamageReport($mysqli,$data); 
+		echo json_encode($rdata);
+		break;
 
-	case 'addGroup': addGroup($mysqli,$data); break;
+	case 'addGroup': 
+		$rdata = addGroup($mysqli,$data); 
+		echo json_encode($rdata);
+		break;
 
-	case 'addJourney': $Journey_ID = addJourney($mysqli,$data);
+	case 'addJourney': 
+		$Journey_ID = addJourney($mysqli,$data);
 		$x = $data['Pickups']['No_Pickups']; 
 
 		for ($xx = 1; $xx <= $x; $xx++){
@@ -30,13 +46,21 @@ switch ($type) {
 		}
 		break;
 
-	case 'addTCMember': addTCMember($mysqli,$data); break;
+	case 'addTCMember': 
+		$rdata = addTCMember($mysqli,$data); 
+		echo json_encode($rdata);
+		break;
 
-	case 'addPickup': addTCMember($mysqli,$data); break;
+	case 'addPickup': 
+		$rdata = addTCMember($mysqli,$data); 
+		echo json_encode($rdata);
+		break;
 
-	case 'addTCJourneyMember': addTCJourneyMember($mysqli,$data); break;
+	case 'addTCJourneyMember': 
+		addTCJourneyMember($mysqli,$data); break;
 
-	case 'addVehicleCheckProblem': addVehicleCheckProblem($mysqli,$data); break;
+	case 'addVehicleCheckProblem': 
+		addVehicleCheckProblem($mysqli,$data); break;
 
 	case 'getAddresses': 
 		$rdata = getAddresses($mysqli);
@@ -582,6 +606,8 @@ function addVehicle($mysqli,$Vehicle){
 								$Vehicle['Service_Due'], $Vehicle['Tail_Service_Due'], $Vehicle['Section_19_No'], $Vehicle['Section_19_Due'], $Vehicle['Seating_Configurations']);
 		$statement->execute();
 		$statement->store_result();
+		
+		return $Vehivle['Nickname'];
 	}
 
 }
@@ -599,6 +625,7 @@ function addDriver($mysqli,$Driver){
 		$statement->execute();
 		$statement->store_result();
 		
+		return $Driver['fName'];
 	}
 
 }
@@ -612,6 +639,8 @@ function addDamageReport($mysqli,$Damage_Report){
 		$statement->bind_param("isss",$Damage_Report['Vehicle_ID'],$Damage_Report['Damage_description'],$Damage_Report['Date_Added'],$Damage_Report['Date_Resolved']);
 		$statement->execute();
 		$statement->store_result();
+		
+		return $Damage_Report['Damage_description'];
 	}
 }
 
@@ -636,7 +665,9 @@ function addGroup($mysqli,$Group){
 								$Group['Concerned_Rurally_Isolated'], $Group['Concerned_Other']);
 		$statement->execute();
 		$statement->store_result();
+		
 	}
+	return $Group['Name'];
 }
 
 function addJourney($mysqli,$Journey){
@@ -692,6 +723,7 @@ function addTCMember($mysqli,$TC_Member){
 		$statement->execute();
 		$statement->store_result();
 		
+		return $TC_Member['fName'];
 	}
 }
 
@@ -704,6 +736,7 @@ function addPickup($mysqli,$Journey_ID,$Pickup){
 		$statement->bind_param("isis",$Journey_ID, $Pickup['Note'], $Address_ID, $Pickup['Time']);
 		$statement->execute();
 		$statement->store_result();
+		
 	}
 }
 
