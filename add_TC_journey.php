@@ -102,7 +102,7 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                        $('#result').replaceWith('<div id="result">'+returned_data+'</div>');
+                    	window.location = 'http://community.dur.ac.uk/zack.hodari/CEP_Project/index.php';
                     }
                 });
             }
