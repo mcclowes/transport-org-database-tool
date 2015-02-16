@@ -588,7 +588,7 @@ function getJourney($mysqli, $Journey_ID){
 		$statement->close();
 	}
 	$rdata['Booking_Date'] = outputDate($rdata['Booking_Date']);
-	$rdata['Jouney_Date'] = outputDate($rdata['Jouney_Date']);
+	$rdata['Journey_Date'] = outputDate($rdata['Journey_Date']);
 	$rdata['Invoice_Sent'] = outputDate($rdata['Invoice_Sent']);
 	$rdata['Invoice_Paid'] = outputDate($rdata['Invoice_Paid']);
 
