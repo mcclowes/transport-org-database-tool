@@ -467,7 +467,9 @@ function getGroup($mysqli, $Group_ID){
 		$Group['Destination'] = getAddress($mysqli, $Address_ID2);
 
 	}
-	else{print_r("not worked");}
+	else{
+		print_r("not worked");
+	}
 
 	return $Group;
 
@@ -617,7 +619,7 @@ function getJourney($mysqli, $Journey_ID){
 	return $rdata;
 	}
 
-}
+
 
 
 function getJourneyMembers($mysqli,$Journey_ID){
