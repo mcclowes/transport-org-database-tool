@@ -20,7 +20,7 @@ ________________________________________________________________________________
 How to get started:
 
 1. Hmmm...  
-    ```bash
+    ```
     Blah blah blah
     ```
 
@@ -34,7 +34,9 @@ Blah the point of this software blah
 #### Add a journey
 ##### Add a Group/ Organisation Journey
 1. Navigate to **'Add Group Journey'**
-  Journeys > Add Group Journey
+```
+Journeys > Add Group Journey
+```
 2. Fill in the details and address of the bookee, selecting the correct group from the dropdown list
 3. Press the 'Next' button
 4. Fill in the booking details
