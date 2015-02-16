@@ -14,7 +14,6 @@
         <div id="wctLogo"></div>
         <?php include 'nav.php' ?>
         <script>
-		
 			var global_journeys = "";
 		
 			function buildJourneyString(returned_data) {

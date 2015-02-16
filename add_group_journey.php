@@ -7,7 +7,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 		<?php
-		
 			if (isset($_POST['submit'])) {
 				$is_edit = true;
 				
@@ -16,11 +15,9 @@
 			else {
 				$is_edit = false;
 			}
-			
 		?>
 
         <script type="text/javascript">
-        	
         	//GLOBAL VARIABLE FOR NUMBER OF PICKUPS
         	number_of_pickups = 1;
         
@@ -268,12 +265,9 @@
 						document.getElementById('input-Invoiced_Cost').value = returned_data['Invoiced_Cost'];
 						document.getElementById('date-Invoice_Sent').value = returned_data['Invoice_Sent'];
 						document.getElementById('date-Invoice_Paid').value = returned_data['Invoice_Paid'];
-						document.getElementById('input-Journey_Notes').value = returned_data['Journey_Notes'];
-                		
+						document.getElementById('input-Journey_Notes').value = returned_data['Journey_Notes'];	
                     }
                 });
-                
-                
             }
             
             function init(){
@@ -290,7 +284,6 @@
 			}
 
         </script>
-        
     </head>
     <body onload="init();">
         <div id="wctLogo"></div>
