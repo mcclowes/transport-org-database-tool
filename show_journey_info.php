@@ -28,6 +28,7 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
+                        //alert(JSON.stringify(returned_data));
                         $('#fName').text(returned_data['fName']);
                         $('#sName').text(returned_data['sName']);
                         $('#Tel_No').text(returned_data['Tel_No']);
@@ -47,6 +48,21 @@
                         $('#Transferees').text(returned_data['Transferees']);
                         $('#Other_Access').text(returned_data['Other_Access']);
                         $('#Booked_By').text(returned_data['Booked_By']);
+                        $('#Destination_Line1').text(returned_data['Destination']['Line1']);
+                        $('#Destination_Line2').text(returned_data['Destination']['Line2']);
+                        $('#Destination_Line3').text(returned_data['Destination']['Line3']);
+                        $('#Destination_Line4').text(returned_data['Destination']['Line4']);
+                        $('#Destination_Line5').text(returned_data['Destination']['Line5']);
+                        $('#Destination_Post_Code').text(returned_data['Destination']['Post_Code']);
+                        //Add more pick up stuff
+                        $('#Pickup_1_Line1').text(returned_data['Pickups'][0]['Address']['Line1']);
+                        $('#Pickup_1_Line2').text(returned_data['Pickups'][0]['Address']['Line2']);
+                        $('#Pickup_1_Line3').text(returned_data['Pickups'][0]['Address']['Line3']);
+                        $('#Pickup_1_Line4').text(returned_data['Pickups'][0]['Address']['Line4']);
+                        $('#Pickup_1_Line5').text(returned_data['Pickups'][0]['Address']['Line5']);
+                        $('#Pickup_1_Post_Code').text(returned_data['Pickups'][0]['Address']['Post_Code']);
+                        $('#Pickup_1_Time').text(returned_data['Pickups'][0]['Time']);
+                        $('#Pickup_1_Note').text(returned_data['Pickups'][0]['Note']);
 
 
                     }
@@ -123,7 +139,7 @@
                 </fieldset>
                 <!--add new pickup-->
                 <fieldset id="returnDetails">
-                    <legend>Pickup Address</legend>
+                    <legend>Return Details</legend>
                     <table>
                         <tr><td><label>Return time: </label></td><td id="Return_Time"><td></tr>
                         <tr><td><label>Return note: </label></td><td id="Return_Note"><td></tr>
