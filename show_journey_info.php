@@ -3,7 +3,6 @@
 	
 		<?php
 			$id = $_GET['id'];
-			echo($id);
 		?>
 	
         <title>WCT Tool | Home</title>

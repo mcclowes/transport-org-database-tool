@@ -10,14 +10,11 @@
 		
 			if (isset($_POST['submit'])) {
 				$is_edit = true;
-				echo($is_edit);
 				
 				$id = $_POST['Journey_ID'];
-				echo($id);
 			}
 			else {
 				$is_edit = false;
-				echo($is_edit);
 			}
 			
 		?>
