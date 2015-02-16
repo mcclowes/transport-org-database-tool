@@ -87,7 +87,7 @@
     </head>
     <body onload="getJourney()">
         <div id="wctLogo"></div>
-            <?php include 'nav.php' ?>
+        <?php include 'nav.php' ?>
         <div id="main">
             <div id="main">
             <div id="journeyInfo">
