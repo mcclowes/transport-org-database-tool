@@ -51,6 +51,7 @@
         </script>
         
     </head>
+<<<<<<< HEAD
     <body onload='populateJourneys()'>
         <nav>
             <ul>
@@ -87,6 +88,10 @@
                 </li>
             </ul>
         </nav>
+=======
+    <body>
+        <?php include 'nav.php' ?>
+>>>>>>> FETCH_HEAD
         <div id="main">
         	<div>
         	<form method='POST' action='add_journey.php'>

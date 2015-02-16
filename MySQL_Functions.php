@@ -124,17 +124,17 @@ switch ($type) {
 		break;
 
 	case 'getTCMembers':
-		$rdata = getJourneys($mysqli);
+		$rdata = TCMembers($mysqli);
 		echo json_encode($rdata);
 		break;
 
 	case 'getPickups':
-		$rdata = getJourneys($mysqli,$data['Journey_ID']);
+		$rdata = getPickups($mysqli,$data['Journey_ID']);
 		echo json_encode($rdata);
 		break;
 
 	case 'getVehicleCheckProblems':
-		$rdata = getJourneys($mysqli);
+		$rdata = getVehicleCheckProblems($mysqli);
 		echo json_encode($rdata);
 		break;
 
@@ -397,7 +397,7 @@ function getJourneys($mysqli){
 		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
 		while($statement->fetch()){
 
-			if($stm = $mysqli->prepare(" SELECT MAX(Time) FROM Pickups WHERE Journey_ID = ?;")){
+			if($stm = $mysqli->prepare(" SELECT MIN(Time) FROM Pickups WHERE Journey_ID = ?;")){
 
 				$stm->bind_param("i", $Journey_ID);
 				$stm->execute();
@@ -440,6 +440,7 @@ function getJourney($mysqli, $Journey_ID){
 
 		$rdata['Address'] = getAddress($mysqli, $Address_ID1);
 		$rdata['Destination'] = getAddress($mysqli, $Address_ID2);
+		$rdata['Pickups'] = getPickups($mysqli,$rdata['Journey_ID']);
 
 	}
 
@@ -524,6 +525,7 @@ function getTCMembers($mysqli){
 function getPickups($mysqli,$Journey_ID){
 	$Pickup = array();
 	$Pickups = array();
+	$Pickups['No_Pickups'] = 0;
 
 	if($statement = $mysqli->prepare(" SELECT Note, Address_ID, Time FROM  Pickups WHERE Journey_ID = ?;")){
 		$statement->bind_param('i',$Journey_ID);
@@ -537,6 +539,7 @@ function getPickups($mysqli,$Journey_ID){
 			$Pickup['Time'] = $Time;
 
 			array_push($Pickups, $Pickup);
+			$Pickups['No_Pickups']++;
 		}
 
 	}
