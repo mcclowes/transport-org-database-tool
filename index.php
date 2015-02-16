@@ -13,11 +13,7 @@
     <body onload="loadJourneys()">
         <div id="wctLogo"></div>
         <?php include 'nav.php' ?>
-        <div id="main">
-        	<div id='cTitle'><br><br>Journey Overview</div>
-			<div id='calendar'></div>
-        </div>
-		<script>
+        <script>
 		
 			var global_journeys = "";
 		
@@ -97,5 +93,9 @@
 			}		
 		
 		</script>
+        <div id="main">
+        	<div id='cTitle'><br><br>Journey Overview</div>
+			<div id='calendar'></div>
+        </div>
     </body>
 </html>
