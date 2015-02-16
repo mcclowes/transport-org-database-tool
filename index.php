@@ -89,12 +89,11 @@
                         buildJourneyString(returned_data);						
                     }
                 });				
-			
 			}		
-		
 		</script>
+		
         <div id="main">
-        	<div id='cTitle'><br><br>Journey Overview</div>
+        	<div id='cTitle'><br>Journey Overview</div>
 			<div id='calendar'></div>
         </div>
     </body>
