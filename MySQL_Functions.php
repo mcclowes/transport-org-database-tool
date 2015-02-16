@@ -512,14 +512,17 @@ function getJourney($mysqli, $Journey_ID){
 								$rdata['No_Passengers'], $rdata['Passengers_Note'], $rdata['Wheelchairs'], $rdata['Transferees'], $rdata['Other_Access'], $rdata['Booked_By'], $rdata['Driver_ID'], $rdata['Vehicle'], 
 								$rdata['Keys_To_Collect'], $rdata['Quote'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']);
 		$statement->fetch();
-
+	}
 		$rdata['Booking_Date'] = outputDate($rdata['Booking_Date']);
 		$rdata['Jouney_Date'] = outputDate($rdata['Jouney_Date']);
 		$rdata['Invoice_Sent'] = outputDate($rdata['Invoice_Sent']);
 		$rdata['Invoice_Paid'] = outputDate($rdata['Invoice_Paid']);
 
+		if(!is_null($rdata['Group_ID'])){
 		$rdata['GroupDets'] =  getGroup($mysqli, $rdata['Group_ID']);
 		$rdata['Group_Name'] = $rdata['GroupDets']['Name'];
+	}
+		
 		$rdata['VehicleDets'] = getVehicle($mysqli,$rdata['Vehicle']);
 		$rdata['Vehicle_Nickname'] = $rdata['VehicleDets']['Nickname'];
 		$rdata['DriverDets'] = getDriver($mysqli,$rdata['Driver_ID']);
@@ -531,7 +534,6 @@ function getJourney($mysqli, $Journey_ID){
 
 		$rdata['Pickups'] = getPickups($mysqli,$rdata['Journey_ID']);
 
-	}
 
 	return $rdata;
 
