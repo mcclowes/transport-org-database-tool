@@ -7,10 +7,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 		<?php
-			if (isset($_GET['id'])) {
+		
+			if (isset($_POST['submit'])) {
 				$is_edit = true;
 				
-				$id = $_GET['id'];
+				$id = $_POST['Journey_ID'];
 			}
 			else {
 				$is_edit = false;

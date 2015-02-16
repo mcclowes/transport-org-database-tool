@@ -7,10 +7,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 		<?php
-			if (isset($_GET['id'])) {
+			if (isset($_POST['submitButton'])) {
 				$is_edit = true;
 				
-				$id = $_GET['id'];
+				$id = $_POST['Journey_ID'];
 			}
 			else {
 				$is_edit = false;
@@ -381,8 +381,8 @@
                                 <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-Quote"/> <td></tr>
                                 <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-Distance_Run"/> <td></tr>
                                 <tr><td><label>Invoiced cost: </label></td><td><input type="text" id="input-Invoiced_Cost"/> <td></tr>
-                                <tr><td><label>Invoice sent on: </label></td><td><input type="date" id="date-Invoice_Sent"/> <td></tr>
-                                <tr><td><label>Invoice paid on: </label></td><td><input type="date" id="date-Invoice_Paid"/> <td></tr>
+                                <tr><td><label>Invoice sent on: </label></td><td><input type="text" id="date-Invoice_Sent"/> <td></tr>
+                                <tr><td><label>Invoice paid on: </label></td><td><input type="text" id="date-Invoice_Paid"/> <td></tr>
                             </table>
                         </fieldset>
                         <fieldset id="notes">

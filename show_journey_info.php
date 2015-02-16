@@ -11,10 +11,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		
 		<script>
-		
-			function submit() {
-				window.location = 'add_group_journey.php?id=' + <?php echo $id ?>;
-			}
 			
 			function getJourney() {
 			
@@ -176,9 +172,8 @@
 	                <fieldset id="notes">
 	                    <legend>Journey Notes</legend><p id="Journey_Notes"></p>
 	                </fieldset>
-	                </br>
+	                    </br>
 	            </div>
-	            <input type="submit" id='submitButton' name="submit" value="Edit" onclick='submit()' />
 	        </div>
 	    </div>
     </body>
