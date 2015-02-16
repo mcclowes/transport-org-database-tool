@@ -247,26 +247,26 @@
 						document.getElementById('input-Destination_Line5').value = returned_data['Destination']['Line5'];
 						document.getElementById('input-Destination_Post_Code').value = returned_data['Destination']['Post_Code'];
 												
-						document.getElementById('input-Pickup_1_Time').value = returned_data['Pickups']['1']['Time'];
-						document.getElementById('input-Pickup_1_Note').value = returned_data['Pickups']['1']['Note'];
-						document.getElementById('input-Pickup_1_Line1').value = returned_data['Pickups']['1']['Address']['Line1'];
-						document.getElementById('input-Pickup_1_Line2').value = returned_data['Pickups']['1']['Address']['Line2'];
-						document.getElementById('input-Pickup_1_Line3').value = returned_data['Pickups']['1']['Address']['Line3'];
-						document.getElementById('input-Pickup_1_Line4').value = returned_data['Pickups']['1']['Address']['Line4'];
-						document.getElementById('input-Pickup_1_Line5').value = returned_data['Pickups']['1']['Address']['Line5'];
-						document.getElementById('input-Pickup_1_Post_Code').value = returned_data['Pickups']['1']['Address']['Post_Code'];
+// 						document.getElementById('input-Pickup_1_Time').value = returned_data['Pickups'][1]['Time'];
+// 						document.getElementById('input-Pickup_1_Note').value = returned_data['Pickups'][1]['Note'];
+// 						document.getElementById('input-Pickup_1_Line1').value = returned_data['Pickups'][1]['Address']['Line1'];
+// 						document.getElementById('input-Pickup_1_Line2').value = returned_data['Pickups'][1]['Address']['Line2'];
+// 						document.getElementById('input-Pickup_1_Line3').value = returned_data['Pickups'][1]['Address']['Line3'];
+// 						document.getElementById('input-Pickup_1_Line4').value = returned_data['Pickups'][1]['Address']['Line4'];
+// 						document.getElementById('input-Pickup_1_Line5').value = returned_data['Pickups'][1]['Address']['Line5'];
+// 						document.getElementById('input-Pickup_1_Post_Code').value = returned_data['Pickups'][1]['Address']['Post_Code'];
 						
-// 						number_of_pickups = returned_data['Pickups']['No_Pickups'];
-// 						for (var x = 1; x <= number_of_pickups; x++) {
-// 							document.getElementById('input-Pickup_' + x + '_Time').value = returned_data['Pickups'][x-1]['Time'];
-// 							document.getElementById('input-Pickup_' + x + '_Note').value = returned_data['Pickups'][x-1]['Note'];
-// 							document.getElementById('input-Pickup_' + x + '_Line1').value = returned_data['Pickups'][x-1]['Address']['Line1'];
-// 							document.getElementById('input-Pickup_' + x + '_Line2').value = returned_data['Pickups'][x-1]['Address']['Line2'];
-// 							document.getElementById('input-Pickup_' + x + '_Line3').value = returned_data['Pickups'][x-1]['Address']['Line3'];
-// 							document.getElementById('input-Pickup_' + x + '_Line4').value = returned_data['Pickups'][x-1]['Address']['Line4'];
-// 							document.getElementById('input-Pickup_' + x + '_Line5').value = returned_data['Pickups'][x-1]['Address']['Line5'];
-// 							document.getElementById('input-Pickup_' + x + '_Post_Code').value = returned_data['Pickups'][x-1]['Address']['Post_Code'];
-// 						}
+						number_of_pickups = returned_data['Pickups']['No_Pickups'];
+						for (var x = 1; x <= number_of_pickups; x++) {
+							document.getElementById('input-Pickup_' + x + '_Time').value = returned_data['Pickups'][x]['Time'];
+							document.getElementById('input-Pickup_' + x + '_Note').value = returned_data['Pickups'][x]['Note'];
+							document.getElementById('input-Pickup_' + x + '_Line1').value = returned_data['Pickups'][x]['Address']['Line1'];
+							document.getElementById('input-Pickup_' + x + '_Line2').value = returned_data['Pickups'][x]['Address']['Line2'];
+							document.getElementById('input-Pickup_' + x + '_Line3').value = returned_data['Pickups'][x]['Address']['Line3'];
+							document.getElementById('input-Pickup_' + x + '_Line4').value = returned_data['Pickups'][x]['Address']['Line4'];
+							document.getElementById('input-Pickup_' + x + '_Line5').value = returned_data['Pickups'][x]['Address']['Line5'];
+							document.getElementById('input-Pickup_' + x + '_Post_Code').value = returned_data['Pickups'][x]['Address']['Post_Code'];
+						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
 						document.getElementById('input-Return_Note').value = returned_data['Return_Note'];
