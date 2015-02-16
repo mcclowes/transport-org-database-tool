@@ -28,7 +28,7 @@
                     'fName':                        document.getElementById('input-fName').value,
                     'sName':                        document.getElementById('input-sName').value,
                     'Tel_No':                       document.getElementById('input-Tel_No').value,
-                    'Group':						document.getElementById('dropdown-Group').value,
+                    'Group_ID':						document.getElementById('dropdown-Group').value,
                     'Address':{
                         'Line1':                    document.getElementById('input-Address_Line1').value,
                         'Line2':                    document.getElementById('input-Address_Line2').value,
@@ -70,7 +70,7 @@
 					},
 					'Return_Time':					document.getElementById('input-Return_Time').value,
 					'Return_Note':					document.getElementById('input-Return_Note').value,
-					'Driver':						document.getElementById('dropdown-Driver').value,
+					'Driver_ID':					document.getElementById('dropdown-Driver').value,
 					'Vehicle':						document.getElementById('dropdown-Vehicle').value,
 					'Keys_To_Collect':				document.getElementById('input-Keys_To_Collect').value,
 					'Quote':						document.getElementById('input-Quote').value,
@@ -78,7 +78,7 @@
 					'Invoiced_Cost':				document.getElementById('input-Invoiced_Cost').value,
 					'Invoice_Sent':					document.getElementById('date-Invoice_Sent').value,
 					'Invoice_Paid':					document.getElementById('date-Invoice_Paid').value,
-					'Journey_Notes':				document.getElementById('input-Journey_Notes').value,
+					'Journey_Note':					document.getElementById('input-Journey_Notes').value,
                 };
                 
                 
