@@ -693,7 +693,7 @@ function getTCMembers($mysqli){
 function getPickups($mysqli,$Journey_ID){
 	$Pickup = array();
 	$Pickups = array();
-	$Pickups['No_Pickups'] = 0;
+	$No_Pickups = 0;
 
 	if($statement = $mysqli->prepare(" SELECT Note, Address_ID, Time FROM  Pickups WHERE Journey_ID = ?;")){
 		$statement->bind_param('i',$Journey_ID);
@@ -707,10 +707,11 @@ function getPickups($mysqli,$Journey_ID){
 			$Pickup['Time'] = $Time;
 
 			array_push($Pickups, $Pickup);
-			$Pickups['No_Pickups']++;
+			$No_Pickups++;
 		}
 
 	}
+	$Pickups['No_Pickups'] = $No_Pickups;
 	return $Pickups;
 
 }
