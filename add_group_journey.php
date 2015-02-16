@@ -87,6 +87,7 @@
 					'Journey_Notes':				document.getElementById('input-Journey_Notes').value,
                 };
                 
+                
                 $.ajax({
                     type: "POST",
                     url:"MySQL_Functions.php",
@@ -154,28 +155,6 @@
                     		var item = document.createElement("option");
                     		item.textContent = returned_data[i]['Name'];
                     		item.value = returned_data[i]['Group_ID'];
-                    		dropdown.appendChild(item);
-                    	}
-                    }
-                });
-            }
-        	
-            function populateTCMembers(){
-            	var dropdown = document.getElementById('dropdown-TCMembers');
-            	
-                $.ajax({
-                    type: "POST",
-                    url:"MySQL_Functions.php",
-                    data: {
-                        'form_type': 'getTCMembers'
-                    },
-                    dataType: "json",
-                    success: function(returned_data) {
-                    	alert('1');
-                    	for(var i = 0; i < returned_data.length; i++) {
-                    		var item = document.createElement("option");
-                    		item.textContent = returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ' (' + returned_data[i]['Post_Code'] + ')';
-                    		item.value = returned_data[i]['TC_Member_ID'];
                     		dropdown.appendChild(item);
                     	}
                     }
@@ -304,19 +283,13 @@
 				startScreen();
 				populateDrivers();
 				populateVehicles();
-				
 				populateGroups();
-				populateTCMembers();
 				
 				var is_edit = '<?php echo $is_edit; ?>';
 				if (is_edit == '1') {
 					var id = '<?php echo $id; ?>'
 					populateEditFields(id);
 				}
-			}
-			
-			function addTCMemberField() {
-				alert('add TC');
 			}
 
         </script>
@@ -337,22 +310,10 @@
 								<tr><td><label>Surname: </label></td><td><input type="text" id="input-sName"/> <td></tr>
 								<tr><td><label>Contact Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
 								
-								
     							<tr><td><label>Group: </label></td><td>
 								<select id="dropdown-Group"> 
 									<option>Choose a Group</option>
 								</select><td></tr>
-								
-								
-    							<tr><td><label>Members: </label></td>
-								<td><select id="dropdown-TCMembers"> 
-									<option>Choose a Travel Club Member</option>
-								</select></td>
-								<td>
-								<div id="addTCMember" onclick="addTCMemberField()">Add</div>
-								</td></tr>
-								
-								
 							</table>
 						</fieldset>
 						<fieldset id="bookeeAddress">

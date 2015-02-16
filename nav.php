@@ -4,8 +4,8 @@
         <li><a href="journeys.php">Journeys</a>
             <ul>
                 <li><a href="journeys.php">Manage Journeys</a></li>
-                <li><a href="add_journey.php?id=Group">Add Group Journey</a></li>
-                <li><a href="add_journey.php?id=TC">Add Travel Club Journey</a></li>
+                <li><a href="add_group_journey.php">Add Group Journey</a></li>
+                <li><a href="add_TC_journey.php">Add Travel Club Journey</a></li>
                 <li><a href="forms/Group_Booking_Form.pdf" download>Group Booking Form</a></li>
                 <li><a href="forms/Individual_Booking_Form.pdf" download>Individual Booking Form</a></li>
             </ul>
