@@ -11,10 +11,11 @@ ________________________________________________________________________________
 
 Contributors:
  - [Maxi Clayton Clowes](https://github.com/jamtat)
- - [Will Jones](https://github.com/Cwebster95)
- - [Zack Hodari](https://github.com/Samalot)
- - [Ed Key](https://github.com/nathanosborn)
- - [Will Johnson](https://github.com/AlekseySolovey)
+ - [Will Jones](https://github.com/willjejones)
+ - [Zack Hodari](https://github.com/ZackHodari)
+ - [Ed Key](https://github.com/keyead)
+ - [Will Johnson](https://github.com/WillJCJ)
+  
 ________________________________________________________________________________
 
 How to get started:
