@@ -6,6 +6,22 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+		<?php
+		
+			if (isset($_POST['submit'])) {
+				$is_edit = true;
+				echo($is_edit);
+				
+				$id = $_POST['Journey_ID'];
+				echo($id);
+			}
+			else {
+				$is_edit = false;
+				echo($is_edit);
+			}
+			
+		?>
+
         <script type="text/javascript">
         	
         	//GLOBAL VARIABLE FOR NUMBER OF PICKUPS
@@ -47,7 +63,7 @@
 						'No_Pickups':				number_of_pickups,
 						'1':{
 							'Time':					document.getElementById('input-Pickup_1_Time').value,
-							'Note':					document.getElementById('input-Pickup_1_Time').value,
+							'Note':					document.getElementById('input-Pickup_1_Note').value,
 							'Address':{
 								'Line1':			document.getElementById('input-Pickup_1_Line1').value,
 								'Line2':			document.getElementById('input-Pickup_1_Line2').value,
@@ -186,16 +202,90 @@
                 });
             }
             
+            function populateEditFields(Journey_ID) {
+            	
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getJourney',
+                        'form_data': {'Journey_ID': Journey_ID}
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                		
+						document.getElementById('input-fName').value = returned_data['fName'];
+						document.getElementById('input-sName').value = returned_data['sName'];
+						document.getElementById('input-Tel_No').value = returned_data['Tel_No'];
+						document.getElementById('dropdown-Group').value = returned_data['Group_ID']; //CHANGE THIS TO FIND GROUP NAME
+						document.getElementById('input-Address_Line1').value = returned_data['Address']['Line1'];
+						document.getElementById('input-Address_Line2').value = returned_data['Address']['Line2'];
+						document.getElementById('input-Address_Line3').value = returned_data['Address']['Line3'];
+						document.getElementById('input-Address_Line4').value = returned_data['Address']['Line4'];
+						document.getElementById('input-Address_Line5').value = returned_data['Address']['Line5'];
+						document.getElementById('input-Address_Post_Code').value = returned_data['Post_Code'];
+						document.getElementById('input-Journey_Description').value = returned_data['Journey_Description'];
+						document.getElementById('date-Journey_Date').value = returned_data['Journey_Date'];
+						document.getElementById('number-No_Passengers').value = returned_data['No_Passengers'];
+						document.getElementById('input-Passengers_Note').value = returned_data['Passengers_Note'];
+						document.getElementById('number-Wheelchairs').value = returned_data['Wheelchairs'];
+						document.getElementById('number-Transferees').value = returned_data['Transferees'];
+						document.getElementById('input-Other_Access').value = returned_data['Other_Access'];
+						document.getElementById('input-Booked_By').value = returned_data['Booked_By'];
+						document.getElementById('input-Destination_Line1').value = returned_data['Destination']['Line1'];
+						document.getElementById('input-Destination_Line2').value = returned_data['Destination']['Line2'];
+						document.getElementById('input-Destination_Line3').value = returned_data['Destination']['Line3'];
+						document.getElementById('input-Destination_Line4').value = returned_data['Destination']['Line4'];
+						document.getElementById('input-Destination_Line5').value = returned_data['Destination']['Line5'];
+						document.getElementById('input-Destination_Post_Code').value = returned_data['Destination']['Post_Code'];
+						
+						number_of_pickups = returned_data['Pickups']['No_Pickups'];
+						for (var x = 1; x <= number_of_pickups; x++) {
+							document.getElementById('input-Pickup_' + x + '_Time').value = returned_data['Pickups'][x]['Time'];
+							document.getElementById('input-Pickup_' + x + '_Time').value = returned_data['Pickups'][x]['Note'];
+							document.getElementById('input-Pickup_' + x + '_Line1').value = returned_data['Pickups'][x]['Address']['Line1'];
+							document.getElementById('input-Pickup_' + x + '_Line2').value = returned_data['Pickups'][x]['Address']['Line1'];
+							document.getElementById('input-Pickup_' + x + '_Line3').value = returned_data['Pickups'][x]['Address']['Line1'];
+							document.getElementById('input-Pickup_' + x + '_Line4').value = returned_data['Pickups'][x]['Address']['Line1'];
+							document.getElementById('input-Pickup_' + x + '_Line5').value = returned_data['Pickups'][x]['Address']['Line1'];
+							document.getElementById('input-Pickup_' + x + '_Post_Code').value = returned_data['Pickups'][x]['Address']['Post_Code'];
+						}
+						
+						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
+						document.getElementById('input-Return_Note').value = returned_data['Return_Note'];
+						document.getElementById('dropdown-Driver').value = returned_data['Driver'];
+						document.getElementById('dropdown-Vehicle').value = returned_data['Vehicle'];
+						document.getElementById('input-Keys_To_Collect').value = returned_data['Keys_To_Collect'];
+						document.getElementById('input-Quote').value = returned_data['Quote'];
+						document.getElementById('input-Distance_Run').value = returned_data['Distance_Run'];
+						document.getElementById('input-Invoiced_Cost').value = returned_data['Invoiced_Cost'];
+						document.getElementById('date-Invoice_Sent').value = returned_data['Invoice_Sent'];
+						document.getElementById('date-Invoice_Paid').value = returned_data['Invoice_Paid'];
+						document.getElementById('input-Journey_Notes').value = returned_data['Journey_Notes'];
+                		
+                    }
+                });
+                
+                
+            }
+            
             function init(){
 				startScreen();
 				populateGroups();
 				populateDrivers();
 				populateVehicles();
-            }
+				
+				var is_edit = '<?php echo $is_edit; ?>';
+				if (is_edit == '1') {
+					var id = '<?php echo $id; ?>'
+					populateEditFields(id);
+				}
+			}
 
         </script>
+        
     </head>
-    <body onload="init()">
+    <body onload="init();">
         <div id="wctLogo"></div>
         <nav>
             <ul>

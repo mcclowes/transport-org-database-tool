@@ -48,7 +48,6 @@
             </ul>
         </nav>
         <div id="main">
-            Insert content here
         </div>
 		<script>
 		
