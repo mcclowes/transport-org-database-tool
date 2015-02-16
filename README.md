@@ -7,6 +7,24 @@ PHP PDF creator API: http://www.tcpdf.org/
 Jquery calendar API: http://fullcalendar.io  
 
 For database fields see WCT_Table.xls
+________________________________________________________________________________
+
+Contributors:
+ - [Maxi Clayton Clowes](https://github.com/jamtat)
+ - [Will Jones](https://github.com/Cwebster95)
+ - [Zack Hodari](https://github.com/Samalot)
+ - [Ed Key](https://github.com/nathanosborn)
+ - [Will Johnson](https://github.com/AlekseySolovey)
+________________________________________________________________________________
+
+How to get started:
+
+1. Clone the repo
+    ```bash
+    git clone https://github.com/jamtat/perfectcleavage.git
+    ```
+
+________________________________________________________________________________
 
 ## Usage Guide
 ### Introduction
