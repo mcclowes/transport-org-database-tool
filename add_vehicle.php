@@ -38,45 +38,6 @@
                     }
                 });
             }
-
-            var i = 0;
-
-            function next(){
-                var pages = ['#page1', '#page2', '#page3'];
-                var currentPage = $(pages[i]);
-                var nextPage = $(pages[i+1]);
-
-                currentPage.animate({
-                    height: "toggle"
-                }, 500, function(){
-                    currentPage.hide();
-                    nextPage.animate({
-                        height: "toggle"
-                    });  
-                });
-
-                i = i + 1;
-
-                if (i == pages.length - 1){
-                    $('#nextButton').animate({
-                        height : "toggle"
-                    }, 250, function(){
-                        $('#submitButton').show();
-                    }); 
-                }
-            }
-
-            function cancel(){
-                window.location.href = "";
-            }
-
-            function startScreen(){
-                $('#page2').hide();
-                $('#page3').hide();
-                $('#submitButton').hide();
-                var i = 0;
-            }
-
         </script>
     </head>
     <body onload="startScreen()">
@@ -114,7 +75,6 @@
                     <input type="text" name="mobility" id="mobility" style='display:none;'/>
                     </br>
                 </form>
-				<div id="nextButton" onclick="next()">Next</div>
 				<div id="submitButton" onclick="submit();">Submit</div>
 				<div id="cancelButton" onclick="cancel()">Cancel</div>
 				<div id='result'></div> 
