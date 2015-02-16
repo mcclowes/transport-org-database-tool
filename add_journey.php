@@ -333,7 +333,7 @@
                                 <tr><td><label>Journey Description: </label></td><td><input type="text" id="input-Journey_Description" placeholder="E.g. WI to Wolsingham Pool"/> <td></tr>
     							<tr><td><label>Date required: </label></td><td><input type="date" id="date-Journey_Date"/> <td></tr>
                                 <tr><td><label>No. of passengers: </label></td><td><input type="text" id="number-No_Passengers"/> <td></tr>
-                                <tr><td><label>Passenger notes: </label></td><td><input type="text" id="input-Passengers_Note"/> <td></tr>
+                                <tr><td><label>Passenger notes: </label></td><td><input type="text" id="input-Passengers_Note" placeholder="E.g. 5 Children 2 Adults"/> <td></tr>
                                 <tr><td><label>No. of wheelchair users: </label></td><td><input type="text" id="number-Wheelchairs"/> <td></tr>
                                 <tr><td><label>No. of wheelchair transfers: </label></td><td><input type="text" id="number-Transferees"/> <td></tr>
                                 <tr><td><label>Other access needs: </label></td><td><input type="text" id="input-Other_Access"/> <td></tr>
@@ -361,7 +361,7 @@
                                 <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Pickup_1_Line5"/> </td></tr>
                                 <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Pickup_1_Post_Code"/> </td></tr>
                                 <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-Pickup_1_Time"/> <td></tr>
-                                <tr><td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_1_Note"/> <td></tr>
+                                <tr><td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_1_Note" placeholder="E.g. Number of people to collect at this locaiton"/> <td></tr>
                             </table>
                         </fieldset>
 <!--ADD A NEW PICKUP-->
@@ -369,7 +369,7 @@
                             <legend>Pickup Address</legend>
                             <table>
                                 <tr><td><label>Return time: </label></td><td><input type="text" id="input-Return_Time"/> <td></tr>
-                                <tr><td><label>Return note: </label></td><td><input type="textarea" id="input-Return_Note"/> <td></tr>
+                                <tr><td><label>Return note: </label></td><td><input type="textarea" id="input-Return_Note" placeholder="List any special requirements"/> <td></tr>
                             </table>
                         </fieldset>
 					</div>
@@ -385,7 +385,7 @@
 								<td><select id="dropdown-Vehicle"> 
 									<option>Choose a Vehicle</option>
 								</select><td></tr>
-                                <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-Keys_To_Collect"/> <td></tr>
+                                <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-Keys_To_Collect" placeholder="E.g. Weardale Hub at 8.45am"/> <td></tr>
                                 <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-Quote"/> <td></tr>
                                 <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-Distance_Run"/> <td></tr>
                                 <tr><td><label>Invoiced cost: </label></td><td><input type="text" id="input-Invoiced_Cost"/> <td></tr>
@@ -395,7 +395,7 @@
                         </fieldset>
                         <fieldset id="notes">
                             <legend>Journey Notes</legend>
-                            <input type="textarea" id="input-Journey_Notes"/>
+                            <input type="textarea" id="input-Journey_Notes" placeholder="Any additional notes"/>
                         </fieldset>
 					</div>
                     <input type="text" name="mobility" id="mobility" style='display:none;'/>
