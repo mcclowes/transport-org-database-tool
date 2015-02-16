@@ -755,16 +755,16 @@ function addAddress($mysqli,$Address){
 
 		$statement->execute();
 	}
-	if($statement = $mysqli->prepare(" SELECT MAX(Address_ID FROM  Addresses;")){
+	if($statement = $mysqli->prepare(" SELECT MAX(Address_ID) FROM  Addresses;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Address_ID);
 		$statement->fetch();
 
 		
-		return $Address_ID;
+		
 	}
-
+	return $Address_ID;
 }
 
 
@@ -845,13 +845,13 @@ function addGroup($mysqli,$Group){
 
 function addJourney($mysqli,$Journey){
 
-		$Address_ID1 = addAddress($mysqli,$Journey['Address']);
-		$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
-		$Booking_Date = date("Y-m-d"); 
+	$Address_ID1 = addAddress($mysqli,$Journey['Address']);
+	$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
+	$Booking_Date = date("Y-m-d"); 
 
 	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
-										Keys_To_Collect, Distance, Quote, Invoice_Sent, Invoice_Paid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
+										Keys_To_Collect, Distance, Quote, Invoice_Cost, Invoice_Sent, Invoice_Paid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
 		$statement->bind_param("sssssisisissisiisssssdddss",
 								$Journey['Journey_Description'],$Journey['Journey_Note'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
@@ -866,7 +866,7 @@ function addJourney($mysqli,$Journey){
 		$statement->bind_result($Journey_ID);
 		$statement->fetch();
 	}
-		return $Journey_ID;
+	return $Journey_ID;
 	
 }
 
