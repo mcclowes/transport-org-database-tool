@@ -39,7 +39,7 @@
 				<select id="dropdown-Journeys" name='Journey_ID'>
 				</select><td></tr>
 				</div>
-				<input type="submit" name="submitButton" id="submitButton" value="Submit" />
+				<input type="submit" id="submitButton" name="submitButton" value="Submit" />
 			</form>
         </div>
     </body>

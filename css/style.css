@@ -152,7 +152,6 @@ legend {
 
 label {
 	padding: 5px;
-
 	font-weight: bold;
 }
 
@@ -190,7 +189,7 @@ input[type=textarea] {
 
 #nextButton, #submitButton, #cancelButton, #addTCMember {
 	background-color: #106500;
-	color: white;
+	color: #fff;
 	font-size: 18pt;
 	padding: 5px;
 	border: none;
@@ -198,4 +197,18 @@ input[type=textarea] {
 	display: inline;
 }
 
+#addTCMember {
+	font-size: 12pt;
+}
+
+#memberList {
+	background: #fff;
+	margin: 20px 0 0 20px;
+	width:350px;
+	color: gray;
+}
+
+#memberList td{
+	padding: 5px 0 0 5px;
+}
 
