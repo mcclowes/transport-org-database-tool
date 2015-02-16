@@ -260,8 +260,6 @@ function getVehicles($mysqli){
 }
 
 function getVehicle($mysqli, $Vehicle_ID){	
-	$Vehicles = array();
-	$Vehicle = array();
 
 	if($statement = $mysqli->prepare(" SELECT Nickname, Registration, Make, Model, Colour, Capacity_Passengers, Tax_Due, MOT_Due, Inspection_Due,
 										 Service_Due, Tail_Service_Due, Section_19_No, Section_19_Due, Seating_Configurations FROM  Vehicles WHERE Vehicle_ID = ?;")){
@@ -288,10 +286,9 @@ function getVehicle($mysqli, $Vehicle_ID){
 			$Vehicle['Tail_Service_Due'] = outputDate($Tail_Service_Due);
 			$Vehicle['Section_19_Due'] = outputDate($Section_19_Due);
 
-			array_push($Vehicles, $Vehicle);
 		}
 	}	
-	return $Vehicles;
+	return $Vehicle;
 	
 }
 
@@ -332,8 +329,6 @@ function getDrivers($mysqli){
 }
 
 function getDriver($mysqli, $Driver_ID){
-	$Drivers = array();
-	$Driver = array();
 	if($statement = $mysqli->prepare(" SELECT fName, sName, Address_ID, Tel_No, Mobile_No, DOB, Licence_No, Licence_Expires, Licence_Points, DBS_No, DBS_Issued, 
 										Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer FROM  Drivers WHERE Driver_ID = ?;")){
 		$statement->bind_param('i',$Driver_ID);
@@ -359,11 +354,10 @@ function getDriver($mysqli, $Driver_ID){
 			$Driver['Licence_Expires'] = outputDate($Licence_Expires);
 			$Driver['DBS_Issued'] = outputDate($DBS_Issued);
 
-			array_push($Drivers, $Driver);
 		}
 
 	}
-	return $Drivers;
+	return $Driver;
 }
 
 
@@ -447,7 +441,8 @@ function getGroup($mysqli, $Group_ID){
 										Social, Statutory, Charity_No, Org_Aim, Activities_Education, Activities_Recreation, Activities_Health, Activities_Religion, Activities_Social, Activities_Inclusion, 
 										Activities_Other, Concerned_Physical, Concerned_Learning, Concerned_Mental_Health, Concerned_Ethnic, Concerned_Alcohol, Concerned_Drug, Concerned_HIV_AIDS, 
 										Concerned_Socially_Isolated, Concerned_Dementia, Concerned_Elderly, Concerned_Pre_School, Concerned_Young, Concerned_Women, Concerned_Health, 
-										Concerned_Rurally_Isolated, Concerned_Other FROM  Group WHERE Group_ID = ?;")){
+										Concerned_Rurally_Isolated, Concerned_Other FROM  Groups WHERE Group_ID = ?;")){
+		print_r("Querrying");
 		$statement->bind_param("i", $Group_ID);
 		$statement->execute();
 		$statement->store_result();
@@ -462,6 +457,7 @@ function getGroup($mysqli, $Group_ID){
 		$Group['Destination'] = getAddress($mysqli, $Address_ID2);
 
 	}
+	else{print_r("not worked");}
 
 	return $Group;
 
@@ -772,19 +768,12 @@ function addJourney($mysqli,$Journey){
 		$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
 		$Booking_Date = date("Y-m-d"); 
 
-	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
+	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
-<<<<<<< Updated upstream
-										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
-
-		$statement->bind_param("ssssisisissisiisssssdss",
-								$Journey['Journey_Description'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
-=======
 										Keys_To_Collect, Distance, Quote, Invoice_Sent, Invoice_Paid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
 		$statement->bind_param("sssssisisissisiisssssdddss",
 								$Journey['Journey_Description'],$Journey['Journey_Note'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
->>>>>>> Stashed changes
 								$Journey['No_Passengers'], $Journey['Passengers_Note'], $Journey['Wheelchairs'], $Journey['Transferees'], $Journey['Other_Access'], $Journey['Booked_By'], $Journey['Driver_ID'], $Journey['Vehicle'], 
 								$Journey['Keys_To_Collect'], $Journey['Distance_Run'], $Journey['Quote'], $Journey['Invoice_Cost'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
 		$statement->execute();
