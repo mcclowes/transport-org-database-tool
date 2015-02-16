@@ -27,8 +27,28 @@
 						'form_data': id_data
                     },
                     dataType: "json",
-                    complete: function(returned_data) {						
-						$('#main').replaceWith('<div id="main">'+JSON.stringify(returned_data)+'</div>');						
+                    success: function(returned_data) {
+                        $('#fName').text(returned_data['fName']);
+                        $('#sName').text(returned_data['sName']);
+                        $('#Tel_No').text(returned_data['Tel_No']);
+                        $('#Group').text(returned_data['Group_Name']);
+                        $('#Address_Line1').text(returned_data['Address']['Line1']);
+                        $('#Address_Line2').text(returned_data['Address']['Line2']);
+                        $('#Address_Line3').text(returned_data['Address']['Line3']);
+                        $('#Address_Line4').text(returned_data['Address']['Line4']);
+                        $('#Address_Line5').text(returned_data['Address']['Line5']);
+                        $('#Address_Post_Code').text(returned_data['Address']['Post_Code']);
+                        $('#Booking_Date').text(returned_data['Booking_Date']);
+                        $('#Journey_Description').text(returned_data['Journey_Description']);
+                        $('#Journey_Date').text(returned_data['Journey_Date']);
+                        $('#No_Passengers').text(returned_data['No_Passengers']);
+                        $('#Passengers_Note').text(returned_data['Passengers_Note']);
+                        $('#Wheelchairs').text(returned_data['Wheelchairs']);
+                        $('#Transferees').text(returned_data['Transferees']);
+                        $('#Other_Access').text(returned_data['Other_Access']);
+                        $('#Booked_By').text(returned_data['Booked_By']);
+
+
                     }
                 });
 			
@@ -71,8 +91,8 @@
                         <tr><td><label>Date required: </label></td><td id="Journey_Date"><td></tr>
                         <tr><td><label>No. of passengers: </label></td><td id="No_Passengers"><td></tr>
                         <tr><td><label>Passenger notes: </label></td><td id="Passengers_Note"><td></tr>
-                        <tr><td><label>No. of wheelchair users/ transfers: </label></td><td id="Wheelchairs"><td></tr>
-                        <tr><td><label>No. of wheelchair users/ transfers: </label></td><td id="Transferees"><td></tr>
+                        <tr><td><label>No. of wheelchair users: </label></td><td id="Wheelchairs"><td></tr>
+                        <tr><td><label>No. of wheelchair transferees: </label></td><td id="Transferees"><td></tr>
                         <tr><td><label>Other access needs: </label></td><td id="Other_Access"><td></tr>
                         <tr><td><label>Booking taken by: </label></td><td id="Booked_By"><td></tr>
                     </table>
