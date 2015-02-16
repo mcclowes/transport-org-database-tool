@@ -13,6 +13,14 @@ body {
 	margin: 0 auto;
 }
 
+div .fc-toolbar {
+	z-index: -1;
+}
+
+div .fc-view-container {
+	z-index: -1;
+}
+
 #cTitle {
 	width: 175px;
 	height: 100px;
@@ -29,10 +37,12 @@ nav {
 
 nav ul ul {
 	display: none;
+	z-index: 10;
 }
 
 	nav ul li:hover > ul {
 		display: block;
+		z-index: 10;
 	}
 
 nav ul {
@@ -44,6 +54,7 @@ nav ul {
 	list-style: none;
 	position: relative;
 	display: inline-table;
+	z-index: 10;
 }
 	nav ul:after {
 		content: ""; clear: both; display: block;

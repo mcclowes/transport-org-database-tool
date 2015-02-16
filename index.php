@@ -14,6 +14,8 @@
         <div id="wctLogo"></div>
         <?php include 'nav.php' ?>
         <div id="main">
+        	<div id='cTitle'><br><br>Journey Overview</div>
+			<div id='calendar'></div>
         </div>
 		<script>
 		
@@ -24,13 +26,17 @@
 				var journeys = "[ ";
 			
 				for(var i = 0; i < returned_data.length; i++) {
-					var journey = "{		title: '" + String(returned_data[i]['Journey_Description']) + "',		start: '" + changeDate(returned_data[i]['Journey_Date']) + "',		url: 'show_journey_info.php?id=" + String(returned_data[i]['Journey_ID']) + "'	}";
+					var journey = "{		title: '" + String(returned_data[i]['Journey_Description']) + "',		start: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Pickup_Time']) + "', end: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Return_Time']) + "',	url: 'show_journey_info.php?id=" + String(returned_data[i]['Journey_ID']) + "'	}";
 					//var journey = "{		title: 'WI to Quiz Night',		start: '2015-02-03',		url: 'show_journey_info.php?id=1'	},	{		title: 'Shopping Trip',		start: '2015-02-09T11-00',		end: '2015-02-09T13-00', url: 'show_journey_info.php?id=2'	}";
+					
 					journeys += journey;
 					if(i < (returned_data.length - 1)) {
 						journeys += ", ";
 					}
                 }
+
+                //returned_data[i]['Pickup_Time']
+                //returned_data[i]['Return_Time']
 				
 				journeys += " ]";
 				var newEvents = journeys;
@@ -68,6 +74,11 @@
 				date_string = date_string.replace(/\//g, "-");				
 				return date_string.split("-").reverse().join("-");	
 			}
+
+			function formatTime(time_string) {
+				time_string = time_string.replace(/:/g, "-");
+				return time_string.substr(0,time_string.length - 3);
+			}
 			
 			function loadJourneys() {
 			
@@ -86,8 +97,5 @@
 			}		
 		
 		</script>
-		
-	<div id='cTitle'><br><br>Journey Overview</div>
-	<div id='calendar'></div>
     </body>
 </html>
