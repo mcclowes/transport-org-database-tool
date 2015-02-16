@@ -1,6 +1,11 @@
 
 body {
 	font-family: helvetica;
+	margin: 0;
+}
+
+#main {
+	padding: 20px;
 }
 
 #page_wrapper {
@@ -31,7 +36,7 @@ div .fc-view-container {
 
 /*Navigation Bar Styling*/
 nav {
-	margin: -30px 0px 10px -20px;
+	margin: 0px 0px 10px 0px;
 	padding: 0 30px 0 0;
 }
 
@@ -51,6 +56,7 @@ nav ul {
 	background: -moz-linear-gradient(top, #106500 0%, #064100 100%); 
 	background: -webkit-linear-gradient(top, #106500 0%,#064100 100%);
 	padding: 0 20px;
+	margin: 0;
 	list-style: none;
 	position: relative;
 	display: inline-table;
@@ -81,8 +87,11 @@ nav ul li a {
 }
 
 nav ul ul {
-	background: #57934c; border-radius: 0px; padding: 0;
-	position: absolute; top: 100%;
+	background: #57934c; 
+	border-radius: 0px; 
+	padding: 0;
+	position: absolute; 
+	top: 100%;
 }
 
 nav ul ul li {
@@ -103,7 +112,7 @@ nav ul ul li a:hover {
 
 nav {
 	width:100%;
-	height: 82px;
+	height: 66px;
 	background: #106500; 
 	background: linear-gradient(top, #106500 0%, #064100 100%);  
 	background: -moz-linear-gradient(top, #106500 0%, #064100 100%); 
@@ -162,7 +171,7 @@ input[type=text], input[type=email], input[type=date] {
 
 select {
 	margin: 0 0 0 10px;
-	width:150px;
+	width:280px;
 }
 
 input[type=checkbox] {
