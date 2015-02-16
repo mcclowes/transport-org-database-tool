@@ -949,7 +949,7 @@ function updateDamageReport($mysqli, $Date_Resolved, $Damage_ID){
 		$statement->bind_param("si",$Date_Resolved, $Damage_ID);
 		$statement->execute();
 		$statement->store_result();
-		return ''
+		return 'success';
 	}
 }
 
