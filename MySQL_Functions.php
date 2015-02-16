@@ -452,7 +452,6 @@ function getGroup($mysqli, $Group_ID){
 										Activities_Other, Concerned_Physical, Concerned_Learning, Concerned_Mental_Health, Concerned_Ethnic, Concerned_Alcohol, Concerned_Drug, Concerned_HIV_AIDS, 
 										Concerned_Socially_Isolated, Concerned_Dementia, Concerned_Elderly, Concerned_Pre_School, Concerned_Young, Concerned_Women, Concerned_Health, 
 										Concerned_Rurally_Isolated, Concerned_Other FROM  Groups WHERE Group_ID = ?;")){
-		print_r("Querrying");
 		$statement->bind_param("i", $Group_ID);
 		$statement->execute();
 		$statement->store_result();
@@ -466,9 +465,6 @@ function getGroup($mysqli, $Group_ID){
 		$Group['Address'] = getAddress($mysqli, $Address_ID1);
 		$Group['Destination'] = getAddress($mysqli, $Address_ID2);
 
-	}
-	else{
-		print_r("not worked");
 	}
 
 	return $Group;
