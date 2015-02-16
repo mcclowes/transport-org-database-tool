@@ -34,7 +34,7 @@
                     type: "POST",
                     url:"MySQL_Functions.php",
                     data: {
-                        'form_type': 'getJourneys'
+                        'form_type': 'getTCJourneys'
                     },
                     dataType: "json",
                     success: function(returned_data) {
