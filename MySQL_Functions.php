@@ -397,7 +397,7 @@ function getJourneys($mysqli){
 		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
 		while($statement->fetch()){
 
-			if($stm = $mysqli->prepare(" SELECT MAX(Time) FROM Pickups WHERE Journey_ID = ?;")){
+			if($stm = $mysqli->prepare(" SELECT MIN(Time) FROM Pickups WHERE Journey_ID = ?;")){
 
 				$stm->bind_param("i", $Journey_ID);
 				$stm->execute();
