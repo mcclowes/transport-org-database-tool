@@ -124,7 +124,7 @@ switch ($type) {
 		break;
 
 	case 'getTCMembers':
-		$rdata = TCMembers($mysqli);
+		$rdata = getTCMembers($mysqli);
 		echo json_encode($rdata);
 		break;
 
@@ -141,7 +141,7 @@ switch ($type) {
 	case 'updateDamageReport': updateDamageReport($mysqli, $data['Date_Resolved'], $data['Damage_ID']); break;
 
 	default:
-	 	json_encode("error");
+	 	echo json_encode("error");
 		break;
 
 }
@@ -498,7 +498,6 @@ function getTCMember($mysqli, $TC_Member_ID){
 function getTCMembers($mysqli){
 	$TC_Member = array();
 	$TC_Members = array();
-	$i = 0;
 	if($statement = $mysqli->prepare(" SELECT TC_Member_ID, fName, sName, Address_ID FROM  TC_Members;")){
 		$statement->execute();
 		$statement->store_result();
@@ -510,7 +509,7 @@ function getTCMembers($mysqli){
 			$TC_Member['TC_Member_ID'] = $TC_Member_ID;
 			$TC_Member['fName'] = $fName;
 			$TC_Member['sName'] = $sName;
-			$TC_Member['Post_Code'] = $Address['Post_Code'] ;
+			$TC_Member['Post_Code'] = $Address['Post_Code'];
 			
 
 			array_push($TC_Members, $TC_Member);
