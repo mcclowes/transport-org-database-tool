@@ -504,35 +504,36 @@ function getJourney($mysqli, $Journey_ID){
 	$rdata = array();
 	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
-										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid FROM  Journeys WHERE Journey_ID = ?;")){
+										Keys_To_Collect, Distance, Quote, Invoice_Sent, Invoice_Paid FROM  Journeys WHERE Journey_ID = ?;")){
 		$statement->bind_param("i", $Journey_ID);
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($rdata['Journey_ID'], $rdata['Journey_Description'], $rdata['Booking_Date'],$rdata['fName'],$rdata['sName'], $Address_ID1, $rdata['Tel_No'], $rdata['Group_ID'],$rdata['Journey_Date'], $Address_ID2, $rdata['Return_Note'], $rdata['Return_Time'], 
 								$rdata['No_Passengers'], $rdata['Passengers_Note'], $rdata['Wheelchairs'], $rdata['Transferees'], $rdata['Other_Access'], $rdata['Booked_By'], $rdata['Driver_ID'], $rdata['Vehicle'], 
-								$rdata['Keys_To_Collect'], $rdata['Quote'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']);
+								$rdata['Keys_To_Collect'], $rdata['Distance_Run'], $rdata['Quote'], $rdata['Invoice_Cost'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']);
 		$statement->fetch();
 	}
-		$rdata['Booking_Date'] = outputDate($rdata['Booking_Date']);
-		$rdata['Jouney_Date'] = outputDate($rdata['Jouney_Date']);
-		$rdata['Invoice_Sent'] = outputDate($rdata['Invoice_Sent']);
-		$rdata['Invoice_Paid'] = outputDate($rdata['Invoice_Paid']);
+	$rdata['Booking_Date'] = outputDate($rdata['Booking_Date']);
+	$rdata['Jouney_Date'] = outputDate($rdata['Jouney_Date']);
+	$rdata['Invoice_Sent'] = outputDate($rdata['Invoice_Sent']);
+	$rdata['Invoice_Paid'] = outputDate($rdata['Invoice_Paid']);
 
-		if(!is_null($rdata['Group_ID'])){
-		$rdata['GroupDets'] =  getGroup($mysqli, $rdata['Group_ID']);
-		$rdata['Group_Name'] = $rdata['GroupDets']['Name'];
+	if(!is_null($rdata['Group_ID'])){
+		$GroupDets =  getGroup($mysqli, $rdata['Group_ID']);
+		$rdata['Group_Name'] = $GroupDets['Name'];
 	}
 		
-		$rdata['VehicleDets'] = getVehicle($mysqli,$rdata['Vehicle']);
-		$rdata['Vehicle_Nickname'] = $rdata['VehicleDets']['Nickname'];
-		$rdata['DriverDets'] = getDriver($mysqli,$rdata['Driver_ID']);
-		$rdata['Driver_Name'] = $rdata['DriverDets']['fName'].' '.$rdata['DriverDets']['sName'];
+	$VehicleDets = getVehicle($mysqli,$rdata['Vehicle']);
+	$rdata['Vehicle_Nickname'] = $VehicleDets['Nickname'];
+
+	$DriverDets = getDriver($mysqli,$rdata['Driver_ID']);
+	$rdata['Driver_Name'] = $DriverDets['fName'].' '.$DriverDets['sName'];
 
 
-		$rdata['Address'] = getAddress($mysqli, $Address_ID1);
-		$rdata['Destination'] = getAddress($mysqli, $Address_ID2);
+	$rdata['Address'] = getAddress($mysqli, $Address_ID1);
+	$rdata['Destination'] = getAddress($mysqli, $Address_ID2);
 
-		$rdata['Pickups'] = getPickups($mysqli,$rdata['Journey_ID']);
+	$rdata['Pickups'] = getPickups($mysqli,$rdata['Journey_ID']);
 
 
 	return $rdata;
@@ -772,12 +773,19 @@ function addJourney($mysqli,$Journey){
 
 	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
+<<<<<<< Updated upstream
 										Keys_To_Collect, Quote, Invoice_Sent, Invoice_Paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
 		$statement->bind_param("ssssisisissisiisssssdss",
 								$Journey['Journey_Description'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
+=======
+										Keys_To_Collect, Distance, Quote, Invoice_Sent, Invoice_Paid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
+
+		$statement->bind_param("sssssisisissisiisssssdddss",
+								$Journey['Journey_Description'],$Journey['Journey_Note'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
+>>>>>>> Stashed changes
 								$Journey['No_Passengers'], $Journey['Passengers_Note'], $Journey['Wheelchairs'], $Journey['Transferees'], $Journey['Other_Access'], $Journey['Booked_By'], $Journey['Driver_ID'], $Journey['Vehicle'], 
-								$Journey['Keys_To_Collect'], $Journey['Quote'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
+								$Journey['Keys_To_Collect'], $Journey['Distance_Run'], $Journey['Quote'], $Journey['Invoice_Cost'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
 		$statement->execute();
 		$statement->store_result();
 	}
