@@ -8,22 +8,6 @@
         
         
         <script type="text/javascript">
-        
-        	function submit(){
-        	
-                $.ajax({
-                    type: "POST",
-                    url:"MySQL_Functions.php",
-                    data: {
-                        'form_type': 'getJourney',
-                        'form_data': form_data
-                    },
-                    dataType: "json",
-                    success: function(returned_data) {
-                        $('#result').replaceWith('<div id="result">'+returned_data+'</div>');
-                    }
-                });
-            }
             
             function populateJourneys(){
             	var dropdown = document.getElementById('dropdown-Journeys');
