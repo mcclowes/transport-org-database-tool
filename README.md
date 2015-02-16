@@ -10,7 +10,7 @@ For database fields see WCT_Table.xls
 ________________________________________________________________________________
 
 Contributors:
- - [Maxi Clayton Clowes](https://github.com/jamtat)
+ - [Maxi Clayton Clowes](https://github.com/mcclowes)
  - [Will Jones](https://github.com/willjejones)
  - [Zack Hodari](https://github.com/ZackHodari)
  - [Ed Key](https://github.com/keyead)
