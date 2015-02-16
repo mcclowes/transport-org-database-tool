@@ -78,8 +78,18 @@ switch ($type) {
 		echo json_encode($rdata);
 		break;
 
+	case 'getVehicle': 
+		$rdata = getVehicle($mysqli,$data['Vehicle_ID']);
+		echo json_encode($rdata);
+		break;
+
 	case 'getDrivers': 
 		$rdata = getDrivers($mysqli);
+		echo json_encode($rdata);
+		break;
+
+	case 'getDriver': 
+		$rdata = getDriver($mysqli);
 		echo json_encode($rdata);
 		break;
 
@@ -249,6 +259,42 @@ function getVehicles($mysqli){
 	
 }
 
+function getVehicle($mysqli, $Vehicle_ID){	
+	$Vehicles = array();
+	$Vehicle = array();
+
+	if($statement = $mysqli->prepare(" SELECT Nickname, Registration, Make, Model, Colour, Capacity_Passengers, Tax_Due, MOT_Due, Inspection_Due,
+										 Service_Due, Tail_Service_Due, Section_19_No, Section_19_Due, Seating_Configurations FROM  Vehicles WHERE Vehicle_ID = ?;")){
+		$statement->bind_param('i',$Vehicle_ID);
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($Nickname,$Registration,$Make,$Model,$Colour,$Capacity_Passengers,$Tax_Due,$MOT_Due,$Inspection_Due,
+								$Service_Due, $Tail_Service_Due, $Section_19_No, $Section_19_Due, $Seating_Configurations);
+		while($statement->fetch()){
+
+			$Vehicle['Nickname'] = $Nickname;
+			$Vehicle['Registration'] = $Registration;
+			$Vehicle['Make'] = $Make;
+			$Vehicle['Model'] = $Model;
+			$Vehicle['Colour'] = $Colour;
+			$Vehicle['Capacity_Passengers'] = $Capacity_Passengers;
+			$Vehicle['Section_19_No'] = $Section_19_No;
+			$Vehicle['Seating_Configurations'] = $Seating_Configurations;
+
+			$Vehicle['Tax_Due'] = outputDate($Tax_Due);
+			$Vehicle['MOT_Due'] = outputDate($MOT_Due);
+			$Vehicle['Inspection_Due'] = outputDate($Inspection_Due);
+			$Vehicle['Service_Due'] = outputDate($Service_Due);
+			$Vehicle['Tail_Service_Due'] = outputDate($Tail_Service_Due);
+			$Vehicle['Section_19_Due'] = outputDate($Section_19_Due);
+
+			array_push($Vehicles, $Vehicle);
+		}
+	}	
+	return $Vehicles;
+	
+}
+
 
 function getDrivers($mysqli){
 	$Drivers = array();
@@ -261,6 +307,41 @@ function getDrivers($mysqli){
 										$Emergency_Name, $Emergency_Tel, $Emergency_Relationship, $Is_Volunteer);
 		while($statement->fetch()){
 			$Driver['Driver_ID'] = $Driver_ID;
+			$Driver['fName'] = $fName;
+			$Driver['sName'] = $sName;
+			$Driver['Address'] = getAddress($mysqli, $Address_ID);
+			$Driver['Tel_No'] = $Tel_No;
+			$Driver['Mobile_No'] = $Mobile_No;
+			$Driver['Licence_No'] = $Licence_No;
+			$Driver['Licence_Points'] =  $Licence_Points;
+			$Driver['DBS_No'] = $DBS_No;
+			$Driver['Emergency_Name'] = $Emergency_Name;
+			$Driver['Emergency_Tel'] = $Emergency_Tel;
+			$Driver['Emergency_Relationship'] = $Emergency_Relationship;
+			$Driver['Is_Volunteer'] = $Is_Volunteer;
+
+			$Driver['DOB'] = outputDate($DOB);
+			$Driver['Licence_Expires'] = outputDate($Licence_Expires);
+			$Driver['DBS_Issued'] = outputDate($DBS_Issued);
+
+			array_push($Drivers, $Driver);
+		}
+
+	}
+	return $Drivers;
+}
+
+function getDriver($mysqli, $Driver_ID){
+	$Drivers = array();
+	$Driver = array();
+	if($statement = $mysqli->prepare(" SELECT fName, sName, Address_ID, Tel_No, Mobile_No, DOB, Licence_No, Licence_Expires, Licence_Points, DBS_No, DBS_Issued, 
+										Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer FROM  Drivers WHERE Driver_ID = ?;")){
+		$statement->bind_param('i',$Driver_ID);
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($fName, $sName, $Address_ID, $Tel_No, $Mobile_No, $DOB, $Licence_No, $Licence_Expires, $Licence_Points, $DBS_No, $DBS_Issued, 
+										$Emergency_Name, $Emergency_Tel, $Emergency_Relationship, $Is_Volunteer);
+		while($statement->fetch()){
 			$Driver['fName'] = $fName;
 			$Driver['sName'] = $sName;
 			$Driver['Address'] = getAddress($mysqli, $Address_ID);
@@ -437,9 +518,17 @@ function getJourney($mysqli, $Journey_ID){
 		$rdata['Invoice_Sent'] = outputDate($rdata['Invoice_Sent']);
 		$rdata['Invoice_Paid'] = outputDate($rdata['Invoice_Paid']);
 
+		$rdata['GroupDets'] =  getGroup($mysqli, $rdata['Group_ID']);
+		$rdata['Group_Name'] = $rdata['GroupDets']['Name'];
+		$rdata['VehicleDets'] = getVehicle($mysqli,$rdata['Vehicle']);
+		$rdata['Vehicle_Nickname'] = $rdata['VehicleDets']['Nickname'];
+		$rdata['DriverDets'] = getDriver($mysqli,$rdata['Driver_ID']);
+		$rdata['Driver_Name'] = $rdata['DriverDets']['fName'].' '.$rdata['DriverDets']['sName'];
+
 
 		$rdata['Address'] = getAddress($mysqli, $Address_ID1);
 		$rdata['Destination'] = getAddress($mysqli, $Address_ID2);
+
 		$rdata['Pickups'] = getPickups($mysqli,$rdata['Journey_ID']);
 
 	}
