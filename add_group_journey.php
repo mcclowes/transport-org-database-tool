@@ -7,12 +7,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 		<?php
-<<<<<<< HEAD
-		
 			if (isset($_GET['id'])) {
-=======
-			if (isset($_POST['submitButton'])) {
->>>>>>> FETCH_HEAD
 				$is_edit = true;
 				
 				$id = $_GET['id'];
