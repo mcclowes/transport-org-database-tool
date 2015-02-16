@@ -158,7 +158,15 @@ switch ($type) {
 		echo json_encode($rdata);
 		break;
 
-	case 'updateDamageReport': updateDamageReport($mysqli, $data['Date_Resolved'], $data['Damage_ID']); break;
+	case 'updateDamageReport': 
+		$rdata = updateDamageReport($mysqli, $data['Date_Resolved'], $data['Damage_ID']); 
+		echo json_encode($rdata);
+		break;
+
+	case 'editJourney':
+		$rdata = editJourney($mysqli,$data);
+		echo json_encode($rdata);
+		break;
 
 	default:
 	 	echo json_encode("error");
@@ -849,9 +857,9 @@ function addJourney($mysqli,$Journey){
 	$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
 	$Booking_Date = date("Y-m-d"); 
 
-	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
+	if($statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
-										Keys_To_Collect, Distance, Quote, Invoice_Cost, Invoice_Sent, Invoice_Paid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
+										Keys_To_Collect, Distance, Quote, Invoice_Cost, Invoice_Sent, Invoice_Paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
 		$statement->bind_param("sssssisisissisiisssssdddss",
 								$Journey['Journey_Description'],$Journey['Journey_Note'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
@@ -860,14 +868,15 @@ function addJourney($mysqli,$Journey){
 		$statement->execute();
 		$statement->store_result();
 	}
+
 	if($statement = $mysqli->prepare(" SELECT MAX(Journey_ID FROM  Journeys;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Journey_ID);
 		$statement->fetch();
 	}
+
 	return $Journey_ID;
-	
 }
 
 
@@ -940,6 +949,7 @@ function updateDamageReport($mysqli, $Date_Resolved, $Damage_ID){
 		$statement->bind_param("si",$Date_Resolved, $Damage_ID);
 		$statement->execute();
 		$statement->store_result();
+		return ''
 	}
 }
 
