@@ -10,8 +10,6 @@
         <script type="text/javascript">
         
         	function submit(){
-        		
-        		add_journey.php
         	
                 $.ajax({
                     type: "POST",
@@ -55,10 +53,9 @@
         <?php include 'nav.php' ?>
         <div id="main">
         	<div>
-        	<form method='POST' action='add_journey.php'>
-				<tr><td><label>Journeys: </label></td><td>
-				<select id="dropdown-Journeys" name='Journey_ID'> 
-					<option>Choose a Journey</option>
+        	<form method='POST' action='add_group_journey.php'>
+				<tr><td><label>Choose a journey: </label></td><td>
+				<select id="dropdown-Journeys" name='Journey_ID'>
 				</select><td></tr>
 				</div>
 				<input type="submit" name="submit" value="Submit" />
