@@ -7,8 +7,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 		<?php
+<<<<<<< HEAD
 		
 			if (isset($_GET['id'])) {
+=======
+			if (isset($_POST['submitButton'])) {
+>>>>>>> FETCH_HEAD
 				$is_edit = true;
 				
 				$id = $_GET['id'];
@@ -16,11 +20,9 @@
 			else {
 				$is_edit = false;
 			}
-			
 		?>
 
         <script type="text/javascript">
-        	
         	//GLOBAL VARIABLE FOR NUMBER OF PICKUPS
         	number_of_pickups = 1;
         
@@ -268,12 +270,9 @@
 						document.getElementById('input-Invoiced_Cost').value = returned_data['Invoiced_Cost'];
 						document.getElementById('date-Invoice_Sent').value = returned_data['Invoice_Sent'];
 						document.getElementById('date-Invoice_Paid').value = returned_data['Invoice_Paid'];
-						document.getElementById('input-Journey_Notes').value = returned_data['Journey_Notes'];
-                		
+						document.getElementById('input-Journey_Notes').value = returned_data['Journey_Notes'];	
                     }
                 });
-                
-                
             }
             
             function init(){
@@ -290,7 +289,6 @@
 			}
 
         </script>
-        
     </head>
     <body onload="init();">
         <div id="wctLogo"></div>
@@ -388,8 +386,8 @@
                                 <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-Quote"/> <td></tr>
                                 <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-Distance_Run"/> <td></tr>
                                 <tr><td><label>Invoiced cost: </label></td><td><input type="text" id="input-Invoiced_Cost"/> <td></tr>
-                                <tr><td><label>Invoice sent on: </label></td><td><input type="text" id="date-Invoice_Sent"/> <td></tr>
-                                <tr><td><label>Invoice paid on: </label></td><td><input type="text" id="date-Invoice_Paid"/> <td></tr>
+                                <tr><td><label>Invoice sent on: </label></td><td><input type="date" id="date-Invoice_Sent"/> <td></tr>
+                                <tr><td><label>Invoice paid on: </label></td><td><input type="date" id="date-Invoice_Paid"/> <td></tr>
                             </table>
                         </fieldset>
                         <fieldset id="notes">
