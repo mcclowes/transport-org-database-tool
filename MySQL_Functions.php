@@ -118,18 +118,28 @@ switch ($type) {
 		echo json_encode($rdata);
 		break;
 
+	case 'getGroupJourneys': 
+		$rdata = getGroupJourneys($mysqli);
+		echo json_encode($rdata);
+		break;
+
+	case 'getTCJourneys': 
+		$rdata = getTCJourneys($mysqli);
+		echo json_encode($rdata);
+		break;
+
 	case 'getJourney': 
 		$rdata = getJourney($mysqli, $data['Journey_ID']);
 		echo json_encode($rdata);
 		break;
 
 	case 'getJourneyMembers':
-		$rdata = getJourneys($mysqli,$data['Journey_ID']);
+		$rdata = getJourneyMembers($mysqli,$data['Journey_ID']);
 		echo json_encode($rdata);
 		break;
 
 	case 'getTCMember':
-		$rdata = getJourneyMembers($mysqli,$data['TC_Member_ID']);
+		$rdata = getTCMember($mysqli,$data['TC_Member_ID']);
 		echo json_encode($rdata);
 		break;
 
@@ -496,6 +506,71 @@ function getJourneys($mysqli){
 	return $Journeys;
 }
 
+function getGroupJourneys($mysqli){
+	$Journey = array();
+	$Journeys = array();
+
+	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM Journeys WHERE Group_ID IS NOT NULL;")){
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
+		while($statement->fetch()){
+
+			if($stm = $mysqli->prepare(" SELECT MIN(Time) FROM Pickups WHERE Journey_ID = ?;")){
+
+				$stm->bind_param("i", $Journey_ID);
+				$stm->execute();
+				$stm->store_result();
+				$stm->bind_result($Pickup_Time);
+				$stm->fetch();
+				}
+
+
+			$Journey['Journey_ID'] = $Journey_ID;
+			$Journey['Journey_Description'] = $Journey_Description;
+			$Journey['Journey_Date'] = outputDate($Journey_Date);
+			$Journey['Return_Time'] = $Return_Time;
+			$Journey['Pickup_Time'] = $Pickup_Time;
+
+			array_push($Journeys, $Journey);
+			}
+	}	
+	return $Journeys;
+}
+
+function getTCJourneys($mysqli){
+	$Journey = array();
+	$Journeys = array();
+
+	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM  Journeys WHERE Group_ID IS NULL;")){
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
+		while($statement->fetch()){
+
+			if($stm = $mysqli->prepare(" SELECT MIN(Time) FROM Pickups WHERE Journey_ID = ?;")){
+
+				$stm->bind_param("i", $Journey_ID);
+				$stm->execute();
+				$stm->store_result();
+				$stm->bind_result($Pickup_Time);
+				$stm->fetch();
+				}
+
+
+			$Journey['Journey_ID'] = $Journey_ID;
+			$Journey['Journey_Description'] = $Journey_Description;
+			$Journey['Journey_Date'] = outputDate($Journey_Date);
+			$Journey['Return_Time'] = $Return_Time;
+			$Journey['Pickup_Time'] = $Pickup_Time;
+
+			array_push($Journeys, $Journey);
+			}
+	}	
+	return $Journeys;
+}
+
+
 function getJourney($mysqli, $Journey_ID){
 	$rdata = array();
 	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
@@ -519,6 +594,12 @@ function getJourney($mysqli, $Journey_ID){
 		$GroupDets =  getGroup($mysqli, $rdata['Group_ID']);
 		$rdata['Group_Name'] = $GroupDets['Name'];
 	}
+
+	else{
+
+		$rdata['Members'] = getJourneyMembers($mysqli,$Journey_ID);
+		
+	}
 		
 	$VehicleDets = getVehicle($mysqli,$rdata['Vehicle']);
 	$rdata['Vehicle_Nickname'] = $VehicleDets['Nickname'];
@@ -534,6 +615,7 @@ function getJourney($mysqli, $Journey_ID){
 
 
 	return $rdata;
+	}
 
 }
 
