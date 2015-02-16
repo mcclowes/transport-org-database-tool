@@ -330,7 +330,7 @@
                         </fieldset>
                         <fieldset id="notes">
                             <legend>Journey Notes</legend>
-                            <input type="textbox" id="input-Journey_Notes"/>
+                            <input type="textarea" id="input-Journey_Notes"/>
                         </fieldset>
 					</div>
                     <input type="text" name="mobility" id="mobility" style='display:none;'/>
