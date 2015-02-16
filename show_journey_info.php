@@ -63,6 +63,18 @@
                         $('#Pickup_1_Post_Code').text(returned_data['Pickups'][0]['Address']['Post_Code']);
                         $('#Pickup_1_Time').text(returned_data['Pickups'][0]['Time']);
                         $('#Pickup_1_Note').text(returned_data['Pickups'][0]['Note']);
+                        $('#Return_Time').text(returned_data['Return_Time']);
+                        $('#Return_Note').text(returned_data['Return_Note']);
+                        $('#Driver').text(returned_data['Driver_Name']);
+                        $('#Vehicle').text(returned_data['Vehicle_Nickname']);
+                        $('#Keys_To_Collect').text(returned_data['Keys_To_Collect']);
+                        $('#Quote').text(returned_data['Quote']);
+                        $('#Distance_Run').text(returned_data['Distance_Run']);
+                        $('#Invoiced_Cost').text(returned_data['Invoiced_Cost']);
+                        $('#Invoice_Sent').text(returned_data['Invoice_Sent']);
+                        $('#Invoice_Paid').text(returned_data['Invoice_Paid']);
+                        $('#Journey_Notes').text(returned_data['Journey_Note']);
+
 
 
                     }
