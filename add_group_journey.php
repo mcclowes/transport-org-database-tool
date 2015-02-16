@@ -8,10 +8,10 @@
 
 		<?php
 		
-			if (isset($_POST['submit'])) {
+			if (isset($_GET['id'])) {
 				$is_edit = true;
 				
-				$id = $_POST['Journey_ID'];
+				$id = $_GET['id'];
 			}
 			else {
 				$is_edit = false;
