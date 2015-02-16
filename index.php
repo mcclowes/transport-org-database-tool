@@ -24,16 +24,12 @@
 				for(var i = 0; i < returned_data.length; i++) {
 					var journey = "{		title: '" + String(returned_data[i]['Journey_Description']) + "',		start: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Pickup_Time']) + "', end: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Return_Time']) + "',	url: 'show_journey_info.php?id=" + String(returned_data[i]['Journey_ID']) + "'	}";
 					//var journey = "{		title: 'WI to Quiz Night',		start: '2015-02-03',		url: 'show_journey_info.php?id=1'	},	{		title: 'Shopping Trip',		start: '2015-02-09T11-00',		end: '2015-02-09T13-00', url: 'show_journey_info.php?id=2'	}";
-					
 					journeys += journey;
 					if(i < (returned_data.length - 1)) {
 						journeys += ", ";
 					}
                 }
 
-                //returned_data[i]['Pickup_Time']
-                //returned_data[i]['Return_Time']
-				
 				journeys += " ]";
 				var newEvents = journeys;
 				var jsoEvents = eval(newEvents);			
@@ -59,7 +55,7 @@
 						right: 'month,agendaWeek,agendaDay'
 					},
 					defaultDate: today,
-					editable: true,
+					editable: false,
 					eventLimit: true, // allow "more" link when too many events
 					events: jsoEvents
 				});
