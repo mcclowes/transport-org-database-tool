@@ -20,9 +20,6 @@
 		?>
 
         <script type="text/javascript">
-        	
-        	//GLOBAL VARIABLE FOR NUMBER OF PICKUPS
-        	number_of_pickups = 1;
         
             function submit() {
             	var date = new Date();
@@ -58,21 +55,6 @@
 						'Line5':					document.getElementById('input-Destination_Line5').value,
 						'Post_Code':				document.getElementById('input-Destination_Post_Code').value
 					},
-					'Pickups':{
-						'No_Pickups':				number_of_pickups,
-						'1':{
-							'Time':					document.getElementById('input-Pickup_1_Time').value,
-							'Note':					document.getElementById('input-Pickup_1_Note').value,
-							'Address':{
-								'Line1':			document.getElementById('input-Pickup_1_Line1').value,
-								'Line2':			document.getElementById('input-Pickup_1_Line2').value,
-								'Line3':			document.getElementById('input-Pickup_1_Line3').value,
-								'Line4':			document.getElementById('input-Pickup_1_Line4').value,
-								'Line5':			document.getElementById('input-Pickup_1_Line5').value,
-								'Post_Code':		document.getElementById('input-Pickup_1_Post_Code').value
-							}
-						}
-					},
 					'Return_Time':					document.getElementById('input-Return_Time').value,
 					'Return_Note':					document.getElementById('input-Return_Note').value,
 					'Driver':						document.getElementById('dropdown-Driver').value,
@@ -86,9 +68,7 @@
 					'Journey_Notes':				document.getElementById('input-Journey_Notes').value,
                 };
                 
-                for (var x = 1; x <= number_of_TC_Members; x++) {
-                	form_data['TC_Members'][toString(x)] = document.getElementById('TC_Members_' + toString(x)).getAttribute('TC_id');
-                }
+                form_data['Pickups'] = pickups;
                 
                 $.ajax({
                     type: "POST",
@@ -243,26 +223,27 @@
 						document.getElementById('input-Destination_Line4').value = returned_data['Destination']['Line4'];
 						document.getElementById('input-Destination_Line5').value = returned_data['Destination']['Line5'];
 						document.getElementById('input-Destination_Post_Code').value = returned_data['Destination']['Post_Code'];
-												
-// 						document.getElementById('input-Pickup_1_Time').value = returned_data['Pickups'][1]['Time'];
-// 						document.getElementById('input-Pickup_1_Note').value = returned_data['Pickups'][1]['Note'];
-// 						document.getElementById('input-Pickup_1_Line1').value = returned_data['Pickups'][1]['Address']['Line1'];
-// 						document.getElementById('input-Pickup_1_Line2').value = returned_data['Pickups'][1]['Address']['Line2'];
-// 						document.getElementById('input-Pickup_1_Line3').value = returned_data['Pickups'][1]['Address']['Line3'];
-// 						document.getElementById('input-Pickup_1_Line4').value = returned_data['Pickups'][1]['Address']['Line4'];
-// 						document.getElementById('input-Pickup_1_Line5').value = returned_data['Pickups'][1]['Address']['Line5'];
-// 						document.getElementById('input-Pickup_1_Post_Code').value = returned_data['Pickups'][1]['Address']['Post_Code'];
 						
-						number_of_pickups = returned_data['Pickups']['No_Pickups'];
-						for (var x = 1; x <= number_of_pickups; x++) {
-							document.getElementById('input-Pickup_' + x + '_Time').value = returned_data['Pickups'][x]['Time'];
-							document.getElementById('input-Pickup_' + x + '_Note').value = returned_data['Pickups'][x]['Note'];
-							document.getElementById('input-Pickup_' + x + '_Line1').value = returned_data['Pickups'][x]['Address']['Line1'];
-							document.getElementById('input-Pickup_' + x + '_Line2').value = returned_data['Pickups'][x]['Address']['Line2'];
-							document.getElementById('input-Pickup_' + x + '_Line3').value = returned_data['Pickups'][x]['Address']['Line3'];
-							document.getElementById('input-Pickup_' + x + '_Line4').value = returned_data['Pickups'][x]['Address']['Line4'];
-							document.getElementById('input-Pickup_' + x + '_Line5').value = returned_data['Pickups'][x]['Address']['Line5'];
-							document.getElementById('input-Pickup_' + x + '_Post_Code').value = returned_data['Pickups'][x]['Address']['Post_Code'];
+						pickups['No_Pickups'] = returned_data['Pickups']['No_Pickups'];
+						var pickupList = document.getElementById('pickupList');
+						for (var x = 1; x <= pickups['No_Pickups']; x++) {
+						
+							pickups[x] = {
+								'Time':					returned_data['Pickups'][x]['Time'],
+								'Note':					returned_data['Pickups'][x]['Note'],
+								'Address':{
+									'Line1':			returned_data['Pickups'][x]['Address']['Line1'],
+									'Line2':			returned_data['Pickups'][x]['Address']['Line2'],
+									'Line3':			returned_data['Pickups'][x]['Address']['Line3'],
+									'Line4':			returned_data['Pickups'][x]['Address']['Line4'],
+									'Line5':			returned_data['Pickups'][x]['Address']['Line5'],
+									'Post_Code':		returned_data['Pickups'][x]['Address']['Post_Code'],
+								}
+							}
+				
+							var cell = pickupList.insertRow(0).insertCell(0);
+							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Line2'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'];
+							cell.id = 'Pickup_' + x;
 						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
@@ -284,12 +265,15 @@
             }
             
             function init(){
+				number_of_pickups = 0;
+				pickups = {'No_Pickups': number_of_pickups};
+				
 				startScreen();
 				populateDrivers();
 				populateVehicles();
 				
 				populateTCMembers();
-				number_of_TC_Members = 1;
+				number_of_TC_Members = 0;
 				
 				var is_edit = '<?php echo $is_edit; ?>';
 				if (is_edit == '1') {
@@ -303,14 +287,50 @@
 				var text = TC_Member_dropdown.options[TC_Member_dropdown.selectedIndex].text;
 				
 				if (text != 'Choose a Travel Club Member') {
+					number_of_TC_Members++;
 					var memberList = document.getElementById('memberList');
 					var cell = memberList.insertRow(0).insertCell(0);
 					cell.innerHTML = text;
 					cell.id = 'TCMembers_' + number_of_TC_Members;
 					cell.setAttribute('TC_id', TC_Member_dropdown.value);
 					TC_Member_dropdown.remove(TC_Member_dropdown.selectedIndex);
-					number_of_TC_Members++;
 				}
+			}
+			
+			function addPickupField() {
+				var pickup = {
+					'Time':					document.getElementById('input-Pickup_Time').value,
+					'Note':					document.getElementById('input-Pickup_Note').value,
+					'Address':{
+						'Line1':			document.getElementById('input-Pickup_Line1').value,
+						'Line2':			document.getElementById('input-Pickup_Line2').value,
+						'Line3':			document.getElementById('input-Pickup_Line3').value,
+						'Line4':			document.getElementById('input-Pickup_Line4').value,
+						'Line5':			document.getElementById('input-Pickup_Line5').value,
+						'Post_Code':		document.getElementById('input-Pickup_Post_Code').value
+					}
+				}
+				
+				if (pickup['Address']['Line1'] != '' && pickup['Address']['Line2'] != '' && pickup['Address']['Post_Code'] != '') {
+					pickups['No_Pickups']++;
+					var pickupList = document.getElementById('pickupList');
+					var cell = pickupList.insertRow(0).insertCell(0);
+					cell.innerHTML = pickup['Address']['Line1'] + ', ' + pickup['Address']['Line2'] + ', ' + pickup['Address']['Post_Code'];
+					cell.id = 'Pickup_' + pickups['No_Pickups'];
+					
+					document.getElementById('input-Pickup_Time').value = '';
+					document.getElementById('input-Pickup_Note').value = '';
+					document.getElementById('input-Pickup_Line1').value = '';
+					document.getElementById('input-Pickup_Line2').value = '';
+					document.getElementById('input-Pickup_Line3').value = '';
+					document.getElementById('input-Pickup_Line4').value = '';
+					document.getElementById('input-Pickup_Line5').value = '';
+					document.getElementById('input-Pickup_Post_Code').value = '';
+				
+					pickups[pickups['No_Pickups']] = pickup;
+				}
+				
+				//alert(JSON.stringify(pickups));
 			}
 
         </script>
@@ -336,7 +356,7 @@
 									<option>Choose a Travel Club Member</option>
 								</select></td>
 								<td>
-								<div id="addTCMember" onclick="addTCMemberField()">Add</div>
+								<div id="addTCMember" onclick="addTCMemberField()">Add to journey</div>
 								</td></tr>
 							</table>
 							
@@ -384,15 +404,22 @@
                         <fieldset id="pickupDetails">
                             <legend>Pickup Address</legend>
                             <table>
-                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Pickup_1_Line1"/> </td></tr>
-                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Pickup_1_Line2"/> </td></tr>
-                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Pickup_1_Line3"/> </td></tr>
-                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Pickup_1_Line4"/> </td></tr>
-                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Pickup_1_Line5"/> </td></tr>
-                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Pickup_1_Post_Code"/> </td></tr>
-                                <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-Pickup_1_Time"/> <td></tr>
-                                <tr><td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_1_Note" placeholder="E.g. Number of people to collect at this locaiton"/> <td></tr>
-                            </table>
+                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Pickup_Line1"/> </td></tr>
+                                <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Pickup_Line2"/> </td></tr>
+                                <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Pickup_Line3"/> </td></tr>
+                                <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Pickup_Line4"/> </td></tr>
+                                <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Pickup_Line5"/> </td></tr>
+                                <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Pickup_Post_Code"/> </td></tr>
+                                <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-Pickup_Time"/> <td></tr>
+                                <tr>
+                                <td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_Note" placeholder="E.g. Number of people to collect at this locaiton"/> <td>
+                                <td><div id="addTCMember" onclick="addPickupField()">Add pickup</div> </td>
+                                </tr>
+							</table>
+							
+							<table id="pickupList">
+							</table>
+							
                         </fieldset>
 <!--ADD A NEW PICKUP-->
                         <fieldset id="returnDetails">
