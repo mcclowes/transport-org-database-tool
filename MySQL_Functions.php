@@ -70,6 +70,11 @@ switch ($type) {
 		echo json_encode($rdata);
 		break;
 
+	case 'getPostCodeAddress'
+		$rdata = getPostCodeAddress($mysqli,$data['Post_Code']);
+		echo json_encode($rdata);
+		break;
+
 	case 'getAddress': 
 		$rdata = getAddress($mysqli,$data['Address_ID']);
 		echo json_encode($rdata);
@@ -161,13 +166,8 @@ switch ($type) {
 		break;
 
 	case 'updateDamageReport': 
-<<<<<<< HEAD
 		$rdata = updateDamageReport($mysqli, $data['Date_Resolved'], $data['Damage_ID']);
 		echo json_encode($rdata); 
-=======
-		$rdata = updateDamageReport($mysqli, $data['Date_Resolved'], $data['Damage_ID']); 
-		echo json_encode($rdata);
->>>>>>> FETCH_HEAD
 		break;
 
 	case 'editJourney':
@@ -180,6 +180,7 @@ switch ($type) {
 		break;
 
 }
+
 
 function connect(){
 	$servername = "mysql.dur.ac.uk";
@@ -219,6 +220,32 @@ function getAddress($mysqli, $Address_ID){
 		$statement->fetch();
 	}
 	return $Address;
+}
+
+function getPostCodeAddress($mysqli, $Search_Code){
+	$Addresses = array();
+	$Address = array();
+
+	if($statement = $mysqli->prepare(" SELECT Address_ID, Line1, Line2, Line3, Line4, Line5, Post_Code FROM  Addresses WHERE Post_Code = ?;")){
+		$statement->bind_param("i", $Search_Code);
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($Address_ID,$Line1,$Line2,$Line3,$Line4,$Line5,$Post_Code);
+		while($statement->fetch()){
+
+			$Address['Address_ID'] = $Address_ID;
+			$Address['Line1'] = $Line1;
+			$Address['Line2'] = $Line2;
+			$Address['Line3'] = $Line3;
+			$Address['Line4'] = $Line4;
+			$Address['Line5'] = $Line5;
+			$Address['Post_Code'] = $Post_Code;
+
+			array_push($Addresses, $Address);
+		}
+
+	}
+	return $Addresses;
 }
 
 function getAddresses($mysqli){
@@ -768,7 +795,12 @@ function addVehicle($mysqli,$Vehicle){
 }
 
 function addDriver($mysqli,$Driver){
-	$Address_ID = addAddress($mysqli,$Driver['Address']);
+	if(isset($Driver['Address_ID'])){
+		$Address_ID = $Driver['Address_ID'];
+	}
+	else{
+		$Address_ID = addAddress($mysqli,$Driver['Address']);
+	}
 	
 	if( $statement = $mysqli->prepare("INSERT INTO Drivers (fName, sName, Address_ID, Tel_No, Mobile_No, DOB, Licence_No, Licence_Expires, Licence_Points, DBS_No, DBS_Issued, 
 										Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
@@ -796,9 +828,19 @@ function addDamageReport($mysqli,$Damage_Report){
 }
 
 function addGroup($mysqli,$Group){
+	if(isset($Group['Address_ID'])){
+		$Address_ID1 = $Group['Address_ID'];
+	}
+	else{
+		$Address_ID1 = addAddress($mysqli,$Group['Address']);
+	}
 
-	$Address_ID1 = addAddress($mysqli,$Group['Address']);
-	$Address_ID2 = addAddress($mysqli,$Group['Invoice_Address']);
+	if(isset($Group['Invoice_Address_ID'])){
+		$Address_ID2 = $Group['Invoice_Address_ID'];
+	}
+	else{
+		$Address_ID2 = addAddress($mysqli,$Group['Invoice_Address']);
+	}
 
 	if( $statement = $mysqli->prepare("INSERT INTO Groups ( Name, Address, Tel, Invoice_Email, Invoice_Address, Invoice_Tel, Emergency_Name, Emergency_Tel, Profitable, Community, 
 										Social, Statutory, Charity_No, Org_Aim, Activities_Education, Activities_Recreation, Activities_Health, Activities_Religion, Activities_Social, Activities_Inclusion, 
@@ -822,17 +864,24 @@ function addGroup($mysqli,$Group){
 
 function addJourney($mysqli,$Journey){
 
-	$Address_ID1 = addAddress($mysqli,$Journey['Address']);
-	$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
+	if(isset($Journey['Address_ID'])){
+		$Address_ID1 = $Journey['Address_ID'];
+	}
+	else{
+		$Address_ID1 = addAddress($mysqli,$Journey['Address']);
+	}
+
+	if(isset($Journey['Destination_ID'])){
+		$Address_ID2 = $Journey['Destination_ID'];
+	}
+	else{
+		$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
+	}
 	$Booking_Date = date("y-m-d"); 
 
-	if($statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
+	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
-<<<<<<< HEAD
 										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
-=======
-										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
->>>>>>> FETCH_HEAD
 
 		$statement->bind_param("sssssisisissisiisssssdddss",
 								$Journey['Journey_Description'],$Journey['Journey_Note'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
@@ -842,20 +891,22 @@ function addJourney($mysqli,$Journey){
 		$statement->store_result();
 		$statement->close();
 	}
-
-	if($statement = $mysqli->prepare(" SELECT MAX(Journey_ID)FROM  Journeys;")){
+	if($statement = $mysqli->prepare(" SELECT MAX(Journey_ID) FROM  Journeys;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Journey_ID);
 		$statement->fetch();
 	}
-
 	return $Journey_ID;
 }
 
 function addTCMember($mysqli,$TC_Member){
-
-	$Address_ID = addAddress($mysqli,$TC_Member['Address']);
+	if(isset($TC_Member['Address_ID'])){
+		$Address_ID = $TC_Member['Address_ID'];
+	}
+	else{
+		$Address_ID = addAddress($mysqli,$TC_Member['Address']);
+	}
 
 	if( $statement = $mysqli->prepare("INSERT INTO TC_Members ( fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship, DOB,
 										Details_Wheelchair, Details_Wheelchair_Type, Details_Wheelchair_Seat, Details_Scooter, Details_Mobility_Aid, Details_Shopping_Trolley, 
@@ -880,15 +931,19 @@ function addTCMember($mysqli,$TC_Member){
 }
 
 function addPickup($mysqli,$Journey_ID,$Pickup){
-
-	$Address_ID = addAddress($mysqli,$Pickup['Address']);
+	if(isset($Pickup['Address_ID'])){
+		$Address_ID = $Pickup['Address_ID'];
+	}
+	else{
+		$Address_ID = addAddress($mysqli,$Pickup['Address']);
+	}
 
 	if( $statement = $mysqli->prepare("INSERT INTO Pickups ( Journey_ID, Note, Address_ID, Time) VALUES ( ?, ?, ?, ?);") ){
 
 		$statement->bind_param("isis",$Journey_ID, $Pickup['Note'], $Address_ID, $Pickup['Time']);
 		$statement->execute();
 		$statement->store_result();
-		
+		return 'success';
 	}
 }
 
@@ -898,6 +953,7 @@ function addTCJourneyMember($mysqli,$TC_Journey_Member){
 		$statement->bind_param("ii",$TC_Journey_Member['Journey_ID'],$TC_Journey_Member['TC_Member_ID']);
 		$statement->execute();
 		$statement->store_result();
+		return 'success';
 	}
 }
 
@@ -907,6 +963,7 @@ function addVehicleCheckProblem($mysqli,$Vehicle_Check_Problem){
 		$statement->bind_param("is",$Vehicle_Check_Problem['Vehicle_ID'],$Vehicle_Check_Problem['Problem_Description']);
 		$statement->execute();
 		$statement->store_result();
+		return 'success';
 	}
 }
 
@@ -927,57 +984,26 @@ function editJourney($mysqli,$data){
 			$statement->close();
 		}
 
-/*	$x = $data[0]['Pickups']['No_Pickups']; 
-	for ($xx = 1; $xx <= $x; $xx++){
-		if($statement = $mysqli->prepare("DELETE FROM Addresses WHERE Address_ID = ? ;") ){
-			$statement->bind_param("i",$data[0]['Pickups'][$xx]['Address_ID']);
-			$statement->execute();
-			$statement->store_result();
-			$statement->close();
-		}
-	}
-*/	if($statement = $mysqli->prepare("DELETE FROM Journeys WHERE Journey_ID = ?;") ){
+	if($statement = $mysqli->prepare("DELETE FROM Journeys WHERE Journey_ID = ?;") ){
 		$statement->bind_param("i",$data[0]['Journey_ID']);
 		$statement->execute();
 		$statement->store_result();
 		$statement->close();
 	}
-/*	if($statement = $mysqli->prepare("DELETE FROM Addresses WHERE Address_ID = ? ;") ){
-		$statement->bind_param("i",$data[0]['Address_ID']);
-		$statement->execute();
-		$statement->store_result();
-		$statement->close();
-	}
-	if($statement = $mysqli->prepare("DELETE FROM Addresses WHERE Address_ID = ? ;") ){
-		$statement->bind_param("i",$data[0]['Destination_ID']);
-		$statement->execute();
-		$statement->store_result();
-		$statement->close();
-	} 
-*/
-
 	$Journey = $data[1];
 
-/*	$Address = $Journey['Address'];
-
-	if( $statement = $mysqli->prepare("INSERT INTO Addresses (Address_ID, Line1, Line2, Line3, Line4, Line5, Post_Code) VALUES  (?, ?, ?, ?, ?, ?, ?);")){
-		
-		$statement->bind_param("issssss",$data[0]['Address_ID'],$Address['Line1'],$Address['Line2'],$Address['Line3'],$Address['Line4'],$Address['Line5'],$Address['Post_Code']);
-		$statement->execute();
-		$statement->close();
+	if(isset($Journey['Address_ID'])){
+		$Address_ID1 = $Journey['Address_ID'];
 	}
-
-	$Address = $Journey['Destination'];
-
-	if( $statement = $mysqli->prepare("INSERT INTO Addresses (Address_ID, Line1, Line2, Line3, Line4, Line5, Post_Code) VALUES  (?, ?, ?, ?, ?, ?, ?);")){
-		
-		$statement->bind_param("issssss",$data[0]['Destination_ID'],$Address['Line1'],$Address['Line2'],$Address['Line3'],$Address['Line4'],$Address['Line5'],$Address['Post_Code']);
-		$statement->execute();
-		$statement->close();
+	else{
+		$Address_ID1 = addAddress($mysqli,$Journey['Address']);
 	}
-*/
-	$Address_ID1 = addAddress($mysqli,$Journey['Address']);
-	$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
+	if(isset($Journey['Destination_ID'])){
+		$Address_ID2 = $Journey['Destination_ID'];
+	}
+	else{
+		$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
+	}
 	$Booking_Date = date("y-m-d"); 
 
 	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_ID, Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
@@ -995,22 +1021,26 @@ function editJourney($mysqli,$data){
 
 	$x = $data[1]['Pickups']['No_Pickups']; 
 	for ($xx = 1; $xx <= $x; $xx++){
-		$Address = $data[1]['Pickups']['Address']
-/*		if( $statement = $mysqli->prepare("INSERT INTO Addresses (Address_ID, Line1, Line2, Line3, Line4, Line5, Post_Code) VALUES  (?, ?, ?, ?, ?, ?, ?);")){
-		
-		$statement->bind_param("issssss",$data[0]['Pickups'][$xx]['Address_ID'],$Address['Line1'],$Address['Line2'],$Address['Line3'],$Address['Line4'],$Address['Line5'],$Address['Post_Code']);
-		$statement->execute();
-		$statement->close();
+		$Pickup = $data[1]['Pickups'][$xx];
+		$Address  = $Pickup['Address'];
+
+		if(isset($Pickup['Address_ID'])){
+			$Address_ID = $Pickup['Address_ID'];
 		}
-*/		$Address_ID = addAddress($mysqli,$Address);
+		else{
+			$Address_ID = addAddress($mysqli,$Address);
+		}
+
 		if( $statement = $mysqli->prepare("INSERT INTO Pickups ( Journey_ID, Note, Address_ID, Time) VALUES ( ?, ?, ?, ?);") ){
 
-			$statement->bind_param("isis",$Journey_ID, $Pickup['Note'], $Address_ID, $Pickup['Time']);
+			$statement->bind_param("isis",$data[0]['Journey_ID'], $Pickup['Note'], $Address_ID, $Pickup['Time']);
 			$statement->execute();
 			$statement->store_result();
+			$statement->close();
 			
 		}
 	}
+	return 'success';
 
 }
 
