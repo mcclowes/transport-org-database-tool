@@ -8,7 +8,7 @@
 
 		<?php
 		
-			if (isset($_POST['submit'])) {
+			if (isset($_POST['submitButton'])) {
 				$is_edit = true;
 				
 				$id = $_POST['Journey_ID'];

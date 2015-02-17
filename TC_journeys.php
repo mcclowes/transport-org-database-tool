@@ -34,6 +34,7 @@
         
     </head>
     <body onload='populateJourneys()'>
+        <div id="wctLogo"></div>
         <?php include 'nav.php' ?>
         <div id="main">
         	<div>
@@ -42,7 +43,7 @@
 				<select id="dropdown-Journeys" name='Journey_ID'>
 				</select><td></tr>
 				</div>
-				<input type="submit" name="submit" value="Submit" />
+				<input type="submit" name="submitButton" id="submitButton" value="Submit" />
 			</form>
         </div>
     </body>
