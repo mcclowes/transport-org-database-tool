@@ -1,7 +1,6 @@
 # CEP_Project
 
-Transport network database application for Weardale Community Transport.
-PHP/MySQL based.
+Transport management system designed for Weardale Community Transport. Allows management of customers, journeys, and infrastructure (including vehicles and drivers). PHP/MySQL based.
 
 Jquery calendar API: http://fullcalendar.io  
 
@@ -26,11 +25,13 @@ How to get started:
 
 ________________________________________________________________________________
 
-## Usage Guide
+## User Guide
 ### Introduction
-Blah the point of this software blah
+This application does xxx.
 
-### How tos
+For help or to report an issue please contact our team by email at maximilian.clayton-clowes@durham.ac.uk
+
+### How Tos
 #### Adding Journeys
 ##### Add a Group/ Organisation Journey
 1. Navigate to **'Add Group Journey'**  
@@ -74,8 +75,22 @@ Blah the point of this software blah
 
 #### Adding WCT Members
 ##### Adding Member Groups and Organisations
+1. Navigate to **'Add Group or Organisation'**. *Groups > Add Group or Organisation*
+2. Fill in all details. *Press next to navigate through the form, cancel to reset the form*
+3. Press 'Submit' to complete the form and submit the information
 
 ##### Adding Individual Travel Club Members
+________________________________________________________________________________
+1. Navigate to **'Add Travel Club Member'**. *Travel Club > Add Travel Club Member*
+2. Fill in all details. *Press next to navigate through the form, cancel to reset the form*
+3. Press 'Submit' to complete the form and submit the information
+
+#### Downloading Paper Forms
++ Group/ Organisation signup form: link
++ Group Journey form: link
++ Individual Travel Club signup form: link
++ Travel Club signup form: link
+
 ________________________________________________________________________________
 ## Notes
 PHP PDF Creator API: http://www.tcpdf.org/
