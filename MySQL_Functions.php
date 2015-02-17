@@ -161,8 +161,13 @@ switch ($type) {
 		break;
 
 	case 'updateDamageReport': 
+<<<<<<< HEAD
 		$rdata = updateDamageReport($mysqli, $data['Date_Resolved'], $data['Damage_ID']);
 		echo json_encode($rdata); 
+=======
+		$rdata = updateDamageReport($mysqli, $data['Date_Resolved'], $data['Damage_ID']); 
+		echo json_encode($rdata);
+>>>>>>> FETCH_HEAD
 		break;
 
 	case 'editJourney':
@@ -569,13 +574,13 @@ function getJourney($mysqli, $Journey_ID){
 	$rdata = array();
 	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
-										Keys_To_Collect, Distance, Quote, Invoice_Cost, Invoice_Sent, Invoice_Paid FROM  Journeys WHERE Journey_ID = ?;")){
+										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid FROM  Journeys WHERE Journey_ID = ?;")){
 		$statement->bind_param("i", $Journey_ID);
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($rdata['Journey_ID'], $rdata['Journey_Description'], $rdata['Journey_Note'], $rdata['Booking_Date'],$rdata['fName'],$rdata['sName'], $rdata['Address_ID'], $rdata['Tel_No'], $rdata['Group_ID'],$rdata['Journey_Date'], $rdata['Destination_ID'], $rdata['Return_Note'], $rdata['Return_Time'], 
 								$rdata['No_Passengers'], $rdata['Passengers_Note'], $rdata['Wheelchairs'], $rdata['Transferees'], $rdata['Other_Access'], $rdata['Booked_By'], $rdata['Driver_ID'], $rdata['Vehicle'], 
-								$rdata['Keys_To_Collect'], $rdata['Distance_Run'], $rdata['Quote'], $rdata['Invoice_Cost'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']);
+								$rdata['Keys_To_Collect'], $rdata['Distance_Run'], $rdata['Quote'], $rdata['Invoiced_Cost'], $rdata['Invoice_Sent'], $rdata['Invoice_Paid']);
 		$statement->fetch();
 		$statement->close();
 	}
@@ -821,9 +826,13 @@ function addJourney($mysqli,$Journey){
 	$Address_ID2 = addAddress($mysqli,$Journey['Destination']);
 	$Booking_Date = date("y-m-d"); 
 
-	if( $statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
+	if($statement = $mysqli->prepare("INSERT INTO Journeys (Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
+<<<<<<< HEAD
 										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
+=======
+										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
+>>>>>>> FETCH_HEAD
 
 		$statement->bind_param("sssssisisissisiisssssdddss",
 								$Journey['Journey_Description'],$Journey['Journey_Note'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
@@ -833,12 +842,14 @@ function addJourney($mysqli,$Journey){
 		$statement->store_result();
 		$statement->close();
 	}
-	if($statement = $mysqli->prepare(" SELECT MAX(Journey_ID FROM  Journeys;")){
+
+	if($statement = $mysqli->prepare(" SELECT MAX(Journey_ID)FROM  Journeys;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Journey_ID);
 		$statement->fetch();
 	}
+
 	return $Journey_ID;
 }
 
@@ -904,6 +915,7 @@ function updateDamageReport($mysqli, $Date_Resolved, $Damage_ID){
 		$statement->bind_param("si",$Date_Resolved, $Damage_ID);
 		$statement->execute();
 		$statement->store_result();
+		return 'success';
 	}
 }
 
