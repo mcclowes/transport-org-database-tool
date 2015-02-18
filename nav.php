@@ -13,16 +13,16 @@
             <ul>
                 <li><a href="manage_groups.php">Manage Groups</a></li>
                 <li><a href="add_group.php">Add Group or Organisation</a></li>
-                <li><a href="forms/Group_Booking_Form.pdf" download>Group Booking Form</a><img src="img/downloadArrow.png" style="width:5px"/></li>
-                <li><a href="forms/Group_Registration_Form.pdf" download>Group Registration Form</a><img src="img/downloadArrow.png" style="width:5px"/></li>
+                <li><a href="forms/Group_Booking_Form.pdf" class="downloadBox" download><img src="img/downloadArrow.png" class="downloadArrow"/>Group Booking Form</a></li>
+                <li><a href="forms/Group_Registration_Form.pdf" class="downloadBox" download><img src="img/downloadArrow.png" class="downloadArrow"/>Group Registration Form</a></li>
             </ul>
         </li>
         <li><a href="add_member.php">Travel Club</a>
             <ul>
                 <li><a href="manage_members.php">Manage Members</a></li>
                 <li><a href="add_member.php">Add Travel Club Member</a></li>
-                <li><a href="forms/Individual_Booking_Form.pdf" download>Individual Booking Form</a><img src="img/downloadArrow.png" style="width:5px"/></li>
-                <li><a href="forms/Individual_Registration_Form.pdf" download>Member Registration Form</a><img src="img/downloadArrow.png" style="width:5px"/></li>
+                <li><a href="forms/Individual_Booking_Form.pdf" class="downloadBox" download><img src="img/downloadArrow.png" class="downloadArrow"/>Individual Booking Form</a></li>
+                <li><a href="forms/Individual_Registration_Form.pdf" class="downloadBox" download><img src="img/downloadArrow.png" class="downloadArrow"/>Member Registration Form</a></li>
             </ul>
         </li>
         <li><a href="add_vehicle.php">Vehicles</a>

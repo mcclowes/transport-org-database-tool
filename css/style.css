@@ -120,6 +120,20 @@ nav {
 	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
 }
 
+.downloadArrow {
+	width: 20px;
+	display: inline;
+	float: left;
+	position: relative;
+	top: 50%;
+	padding-right: 5px;
+
+}
+
+.downloadBox {
+	display: inline-table;
+}
+
 #wctLogo {
 	position: absolute;
 	background-image: url("../img/wct_icon.png");
