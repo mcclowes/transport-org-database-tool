@@ -13,7 +13,12 @@
 		<script>
 		
 			function submit() {
-				window.location = 'add_group_journey.php?id=' + <?php echo $id ?>;
+				if (document.getElementById('Group').value == '') {
+					window.location = 'add_TC_journey.php?id=' + <?php echo $id ?>;
+				}
+				else {
+					window.location = 'add_group_journey.php?id=' + <?php echo $id ?>;
+				}
 			}
 			
 			function getJourney() {
