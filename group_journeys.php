@@ -7,9 +7,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         
         <script type="text/javascript">
+        
+            function submit(){
+                window.location = 'show_journey_info.php?id=' + document.getElementById('dropdown-Journeys').value;
+            }
+            
             function populateJourneys(){
-            	var dropdown = document.getElementById('dropdown-Journeys');
-            	
+                var dropdown = document.getElementById('dropdown-Journeys');
+                
                 $.ajax({
                     type: "POST",
                     url:"MySQL_Functions.php",
@@ -18,12 +23,12 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                    	for(var i = 0; i < returned_data.length; i++) {
-                    		var item = document.createElement("option");
-                    		item.textContent = returned_data[i]['Journey_Description'] + ' (' + returned_data[i]['Journey_Date'] + ')';
-                    		item.value = returned_data[i]['Journey_ID'];
-                    		dropdown.appendChild(item);
-                    	}
+                        for(var i = 0; i < returned_data.length; i++) {
+                            var item = document.createElement("option");
+                            item.textContent = returned_data[i]['Journey_Description'] + ' (' + returned_data[i]['Journey_Date'] + ')';
+                            item.value = returned_data[i]['Journey_ID'];
+                            dropdown.appendChild(item);
+                        }
                     }
                 });
             }
@@ -33,14 +38,15 @@
         <div id="wctLogo"></div>
         <?php include 'nav.php' ?>
         <div id="main">
-        	<div>
-        	<form method='POST' action='add_group_journey.php'>
-				<tr><td><label>Choose a journey: </label></td><td>
-				<select id="dropdown-Journeys" name='Journey_ID'>
-				</select><td></tr>
-				</div>
-				<input type="submit" id="submitButton" name="submitButton" value="Submit" />
-			</form>
+            <div>
+                <tr><td><label>Choose a journey: </label></td><td>
+                <select id="dropdown-Journeys" name='Journey_ID'>
+                </select><td></tr>
+            </div>
+            <br>
+            <div>
+            <input type="submit" id="submitButton" name="submit" value="Submit" onclick='submit()' />
+            </div>
         </div>
     </body>
 </html>

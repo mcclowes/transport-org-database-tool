@@ -8,6 +8,10 @@
         
         
         <script type="text/javascript">
+        
+        	function submit(){
+        		window.location = 'show_journey_info.php?id=' + document.getElementById('dropdown-Journeys').value;
+        	}
             
             function populateJourneys(){
             	var dropdown = document.getElementById('dropdown-Journeys');
@@ -34,17 +38,17 @@
         
     </head>
     <body onload='populateJourneys()'>
-        <div id="wctLogo"></div>
         <?php include 'nav.php' ?>
         <div id="main">
         	<div>
-        	<form method='POST' action='add_TC_journey.php'>
 				<tr><td><label>Choose a journey: </label></td><td>
 				<select id="dropdown-Journeys" name='Journey_ID'>
 				</select><td></tr>
-				</div>
-				<input type="submit" name="submitButton" id="submitButton" value="Submit" />
-			</form>
+			</div>
+            <br>
+            <div>
+                <input type="submit" id="submitButton" name="submit" value="Submit" onclick='submit()' />
+            </div>
         </div>
     </body>
 </html>
