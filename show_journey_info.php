@@ -13,7 +13,8 @@
 		<script>
 		
 			function submit() {
-				if (document.getElementById('Group').value == '') {
+				var group = document.getElementById('Group').innerHTML;
+				if (document.getElementById('Group').value == "") {
 					window.location = 'add_TC_journey.php?id=' + <?php echo $id ?>;
 				}
 				else {
