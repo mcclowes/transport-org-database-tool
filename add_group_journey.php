@@ -28,7 +28,7 @@
                     'fName':                        document.getElementById('input-fName').value,
                     'sName':                        document.getElementById('input-sName').value,
                     'Tel_No':                       document.getElementById('input-Tel_No').value,
-                    'Group':						document.getElementById('dropdown-Group').value,
+                    'Group_ID':						document.getElementById('dropdown-Group').value,
                     'Address':{
                         'Line1':                    document.getElementById('input-Address_Line1').value,
                         'Line2':                    document.getElementById('input-Address_Line2').value,
@@ -70,7 +70,7 @@
 					},
 					'Return_Time':					document.getElementById('input-Return_Time').value,
 					'Return_Note':					document.getElementById('input-Return_Note').value,
-					'Driver':						document.getElementById('dropdown-Driver').value,
+					'Driver_ID':					document.getElementById('dropdown-Driver').value,
 					'Vehicle':						document.getElementById('dropdown-Vehicle').value,
 					'Keys_To_Collect':				document.getElementById('input-Keys_To_Collect').value,
 					'Quote':						document.getElementById('input-Quote').value,
@@ -78,7 +78,7 @@
 					'Invoiced_Cost':				document.getElementById('input-Invoiced_Cost').value,
 					'Invoice_Sent':					document.getElementById('date-Invoice_Sent').value,
 					'Invoice_Paid':					document.getElementById('date-Invoice_Paid').value,
-					'Journey_Notes':				document.getElementById('input-Journey_Notes').value,
+					'Journey_Note':				    document.getElementById('input-Journey_Notes').value,
                 };
                 
                 
@@ -218,7 +218,7 @@
 						document.getElementById('input-Address_Line3').value = returned_data['Address']['Line3'];
 						document.getElementById('input-Address_Line4').value = returned_data['Address']['Line4'];
 						document.getElementById('input-Address_Line5').value = returned_data['Address']['Line5'];
-						document.getElementById('input-Address_Post_Code').value = returned_data['Post_Code'];
+						document.getElementById('input-Address_Post_Code').value = returned_data['Address']['Post_Code'];
 						document.getElementById('input-Journey_Description').value = returned_data['Journey_Description'];
 						document.getElementById('date-Journey_Date').value = returned_data['Journey_Date'];
 						document.getElementById('number-No_Passengers').value = returned_data['No_Passengers'];
@@ -257,7 +257,7 @@
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
 						document.getElementById('input-Return_Note').value = returned_data['Return_Note'];
-						document.getElementById('dropdown-Driver').value = returned_data['Driver'];
+						document.getElementById('dropdown-Driver').value = returned_data['Driver_ID'];
 						document.getElementById('dropdown-Vehicle').value = returned_data['Vehicle'];
 						document.getElementById('input-Keys_To_Collect').value = returned_data['Keys_To_Collect'];
 						document.getElementById('input-Quote').value = returned_data['Quote'];
@@ -265,7 +265,7 @@
 						document.getElementById('input-Invoiced_Cost').value = returned_data['Invoiced_Cost'];
 						document.getElementById('date-Invoice_Sent').value = returned_data['Invoice_Sent'];
 						document.getElementById('date-Invoice_Paid').value = returned_data['Invoice_Paid'];
-						document.getElementById('input-Journey_Notes').value = returned_data['Journey_Notes'];	
+						document.getElementById('input-Journey_Notes').value = returned_data['Journey_Note'];	
                     }
                 });
             }
