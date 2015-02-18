@@ -7,16 +7,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 		<?php
-		
-			if (isset($_POST['submitButton'])) {
+			if (isset($_GET['id'])) {
 				$is_edit = true;
 				
-				$id = $_POST['Journey_ID'];
+				$id = $_GET['id'];
 			}
 			else {
 				$is_edit = false;
 			}
-			
 		?>
 
         <script type="text/javascript">
@@ -423,7 +421,7 @@
                         </fieldset>
 <!--ADD A NEW PICKUP-->
                         <fieldset id="returnDetails">
-                            <legend>Pickup Address</legend>
+                            <legend>Return Details</legend>
                             <table>
                                 <tr><td><label>Return time: </label></td><td><input type="text" id="input-Return_Time"/> <td></tr>
                                 <tr><td><label>Return note: </label></td><td><input type="textarea" id="input-Return_Note" placeholder="List any special requirements"/> <td></tr>
