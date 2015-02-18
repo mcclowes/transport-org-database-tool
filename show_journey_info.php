@@ -172,9 +172,9 @@
 	                        <tr><td><label>Driver: </label></td><td id="Driver"><td></tr>
 	                        <tr><td><label>Allocated Vehicle: </label></td><td id="Vehicle"><td></tr>
 	                        <tr><td><label>Keys to collect: </label></td><td id="Keys_To_Collect"><td></tr>
-	                        <tr><td><label>Price quoted: </label></td><td><td id="Quote"></tr>
-	                        <tr><td><label>Miles/KMs run: </label></td><td><td id="Distance_Run"></tr>
-	                        <tr><td><label>Invoiced cost: </label></td><td><td id="Invoiced_Cost"></tr>
+	                        <tr><td><label>Price quoted: </label></td><td id="Quote"></tr>
+	                        <tr><td><label>Miles/KMs run: </label></td><td id="Distance_Run"></tr>
+	                        <tr><td><label>Invoiced cost: </label></td><td id="Invoiced_Cost"></tr>
 	                        <tr><td><label>Invoice sent on: </label></td><td id="Invoice_Sent"><td></tr>
 	                        <tr><td><label>Invoice paid on: </label></td><td id="Invoice_Paid"><td></tr>
 	                    </table>
