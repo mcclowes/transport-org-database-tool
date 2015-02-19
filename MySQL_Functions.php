@@ -520,7 +520,7 @@ function getGroup($mysqli, $Group_ID){
 		$statement->fetch();
 		
 		$Group['Address'] = getAddress($mysqli, $Address_ID1);
-		$Group['Destination'] = getAddress($mysqli, $Address_ID2);
+		$Group['Invoice'] = getAddress($mysqli, $Address_ID2);
 
 	}
 
