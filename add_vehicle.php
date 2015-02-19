@@ -63,9 +63,9 @@
 							<table>
 								<tr><td><label>Tax Due: </label></td><td><input type="date" id="date-Tax_Due"/></td></tr>
 								<tr><td><label>MOT Due: </label></td><td><input type="date" id="date-MOT_Due"/></td></tr>
-								<tr><td><label>Safety Inspection Due:</label></td><td><input type="text" id="date-Safety_Due"/></td></tr>
-		                        <tr><td><label>Service Due: </label></td><td><input type="text" id="date-Service_Due"/> </td></tr>
-                                <tr><td><label>Tail Lift Service Due: </label></td><td><input type="text" id="date-Tail_Lift_Service_Due"/> </td></tr>
+								<tr><td><label>Safety Inspection Due:</label></td><td><input type="date" id="date-Safety_Due"/></td></tr>
+		                        <tr><td><label>Service Due: </label></td><td><input type="date" id="date-Service_Due"/> </td></tr>
+                                <tr><td><label>Tail Lift Service Due: </label></td><td><input type="date" id="date-Tail_Lift_Service_Due"/> </td></tr>
                                 <tr><td><label>Section 19 Permit Number: </label></td><td><input type="text" id="input-Permit_Number"/> </td></tr>
                                 <tr><td><label>Section 19 Expiry Date: </label></td><td><input type="date" id="date-Permit_Expiry"/> </td></tr>
                             </table>

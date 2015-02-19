@@ -175,6 +175,27 @@ switch ($type) {
 		echo json_encode($rdata);
 		break;
 
+	case 'deleteJourney':
+		$rdata = deleteJourney($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
+	case 'deleteTCMember':
+		$rdata = deleteTCMember($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
+
+	case 'deleteVehicle':
+		$rdata = deleteVehicle($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
+	case 'deleteGroup':
+		$rdata = deleteGroup($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
 	default:
 	 	echo json_encode("error");
 		break;
@@ -1001,6 +1022,13 @@ function editJourney($mysqli,$data){
 			$statement->close();
 		}
 
+	if($statement = $mysqli->prepare("DELETE FROM TC_Journey_Members WHERE Journey_ID = ?;") ){
+		$statement->bind_param("i",$data[0]['Journey_ID']);
+		$statement->execute();
+		$statement->store_result();
+		$statement->close();
+	}
+
 	if($statement = $mysqli->prepare("DELETE FROM Journeys WHERE Journey_ID = ?;") ){
 		$statement->bind_param("i",$data[0]['Journey_ID']);
 		$statement->execute();
@@ -1059,6 +1087,75 @@ function editJourney($mysqli,$data){
 	}
 	return 'success';
 
+}
+
+function deleteJourney($mysqli,$data){
+	if($statement = $mysqli->prepare("DELETE FROM Pickups WHERE Journey_ID = ?;") ){
+			$statement->bind_param("i",$data['Journey_ID']);
+			$statement->execute();
+			$statement->store_result();
+			$statement->close();
+		}
+
+	if($statement = $mysqli->prepare("DELETE FROM TC_Journey_Members WHERE Journey_ID = ?;") ){
+		$statement->bind_param("i",$data['Journey_ID']);
+		$statement->execute();
+		$statement->store_result();
+		$statement->close();
+	}
+
+	if($statement = $mysqli->prepare("DELETE FROM Journeys WHERE Journey_ID = ?;") ){
+		$statement->bind_param("i",$data['Journey_ID']);
+		$statement->execute();
+		$statement->store_result();
+		$statement->close();
+	}
+	
+	return 'success';
+}
+
+function deleteTCMember($mysqli,$data){
+	if($statement = $mysqli->prepare("DELETE FROM TC_Members WHERE TC_Member_ID = ?;") ){
+			$statement->bind_param("i",$data['TC_Member_ID']);
+			$statement->execute();
+			$statement->store_result();
+			$statement->close();
+		}
+	
+	return 'success';
+}
+
+function deleteVehicle($mysqli,$data){
+	if($statement = $mysqli->prepare("DELETE FROM Vehicles WHERE Vehicle_ID = ?;") ){
+			$statement->bind_param("i",$data['Vehicle_ID']);
+			$statement->execute();
+			$statement->store_result();
+			$statement->close();
+		}
+	
+	return 'success';
+}
+
+function deleteDriver($mysqli,$data){
+	if($statement = $mysqli->prepare("DELETE FROM Drivers WHERE Driver_ID = ?;") ){
+			$statement->bind_param("i",$data['Driver_ID']);
+			$statement->execute();
+			$statement->store_result();
+			$statement->close();
+		}
+	
+	return 'success';
+}
+
+function deleteGroup($mysqli,$data){
+	if($statement = $mysqli->prepare("DELETE FROM Groups WHERE Group_ID = ?;") ){
+			$statement->bind_param("i",$data['Group_ID']);
+			$statement->execute();
+			$statement->store_result();
+			$statement->close();
+		}
+	
+	return 'success';
 }
 
 ?>
