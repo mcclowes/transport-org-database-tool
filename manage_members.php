@@ -39,7 +39,7 @@
         <?php include 'nav.php' ?>
         <div id="main">
             <div>
-                <tr><td><label>Choose a driver: </label></td><td>
+                <tr><td><label>Choose a member: </label></td><td>
                 <select id="dropdown-Members" name='TC_Member_ID'>
                 </select><td></tr>
             </div>
