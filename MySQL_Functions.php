@@ -96,7 +96,7 @@ switch ($type) {
 		break;
 
 	case 'getDriver': 
-		$rdata = getDriver($mysqli);
+		$rdata = getDriver($mysqli,$data['Driver_ID']);
 		echo json_encode($rdata);
 		break;
 
@@ -193,6 +193,11 @@ switch ($type) {
 
 	case 'deleteGroup':
 		$rdata = deleteGroup($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
+	case 'deleteDriver':
+		$rdata = deleteDriver($mysqli,$data);
 		echo json_encode($rdata);
 		break;
 
