@@ -16,6 +16,7 @@
 				window.location = 'add_group_journey.php?id=' + <?php echo $id ?>;
 			}
 			
+
 			function getJourney() {
 			
 				var id_data = {
@@ -84,6 +85,28 @@
                 });
 			
 			}
+			
+			function deleteJourney() {
+				var id_data = {
+					'Journey_ID': <?php echo $id; ?>
+				};
+				
+				$.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'deleteJourney',
+						'form_data': id_data
+                    },
+                    dataType: "json",
+					success: function(returned_data) {
+	                    	window.location = 'index.php';
+	                    }
+	            });
+			}
+
+
+			
 		
 		</script>
 		
@@ -171,6 +194,7 @@
 	                </br>
 	            </div>
 	            <input type="submit" id='submitButton' name="submit" value="Edit" onclick='submit()' />
+	            <input type="submit" id='submitButton' name="delete" value="Delete" onclick='deleteJourney()' />
 	        </div>
 	    </div>
     </body>
