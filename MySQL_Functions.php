@@ -304,7 +304,7 @@ function getVehicles($mysqli){
 	$Vehicle = array();
 
 	if($statement = $mysqli->prepare(" SELECT Vehicle_ID, Nickname, Registration, Make, Model, Colour, Capacity_Passengers, Tax_Due, MOT_Due, Inspection_Due,
-										 Service_Due, Tail_Service_Due, Section_19_No, Section_19_Due, Seating_Configurations FROM  Vehicles;")){
+										 Service_Due, Tail_Service_Due, Section_19_No, Section_19_Due, Seating_Configurations FROM  Vehicles WHERE Deleted = 'false';")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Vehicle_ID, $Nickname,$Registration,$Make,$Model,$Colour,$Capacity_Passengers,$Tax_Due,$MOT_Due,$Inspection_Due,
@@ -371,7 +371,7 @@ function getDrivers($mysqli){
 	$Drivers = array();
 	$Driver = array();
 	if($statement = $mysqli->prepare(" SELECT Driver_ID, fName, sName, Address_ID, Tel_No, Mobile_No, DOB, Licence_No, Licence_Expires, Licence_Points, DBS_No, DBS_Issued, 
-										Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer FROM  Drivers ;")){
+										Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer FROM  Drivers WHERE Deleted = 'false';")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Driver_ID, $fName, $sName, $Address_ID, $Tel_No, $Mobile_No, $DOB, $Licence_No, $Licence_Expires, $Licence_Points, $DBS_No, $DBS_Issued, 
@@ -485,7 +485,7 @@ function getGroups($mysqli){
 	$Group = array();
 	$Groups = array();
 
-	if($statement = $mysqli->prepare(" SELECT Group_ID, Name, Tel FROM  Groups;")){
+	if($statement = $mysqli->prepare(" SELECT Group_ID, Name, Tel FROM  Groups WHERE Deleted = 'false';")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Group_ID,$Name,$Tel);
@@ -578,7 +578,7 @@ function getGroupJourneys($mysqli){
 	$Journey = array();
 	$Journeys = array();
 
-	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM Journeys WHERE Group_ID IS NOT NULL;")){
+	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM Journeys WHERE Group_ID IS NOT NULL AND  Deleted = 'false';")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
@@ -611,7 +611,7 @@ function getTCJourneys($mysqli){
 	$Journey = array();
 	$Journeys = array();
 
-	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM  Journeys WHERE Group_ID IS NULL;")){
+	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM  Journeys WHERE Group_ID IS NULL AND Deleted = 'false';")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
@@ -732,7 +732,7 @@ function getTCMember($mysqli, $TC_Member_ID){
 function getTCMembers($mysqli){
 	$TC_Member = array();
 	$TC_Members = array();
-	if($statement = $mysqli->prepare(" SELECT TC_Member_ID, fName, sName, Address_ID FROM  TC_Members;")){
+	if($statement = $mysqli->prepare(" SELECT TC_Member_ID, fName, sName, Address_ID FROM  TC_Members WHERE Deleted = 'false';")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($TC_Member_ID,$fName,$sName,$Address_ID);
@@ -758,7 +758,7 @@ function getPickups($mysqli,$Journey_ID){
 	$Pickups = array();
 	$No_Pickups = 0;
 
-	if($statement = $mysqli->prepare(" SELECT Note, Address_ID, Time FROM  Pickups WHERE Journey_ID = ?;")){
+	if($statement = $mysqli->prepare(" SELECT Note, Address_ID, Time FROM  Pickups WHERE Deleted = 'false' AND Journey_ID = ?;")){
 		$statement->bind_param('i',$Journey_ID);
 		$statement->execute();
 		$statement->store_result();
@@ -1095,21 +1095,21 @@ function editJourney($mysqli,$data){
 }
 
 function deleteJourney($mysqli,$data){
-	if($statement = $mysqli->prepare("DELETE FROM Pickups WHERE Journey_ID = ?;") ){
+	if($statement = $mysqli->prepare("UPDATE Pickups SET Deleted = 'true' WHERE Journey_ID = ?;") ){
 			$statement->bind_param("i",$data['Journey_ID']);
 			$statement->execute();
 			$statement->store_result();
 			$statement->close();
 		}
 
-	if($statement = $mysqli->prepare("DELETE FROM TC_Journey_Members WHERE Journey_ID = ?;") ){
+	if($statement = $mysqli->prepare("UPDATE TC_Journey_Members SET Deleted = 'true' WHERE Journey_ID = ?;") ){
 		$statement->bind_param("i",$data['Journey_ID']);
 		$statement->execute();
 		$statement->store_result();
 		$statement->close();
 	}
 
-	if($statement = $mysqli->prepare("DELETE FROM Journeys WHERE Journey_ID = ?;") ){
+	if($statement = $mysqli->prepare("UPDATE Journeys SET Deleted = 'true' WHERE Journey_ID = ?;") ){
 		$statement->bind_param("i",$data['Journey_ID']);
 		$statement->execute();
 		$statement->store_result();
@@ -1120,7 +1120,7 @@ function deleteJourney($mysqli,$data){
 }
 
 function deleteTCMember($mysqli,$data){
-	if($statement = $mysqli->prepare("DELETE FROM TC_Members WHERE TC_Member_ID = ?;") ){
+	if($statement = $mysqli->prepare("UPDATE TC_Members SET Deleted = 'true' WHERE TC_Member_ID = ?;") ){
 			$statement->bind_param("i",$data['TC_Member_ID']);
 			$statement->execute();
 			$statement->store_result();
@@ -1131,7 +1131,7 @@ function deleteTCMember($mysqli,$data){
 }
 
 function deleteVehicle($mysqli,$data){
-	if($statement = $mysqli->prepare("DELETE FROM Vehicles WHERE Vehicle_ID = ?;") ){
+	if($statement = $mysqli->prepare("UPDATE Vehicles SET Deleted = 'true' WHERE Vehicle_ID = ?;") ){
 			$statement->bind_param("i",$data['Vehicle_ID']);
 			$statement->execute();
 			$statement->store_result();
@@ -1142,7 +1142,7 @@ function deleteVehicle($mysqli,$data){
 }
 
 function deleteDriver($mysqli,$data){
-	if($statement = $mysqli->prepare("DELETE FROM Drivers WHERE Driver_ID = ?;") ){
+	if($statement = $mysqli->prepare("UPDATE Drivers SET Deleted = 'true' WHERE Driver_ID = ?;") ){
 			$statement->bind_param("i",$data['Driver_ID']);
 			$statement->execute();
 			$statement->store_result();
@@ -1153,7 +1153,7 @@ function deleteDriver($mysqli,$data){
 }
 
 function deleteGroup($mysqli,$data){
-	if($statement = $mysqli->prepare("DELETE FROM Groups WHERE Group_ID = ?;") ){
+	if($statement = $mysqli->prepare("UPDATE Groups SET Deleted = 'true' WHERE Group_ID = ?;") ){
 			$statement->bind_param("i",$data['Group_ID']);
 			$statement->execute();
 			$statement->store_result();
