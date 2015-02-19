@@ -132,16 +132,16 @@
 					<fieldset id="additionalDetails">
 						<legend>Additional Details</legend>
 						<table>
-							<tr><td><label>Do you use a wheelchair? </label></td><td<td id="Details_Wheelchair"></td></tr>
-							<tr><td><label>What type of wheelchair do you use? </label></td><td<td id="Details_Wheelchair_Type"></td></tr>
-							<tr><td><label>Do you want to transfer from your wheelchair to our vehicle? </label></td><td<td id="Details_Wheelchair_Seat"></td></tr>
-							<tr><td><label>Do you use a scooter? </label></td><td<td id="Details_Scooter"></td></tr>
-							<tr><td><label>Do you use a mobility aid?</label></td><td<td id="Details_Mobility_Aid"></td></tr>	
-							<tr><td><label>If shopping, do you use a shopping trolley?</label></td><td<td id="Details_Shopping_Trolley"></td></tr>
-							<tr><td><label>Will you be travelling with a guide dog?</label></td><td<td id="Details_Guide_Dog"></td></tr>
-							<tr><td><label>Can you get into a 'people carrier' style car? </label></td><td<td id="Details_People_Carrier"></td></tr>
-							<tr><td><label>Do you need a passenger assistant?</label></td><td<td id="Details_Assistant"></td></tr>
-							<tr><td><label>Do you have a Concessionary Travelcard?</label></td><td<td id="Details_Travelcard"></td></tr>
+							<tr><td><label>Do you use a wheelchair? </label></td><td id="Details_Wheelchair"></td></tr>
+							<tr><td><label>What type of wheelchair do you use? </label></td><td id="Details_Wheelchair_Type"></td></tr>
+							<tr><td><label>Do you want to transfer from your wheelchair to our vehicle? </label></td><td id="Details_Wheelchair_Seat"></td></tr>
+							<tr><td><label>Do you use a scooter? </label></td><td id="Details_Scooter"></td></tr>
+							<tr><td><label>Do you use a mobility aid?</label></td><td id="Details_Mobility_Aid"></td></tr>	
+							<tr><td><label>If shopping, do you use a shopping trolley?</label></td><td id="Details_Shopping_Trolley"></td></tr>
+							<tr><td><label>Will you be travelling with a guide dog?</label></td><td id="Details_Guide_Dog"></td></tr>
+							<tr><td><label>Can you get into a 'people carrier' style car? </label></td><td id="Details_People_Carrier"></td></tr>
+							<tr><td><label>Do you need a passenger assistant?</label></td><td id="Details_Assistant"></td></tr>
+							<tr><td><label>Do you have a Concessionary Travelcard?</label></td><td id="Details_Travelcard"></td></tr>
 						</table>
 					</fieldset>
 					<fieldset id="serviceReasons">
