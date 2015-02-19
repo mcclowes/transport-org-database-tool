@@ -20,7 +20,9 @@
         <script type="text/javascript">
         
             function submit() {
-            	var date = new Date();
+                var date = new Date();
+                var is_edit = '<?php echo $is_edit; ?>';
+            	
                 form_data = {
                 	'Booking_Date':					date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate(),
                     'fName':                        document.getElementById('input-fName').value,
@@ -65,19 +67,37 @@
                 };
                 
                 form_data['Pickups'] = pickups;
-                
-                $.ajax({
-                    type: "POST",
-                    url:"MySQL_Functions.php",
-                    data: {
-                        'form_type': 'addJourney',
-                        'form_data': form_data
-                    },
-                    dataType: "json",
-                    success: function(returned_data) {
-                    	window.location = 'index.php';
-                    }
-                });
+
+                if (is_edit == '1') {
+                    form_data['Journey_ID'] = '<?php echo $id; ?>';  
+
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'editJourney',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            window.location = 'index.php';
+                        }
+                    });
+                }
+                else{
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'addJourney',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                        	window.location = 'index.php';
+                        }
+                    });
+                }
             }
 
             var i = 0;

@@ -41,7 +41,7 @@ switch ($type) {
 		$Journey_ID = addJourney($mysqli,$data);
 		$x = $data['Pickups']['No_Pickups']; 
 
-		for ($xx = 1; $xx <= $x; $xx++){
+		for ($xx = 0; $xx < $x; $xx++){
 			addPickup($mysqli,$Journey_ID, $data['Pickups'][$xx]);
 		}
 		echo json_encode('success!');
@@ -1019,28 +1019,27 @@ function updateDamageReport($mysqli, $Date_Resolved, $Damage_ID){
 	}
 }
 
-function editJourney($mysqli,$data){
+function editJourney($mysqli,$Journey){
 	if($statement = $mysqli->prepare("DELETE FROM Pickups WHERE Journey_ID = ?;") ){
-			$statement->bind_param("i",$data[0]['Journey_ID']);
+			$statement->bind_param("i",$Journey['Journey_ID']);
 			$statement->execute();
 			$statement->store_result();
 			$statement->close();
 		}
 
 	if($statement = $mysqli->prepare("DELETE FROM TC_Journey_Members WHERE Journey_ID = ?;") ){
-		$statement->bind_param("i",$data[0]['Journey_ID']);
+		$statement->bind_param("i",$Journey['Journey_ID']);
 		$statement->execute();
 		$statement->store_result();
 		$statement->close();
 	}
 
 	if($statement = $mysqli->prepare("DELETE FROM Journeys WHERE Journey_ID = ?;") ){
-		$statement->bind_param("i",$data[0]['Journey_ID']);
+		$statement->bind_param("i",$Journey['Journey_ID']);
 		$statement->execute();
 		$statement->store_result();
 		$statement->close();
 	}
-	$Journey = $data[1];
 
 	if(isset($Journey['Address_ID'])){
 		$Address_ID1 = $Journey['Address_ID'];
@@ -1061,7 +1060,7 @@ function editJourney($mysqli,$data){
 										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
 		$statement->bind_param("isssssisisissisiisssssdddss",
-								$data[0]['Journey_ID'],$Journey['Journey_Description'],$Journey['Journey_Note'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
+								$Journey['Journey_ID'],$Journey['Journey_Description'],$Journey['Journey_Note'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
 								$Journey['No_Passengers'], $Journey['Passengers_Note'], $Journey['Wheelchairs'], $Journey['Transferees'], $Journey['Other_Access'], $Journey['Booked_By'], $Journey['Driver_ID'], $Journey['Vehicle'], 
 								$Journey['Keys_To_Collect'], $Journey['Distance_Run'], $Journey['Quote'], $Journey['Invoiced_Cost'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
 		$statement->execute();
@@ -1069,9 +1068,9 @@ function editJourney($mysqli,$data){
 		$statement->close();
 	}
 
-	$x = $data[1]['Pickups']['No_Pickups']; 
-	for ($xx = 1; $xx <= $x; $xx++){
-		$Pickup = $data[1]['Pickups'][$xx];
+	$x = $Journey['Pickups']['No_Pickups']; 
+	for ($xx = 0; $xx < $x; $xx++){
+		$Pickup = $Journey['Pickups'][$xx];
 		$Address  = $Pickup['Address'];
 
 		if(isset($Pickup['Address_ID'])){
@@ -1083,7 +1082,7 @@ function editJourney($mysqli,$data){
 
 		if( $statement = $mysqli->prepare("INSERT INTO Pickups ( Journey_ID, Note, Address_ID, Time) VALUES ( ?, ?, ?, ?);") ){
 
-			$statement->bind_param("isis",$data[0]['Journey_ID'], $Pickup['Note'], $Address_ID, $Pickup['Time']);
+			$statement->bind_param("isis",$Journey['Journey_ID'], $Pickup['Note'], $Address_ID, $Pickup['Time']);
 			$statement->execute();
 			$statement->store_result();
 			$statement->close();
