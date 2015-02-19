@@ -10,21 +10,21 @@
             function submit() {
                 form_data = {
                     'Nickname':						document.getElementById('input-Nickname').value,
-                    'Licence':						document.getElementById('input-Licence').value,
+                    'Registration':						document.getElementById('input-Licence').value,
                     'Make':							document.getElementById('input-Make').value,
                     'Model':						document.getElementById('input-Model').value,
                     'Colour':						document.getElementById('input-Colour').value,
                     'Capacity_Passengers':			document.getElementById('number-Capacity_Passengers').value,
-                    'Capacity_Note':				document.getElementById('input-Capacity_Note').value,
+                    'Seating_Configurations':				document.getElementById('input-Capacity_Note').value,
                     'Tax_Due':						document.getElementById('date-Tax_Due').value,
                     'MOT_Due':						document.getElementById('date-MOT_Due').value,
-                    'Safety_Due':					document.getElementById('date-Safety_Due').value,
+                    'Inspection_Due':					document.getElementById('date-Safety_Due').value,
                     'Service_Due':					document.getElementById('date-Service_Due').value,
-                    'Lift_Service_Due':				document.getElementById('date-Tail_Lift_Service_Due').value,
-                    'Permit_Number':				document.getElementById('input-Permit_Number').value,
-                    'Permit_Expiry':				document.getElementById('date-Permit_Expiry').value
+                    'Tail_Service_Due':				document.getElementById('date-Tail_Lift_Service_Due').value,
+                    'Section_19_No':				document.getElementById('input-Permit_Number').value,
+                    'Section_19_Due':				document.getElementById('date-Permit_Expiry').value
                 };
-                
+
                 $.ajax({
                     type: "POST",
                     url:"MySQL_Functions.php",
@@ -34,7 +34,6 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                        $('#result').replaceWith('<div id="result">'+returned_data+'</div>');
                     }
                 });
             }

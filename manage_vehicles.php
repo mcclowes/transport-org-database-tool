@@ -9,7 +9,7 @@
         <script type="text/javascript">
         
             function submit(){
-                window.location = 'show_journey_info.php?id=' + document.getElementById('dropdown-Vehicles').value;
+                window.location = 'show_vehicle_info.php?id=' + document.getElementById('dropdown-Vehicles').value;
             }
             
             function populateVehicles(){
