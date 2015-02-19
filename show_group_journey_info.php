@@ -63,7 +63,7 @@
 						var pickupList = document.getElementById('pickupList');
 						for (var x = 0; x < returned_data['Pickups']['No_Pickups']; x++) {
 							var cell = pickupList.insertRow(0).insertCell(0);
-							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Line2'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'];
+							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
 							cell.id = 'Pickup_' + toString(x+1);
 						}
 						

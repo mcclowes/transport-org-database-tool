@@ -236,7 +236,7 @@
 							}
 				
 							var cell = pickupList.insertRow(0).insertCell(0);
-							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Line2'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'];
+							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
 							cell.id = 'Pickup_' + toString(x+1);
 						}
 						
@@ -289,7 +289,7 @@
 					pickups['No_Pickups']++;
 					var pickupList = document.getElementById('pickupList');
 					var cell = pickupList.insertRow(0).insertCell(0);
-					cell.innerHTML = pickup['Address']['Line1'] + ', ' + pickup['Address']['Line2'] + ', ' + pickup['Address']['Post_Code'];
+					cell.innerHTML = pickup['Address']['Line1'] + ', ' + pickup['Address']['Post_Code'] + ', ' + pickup['TIme'];
 					cell.id = 'Pickup_' + pickups['No_Pickups'];
 					
 					document.getElementById('input-Pickup_Time').value = '';
