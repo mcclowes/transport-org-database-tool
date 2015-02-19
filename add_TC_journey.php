@@ -21,6 +21,8 @@
         
             function submit() {
             	var date = new Date();
+                var is_edit = '<?php echo $is_edit; ?>';
+
                 form_data = {
                 	'Booking_Date':					date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate(),
                     'fName':                        document.getElementById('input-fName').value,
@@ -55,7 +57,7 @@
 					},
 					'Return_Time':					document.getElementById('input-Return_Time').value,
 					'Return_Note':					document.getElementById('input-Return_Note').value,
-					'Driver':						document.getElementById('dropdown-Driver').value,
+					'Driver_ID':					document.getElementById('dropdown-Driver').value,
 					'Vehicle':						document.getElementById('dropdown-Vehicle').value,
 					'Keys_To_Collect':				document.getElementById('input-Keys_To_Collect').value,
 					'Quote':						document.getElementById('input-Quote').value,
@@ -67,19 +69,36 @@
                 };
                 
                 form_data['Pickups'] = pickups;
-                
-                $.ajax({
-                    type: "POST",
-                    url:"MySQL_Functions.php",
-                    data: {
-                        'form_type': 'addJourney',
-                        'form_data': form_data
-                    },
-                    dataType: "json",
-                    success: function(returned_data) {
-                    	window.location = 'index.php';
-                    }
-                });
+                if (is_edit == '1') {
+                    form_data['Journey_ID'] = '<?php echo $id; ?>';  
+
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'editJourney',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            window.location = 'index.php';
+                        }
+                    });
+                }
+                else{
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'addJourney',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                        	window.location = 'index.php';
+                        }
+                    });
+                }
             }
 
             var i = 0;
@@ -206,7 +225,7 @@
 						document.getElementById('input-Address_Line3').value = returned_data['Address']['Line3'];
 						document.getElementById('input-Address_Line4').value = returned_data['Address']['Line4'];
 						document.getElementById('input-Address_Line5').value = returned_data['Address']['Line5'];
-						document.getElementById('input-Address_Post_Code').value = returned_data['Post_Code'];
+						document.getElementById('input-Address_Post_Code').value = returned_data['Address']['Post_Code'];
 						document.getElementById('input-Journey_Description').value = returned_data['Journey_Description'];
 						document.getElementById('date-Journey_Date').value = returned_data['Journey_Date'];
 						document.getElementById('number-No_Passengers').value = returned_data['No_Passengers'];
