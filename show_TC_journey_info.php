@@ -13,13 +13,7 @@
 		<script>
 		
 			function submit() {
-				var group = document.getElementById('Group').innerHTML;
-				if (document.getElementById('Group').value == "") {
-					window.location = 'add_TC_journey.php?id=' + <?php echo $id ?>;
-				}
-				else {
-					window.location = 'add_group_journey.php?id=' + <?php echo $id ?>;
-				}
+				window.location = 'add_TC_journey.php?id=' + <?php echo $id ?>;
 			}
 			
 			function getJourney() {
@@ -41,7 +35,6 @@
                         $('#fName').text(returned_data['fName']);
                         $('#sName').text(returned_data['sName']);
                         $('#Tel_No').text(returned_data['Tel_No']);
-                        $('#Group').text(returned_data['Group_Name']);
                         $('#Address_Line1').text(returned_data['Address']['Line1']);
                         $('#Address_Line2').text(returned_data['Address']['Line2']);
                         $('#Address_Line3').text(returned_data['Address']['Line3']);
@@ -63,15 +56,15 @@
                         $('#Destination_Line4').text(returned_data['Destination']['Line4']);
                         $('#Destination_Line5').text(returned_data['Destination']['Line5']);
                         $('#Destination_Post_Code').text(returned_data['Destination']['Post_Code']);
-                        //Add more pick up stuff
-                        $('#Pickup_1_Line1').text(returned_data['Pickups'][0]['Address']['Line1']);
-                        $('#Pickup_1_Line2').text(returned_data['Pickups'][0]['Address']['Line2']);
-                        $('#Pickup_1_Line3').text(returned_data['Pickups'][0]['Address']['Line3']);
-                        $('#Pickup_1_Line4').text(returned_data['Pickups'][0]['Address']['Line4']);
-                        $('#Pickup_1_Line5').text(returned_data['Pickups'][0]['Address']['Line5']);
-                        $('#Pickup_1_Post_Code').text(returned_data['Pickups'][0]['Address']['Post_Code']);
-                        $('#Pickup_1_Time').text(returned_data['Pickups'][0]['Time']);
-                        $('#Pickup_1_Note').text(returned_data['Pickups'][0]['Note']);
+                        
+                        //alert(JSON.stringify(returned_data['Pickups']));
+						var pickupList = document.getElementById('pickupList');
+						for (var x = 0; x < returned_data['Pickups']['No_Pickups']; x++) {
+							var cell = pickupList.insertRow(0).insertCell(0);
+							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Line2'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'];
+							cell.id = 'Pickup_' + toString(x+1);
+						}
+						
                         $('#Return_Time').text(returned_data['Return_Time']);
                         $('#Return_Note').text(returned_data['Return_Note']);
                         $('#Driver').text(returned_data['Driver_Name']);
@@ -106,8 +99,14 @@
 	                        <tr><td><label>First Name: </label></td><td id="fName"><td></tr>
 	                        <tr><td><label>Surname: </label></td><td id="sName"><td></tr>
 	                        <tr><td><label>Contact Number: </label></td><td id="Tel_No"></td></tr>
-	                        <tr><td><label>Group: </label></td><td id="Group"></td></tr>
-	                    </table>
+							<!--
+							<tr><td><label>Members: </label></td></tr>
+							HAVE NOT ADDED FUNCTIONALITY TO RETURN MEMBERS OF CREATED JOURNEY
+							-->
+						</table>
+						
+						<table id="memberList">
+						</table>
 	                </fieldset>
 	                <fieldset id="bookeeAddress">
 	                    <legend>Bookee Address</legend>
@@ -147,16 +146,8 @@
 	                </fieldset>
 	                <fieldset id="pickupDetails">
 	                    <legend>Pickup Address</legend>
-	                    <table>
-	                        <tr><td><label>Address line 1: </label></td><td id="Pickup_1_Line1"></td></tr>
-	                        <tr><td><label>Address line 2: </label></td><td id="Pickup_1_Line2"></td></tr>
-	                        <tr><td><label>Address line 3: </label></td><td id="Pickup_1_Line3"></td></tr>
-	                        <tr><td><label>Address line 4: </label></td><td id="Pickup_1_Line4"></td></tr>
-	                        <tr><td><label>Address line 5: </label></td><td id="Pickup_1_Line5"></td></tr>
-	                        <tr><td><label>Postcode: </label></td><td id="Pickup_1_Post_Code"></td></tr>
-	                        <tr><td><label>Pickup Time: </label></td><td id="Pickup_1_Time"><td></tr>
-	                        <tr><td><label>Pickup Note: </label></td><td id="Pickup_1_Note"><td></tr>
-	                    </table>
+						<table id="pickupList">
+						</table>
 	                </fieldset>
 	                <!--add new pickup-->
 	                <fieldset id="returnDetails">

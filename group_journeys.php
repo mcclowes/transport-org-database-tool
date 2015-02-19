@@ -9,7 +9,7 @@
         <script type="text/javascript">
         
             function submit(){
-                window.location = 'show_journey_info.php?id=' + document.getElementById('dropdown-Journeys').value;
+                window.location = 'show_group_journey_info.php?id=' + document.getElementById('dropdown-Journeys').value;
             }
             
             function populateJourneys(){

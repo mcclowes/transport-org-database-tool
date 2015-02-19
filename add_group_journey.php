@@ -220,7 +220,7 @@
 						
 						pickups['No_Pickups'] = returned_data['Pickups']['No_Pickups'];
 						var pickupList = document.getElementById('pickupList');
-						for (var x = 1; x <= pickups['No_Pickups']; x++) {
+						for (var x = 0; x < pickups['No_Pickups']; x++) {
 						
 							pickups[x] = {
 								'Time':					returned_data['Pickups'][x]['Time'],
@@ -237,7 +237,7 @@
 				
 							var cell = pickupList.insertRow(0).insertCell(0);
 							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Line2'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'];
-							cell.id = 'Pickup_' + x;
+							cell.id = 'Pickup_' + toString(x+1);
 						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];

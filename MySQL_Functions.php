@@ -479,7 +479,7 @@ function getGroup($mysqli, $Group_ID){
 
 }
 
-
+/*
 function getJourneys($mysqli){
 	$Journey = array();
 	$Journeys = array();
@@ -511,6 +511,20 @@ function getJourneys($mysqli){
 	}	
 	return $Journeys;
 }
+*/
+
+function getJourneys($mysqli){
+	$Journeys = array();
+	
+	foreach (getGroupJourneys($mysqli) as $Journey) {
+		array_push($Journeys, $Journey);
+	}
+	foreach (getTCJourneys($mysqli) as $Journey) {
+		array_push($Journeys, $Journey);
+	}
+	
+	return $Journeys;
+}
 
 function getGroupJourneys($mysqli){
 	$Journey = array();
@@ -537,6 +551,7 @@ function getGroupJourneys($mysqli){
 			$Journey['Journey_Date'] = outputDate($Journey_Date);
 			$Journey['Return_Time'] = $Return_Time;
 			$Journey['Pickup_Time'] = $Pickup_Time;
+			$Journey['Type'] = 'Group';
 
 			array_push($Journeys, $Journey);
 			}
@@ -569,6 +584,7 @@ function getTCJourneys($mysqli){
 			$Journey['Journey_Date'] = outputDate($Journey_Date);
 			$Journey['Return_Time'] = $Return_Time;
 			$Journey['Pickup_Time'] = $Pickup_Time;
+			$Journey['Type'] = 'TC';
 
 			array_push($Journeys, $Journey);
 			}
