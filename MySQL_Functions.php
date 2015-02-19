@@ -501,10 +501,7 @@ function getGroup($mysqli, $Group_ID){
 	return $Group;
 }
 
-<<<<<<< HEAD
 /*
-=======
->>>>>>> origin/master
 function getJourneys($mysqli){
 	$Journey = array();
 	$Journeys = array();
