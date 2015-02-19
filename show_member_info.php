@@ -31,7 +31,7 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                        alert(JSON.stringify(returned_data));
+                        //alert(JSON.stringify(returned_data));
 
                         $('#fName').text(returned_data['fName']);
                         $('#sName').text(returned_data['sName']);
@@ -101,69 +101,70 @@
         <?php include 'nav.php' ?>
         <div id="page_wrapper">
 	        <div id="main">
-						<fieldset id="personalDetails">
-							<legend>Personal Details</legend>
-							<table>
-								<tr><td><label>First Name: </label></td><td id="fName"/> <td></tr>
-								<tr><td><label>Surname: </label></td><td id="sName"/> <td></tr>
-								<tr><td><label>Date of Birth: </label></td><td id="DOB"/> <td></tr>
-								<tr><td><label>Contact Number: </label></td><td id="Tel_No"/> </td></tr>
-							</table>
-						</fieldset>
-						<fieldset id="personalAddress">
-							<legend>Address</legend>
-							<table>
-								<tr><td><label>Address line 1: </label></td><td id="Line1"/> </td></tr>
-								<tr><td><label>Address line 2: </label></td><td id="Line2"/> </td></tr>
-								<tr><td><label>Address line 3: </label></td><td id="Line3"/> </td></tr>
-								<tr><td><label>Address line 4: </label></td><td id="Line4"/> </td></tr>
-								<tr><td><label>Address line 5: </label></td><td id="Line5"/> </td></tr>
-								<tr><td><label>Postcode: </label></td><td id="Post_Code"/> </td></tr>
-							</table>
-						</fieldset>
-						<fieldset id="emergencyContact">
-							<legend>Emergency Contact</legend>
-							<table>
-								<tr><td><label>Emergency Contact Name: </label></td><td id="Emergency_Name"/></td></tr>
-								<tr><td><label>Emergency Contact Number: </label></td><td id="Emergency_Tel"/></td></tr>
-								<tr><td><label>Emergency Contact Relationship:</label></td><td id="Emergency_Relationship"/></td></tr>
-							</table>
-						</fieldset>
-						<fieldset id="additionalDetails">
-							<legend>Additional Details</legend>
-							<table>
-								<tr><td><label>Do you use a wheelchair? </label></td><td<td id="Details_Wheelchair"></td></tr>
-								<tr><td><label>What type of wheelchair do you use? </label></td><td<td id="Details_Wheelchair_Type"></td></tr>
-								<tr><td><label>Do you want to transfer from your wheelchair to our vehicle? </label></td><td<td id="Details_Wheelchair_Seat"></td></tr>
-								<tr><td><label>Do you use a scooter? </label></td><td<td id="Details_Scooter"></td></tr>
-								<tr><td><label>Do you use a mobility aid?</label></td><td<td id="Details_Mobility_Aid"></td></tr>	
-								<tr><td><label>If shopping, do you use a shopping trolley?</label></td><td<td id="Details_Shopping_Trolley"></td></tr>
-								<tr><td><label>Will you be travelling with a guide dog?</label></td><td<td id="Details_Guide_Dog"></td></tr>
-								<tr><td><label>Can you get into a 'people carrier' style car? </label></td><td<td id="Details_People_Carrier"></td></tr>
-								<tr><td><label>Do you need a passenger assistant?</label></td><td<td id="Details_Assistant"></td></tr>
-								<tr><td><label>Do you have a Concessionary Travelcard?</label></td><td<td id="Details_Travelcard"></td></tr>
-							</table>
-						</fieldset>
-						<fieldset id="serviceReasons">
-							<legend>Need of service.</legend>
-							<table>
-								<tr><td><label>Public transport is not available to me </label></td><td id="Reasons_Transport"></td></tr>
-								<tr><td><label>I need to feel reassurance that the bus will stop when required </label></td><td id="Reasons_Bus_Stop"></td></tr>
-								<tr><td><label>I have anxiety about using public transport </label></td><td id="Reasons_Anxiety"></tr>
-								<tr><td><label>I need a door to door service </label></td><td id="Reasons_Door"></td></tr>
-								<tr><td><label>I need additional handrails and grips </label></td><td id="Reasons_Handrails"></td></tr>
-								<tr><td><label>I need to use a passenger lift to access the bus </label></td><td id="Reasons_Lift"></td></tr>
-								<tr><td><label>I need the floors to be level </label></td><td id="Reasons_Level_Floors" value="7"><br></td></tr>
-								<tr><td><label>I need low steps to board and exit from the bus </label></td><td id="Reasons_Low_Steps"></td></tr>
-								<tr><td><label>I need personal assistance </label></td><td id="Reasons_Assistance"></td></tr>
-								<tr><td><label>I need time to board and exit form the bus</label></td><td id="Reasons_Board_Time"></td></tr>
-								<tr><td><label>I need wheelchair access and restraining systems for my chair and myself</label></td><td id="Reasons_Wheelchair_Access"></td></tr>
-								<tr><td><label>Other: </label></td><td id="Reasons_Other"/> </td></tr>
-							</table>
-						</fieldset>
-					</div>
-	            	<input type="submit" id='submitButton' name="submit" value="Edit" onclick='submit()' />
-	            	<input type="submit" id='submitButton' name="delete" value="Delete" onclick='deleteMember()' />
+					<fieldset id="personalDetails">
+						<legend>Personal Details</legend>
+						<table>
+							<tr><td><label>First Name: </label></td><td id="fName"/> <td></tr>
+							<tr><td><label>Surname: </label></td><td id="sName"/> <td></tr>
+							<tr><td><label>Date of Birth: </label></td><td id="DOB"/> <td></tr>
+							<tr><td><label>Contact Number: </label></td><td id="Tel_No"/> </td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="personalAddress">
+						<legend>Address</legend>
+						<table>
+							<tr><td><label>Address line 1: </label></td><td id="Line1"/> </td></tr>
+							<tr><td><label>Address line 2: </label></td><td id="Line2"/> </td></tr>
+							<tr><td><label>Address line 3: </label></td><td id="Line3"/> </td></tr>
+							<tr><td><label>Address line 4: </label></td><td id="Line4"/> </td></tr>
+							<tr><td><label>Address line 5: </label></td><td id="Line5"/> </td></tr>
+							<tr><td><label>Postcode: </label></td><td id="Post_Code"/> </td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="emergencyContact">
+						<legend>Emergency Contact</legend>
+						<table>
+							<tr><td><label>Emergency Contact Name: </label></td><td id="Emergency_Name"/></td></tr>
+							<tr><td><label>Emergency Contact Number: </label></td><td id="Emergency_Tel"/></td></tr>
+							<tr><td><label>Emergency Contact Relationship:</label></td><td id="Emergency_Relationship"/></td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="additionalDetails">
+						<legend>Additional Details</legend>
+						<table>
+							<tr><td><label>Do you use a wheelchair? </label></td><td<td id="Details_Wheelchair"></td></tr>
+							<tr><td><label>What type of wheelchair do you use? </label></td><td<td id="Details_Wheelchair_Type"></td></tr>
+							<tr><td><label>Do you want to transfer from your wheelchair to our vehicle? </label></td><td<td id="Details_Wheelchair_Seat"></td></tr>
+							<tr><td><label>Do you use a scooter? </label></td><td<td id="Details_Scooter"></td></tr>
+							<tr><td><label>Do you use a mobility aid?</label></td><td<td id="Details_Mobility_Aid"></td></tr>	
+							<tr><td><label>If shopping, do you use a shopping trolley?</label></td><td<td id="Details_Shopping_Trolley"></td></tr>
+							<tr><td><label>Will you be travelling with a guide dog?</label></td><td<td id="Details_Guide_Dog"></td></tr>
+							<tr><td><label>Can you get into a 'people carrier' style car? </label></td><td<td id="Details_People_Carrier"></td></tr>
+							<tr><td><label>Do you need a passenger assistant?</label></td><td<td id="Details_Assistant"></td></tr>
+							<tr><td><label>Do you have a Concessionary Travelcard?</label></td><td<td id="Details_Travelcard"></td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="serviceReasons">
+						<legend>Need of service.</legend>
+						<table>
+							<tr><td><label>Public transport is not available to me </label></td><td id="Reasons_Transport"></td></tr>
+							<tr><td><label>I need to feel reassurance that the bus will stop when required </label></td><td id="Reasons_Bus_Stop"></td></tr>
+							<tr><td><label>I have anxiety about using public transport </label></td><td id="Reasons_Anxiety"></tr>
+							<tr><td><label>I need a door to door service </label></td><td id="Reasons_Door"></td></tr>
+							<tr><td><label>I need additional handrails and grips </label></td><td id="Reasons_Handrails"></td></tr>
+							<tr><td><label>I need to use a passenger lift to access the bus </label></td><td id="Reasons_Lift"></td></tr>
+							<tr><td><label>I need the floors to be level </label></td><td id="Reasons_Level_Floors" value="7"><br></td></tr>
+							<tr><td><label>I need low steps to board and exit from the bus </label></td><td id="Reasons_Low_Steps"></td></tr>
+							<tr><td><label>I need personal assistance </label></td><td id="Reasons_Assistance"></td></tr>
+							<tr><td><label>I need time to board and exit form the bus</label></td><td id="Reasons_Board_Time"></td></tr>
+							<tr><td><label>I need wheelchair access and restraining systems for my chair and myself</label></td><td id="Reasons_Wheelchair_Access"></td></tr>
+							<tr><td><label>Other: </label></td><td id="Reasons_Other"/> </td></tr>
+						</table>
+					</fieldset>
+					</br>
+				</div>
+            	<input type="submit" id='submitButton' name="submit" value="Edit" onclick='submit()' />
+            	<input type="submit" id='submitButton' name="delete" value="Delete" onclick='deleteMember()' />
 	        </div>
 	    </div>
     </body>
