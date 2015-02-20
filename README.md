@@ -2,17 +2,25 @@
 
 Transport management system designed for Weardale Community Transport. Allows management of customers, journeys, and infrastructure (including vehicles and drivers). PHP/MySQL based.
 
-Jquery calendar API: http://fullcalendar.io  
-
 For database fields see WCT_Table.xls
 ________________________________________________________________________________
 
 Contributors:
- - [Maxi Clayton Clowes](https://github.com/mcclowes)
+ - [Maxi Clayton Clowes](https://github.com/mcclowes) 
  - [Will Jones](https://github.com/willjejones)
  - [Zack Hodari](https://github.com/ZackHodari)
  - [Ed Key](https://github.com/keyead)
  - [Will Johnson](https://github.com/WillJCJ)
+ 
+ ________________________________________________________________________________
+
+Project resources:
+ - [Jquery calendar API](http://fullcalendar.io)
+ - [Google Docs To Do List](https://docs.google.com/spreadsheets/d/1HAm4RRPBr8YSASLa_xoH-VPIOK2IiJK_AmfheOYSLAg/edit#gid=0)
+ - [WAMP Server Tool](http://www.wampserver.com/en/)
+ - [PHP File Uploading](http://www.w3schools.com/php/php_file_upload.asp)
+ - [CSS Printing 1](http://alistapart.com/article/goingtoprint)
+ - [CSS Printing 2](http://www.creativebloq.com/responsive-web-design/make-your-website-printable-css-3132929)
   
 ________________________________________________________________________________
 
