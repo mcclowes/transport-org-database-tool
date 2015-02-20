@@ -28,9 +28,6 @@
                     'fName':                        document.getElementById('input-fName').value,
                     'sName':                        document.getElementById('input-sName').value,
                     'Tel_No':                       document.getElementById('input-Tel_No').value,
-                    'TC_Members':{
-                    	'number_of_TC_Members':		number_of_TC_Members
-                    },
                     'Address':{
                         'Line1':                    document.getElementById('input-Address_Line1').value,
                         'Line2':                    document.getElementById('input-Address_Line2').value,
@@ -65,10 +62,13 @@
 					'Invoiced_Cost':				document.getElementById('input-Invoiced_Cost').value,
 					'Invoice_Sent':					document.getElementById('date-Invoice_Sent').value,
 					'Invoice_Paid':					document.getElementById('date-Invoice_Paid').value,
-					'Journey_Notes':				document.getElementById('input-Journey_Notes').value,
+					'Journey_Note':				    document.getElementById('input-Journey_Notes').value,
                 };
                 
                 form_data['Pickups'] = pickups;
+                form_data['TC_Members'] = members;
+                alert(JSON.stringify(members));
+
                 if (is_edit == '1') {
                     form_data['Journey_ID'] = '<?php echo $id; ?>';  
 
@@ -265,7 +265,7 @@
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
 						document.getElementById('input-Return_Note').value = returned_data['Return_Note'];
-						document.getElementById('dropdown-Driver').value = returned_data['Driver'];
+						document.getElementById('dropdown-Driver').value = returned_data['Driver_ID'];
 						document.getElementById('dropdown-Vehicle').value = returned_data['Vehicle'];
 						document.getElementById('input-Keys_To_Collect').value = returned_data['Keys_To_Collect'];
 						document.getElementById('input-Quote').value = returned_data['Quote'];
@@ -273,7 +273,7 @@
 						document.getElementById('input-Invoiced_Cost').value = returned_data['Invoiced_Cost'];
 						document.getElementById('date-Invoice_Sent').value = returned_data['Invoice_Sent'];
 						document.getElementById('date-Invoice_Paid').value = returned_data['Invoice_Paid'];
-						document.getElementById('input-Journey_Notes').value = returned_data['Journey_Notes'];
+						document.getElementById('input-Journey_Notes').value = returned_data['Journey_Note'];
                 		
                     }
                 });
@@ -282,15 +282,14 @@
             }
             
             function init(){
-				number_of_pickups = 0;
-				pickups = {'No_Pickups': number_of_pickups};
+				pickups = {'No_Pickups': 0};
+                members = {'No_Members': 0};
 				
 				startScreen();
 				populateDrivers();
 				populateVehicles();
 				
 				populateTCMembers();
-				number_of_TC_Members = 0;
 				
 				var is_edit = '<?php echo $is_edit; ?>';
 				if (is_edit == '1') {
@@ -300,17 +299,22 @@
 			}
 			
 			function addTCMemberField() {
+
 				var TC_Member_dropdown = document.getElementById('dropdown-TCMembers');
 				var text = TC_Member_dropdown.options[TC_Member_dropdown.selectedIndex].text;
 				
 				if (text != 'Choose a Travel Club Member') {
-					number_of_TC_Members++;
+                    members['No_Members']++;
+                    var member_ID = TC_Member_dropdown.value;
+                    members[members['No_Members']] = member_ID;
+
 					var memberList = document.getElementById('memberList');
 					var cell = memberList.insertRow(0).insertCell(0);
 					cell.innerHTML = text;
-					cell.id = 'TCMembers_' + number_of_TC_Members;
-					cell.setAttribute('TC_id', TC_Member_dropdown.value);
+					cell.id = 'TCMembers_' + members['No_Members'];
+					cell.setAttribute('TC_id', member_ID);
 					TC_Member_dropdown.remove(TC_Member_dropdown.selectedIndex);
+
 				}
 			}
 			
@@ -328,7 +332,7 @@
 					}
 				}
 				
-				if (pickup['Address']['Line1'] != '' && pickup['Address']['Line2'] != '' && pickup['Address']['Post_Code'] != '') {
+                if (pickup['Address']['Line1'] != '' && pickup['Address']['Post_Code'] != '' && pickup['Time'] != '') {
 					pickups['No_Pickups']++;
 					var pickupList = document.getElementById('pickupList');
 					var cell = pickupList.insertRow(0).insertCell(0);
@@ -377,7 +381,7 @@
 								</td></tr>
 							</table>
 							
-							<table id="memberList">
+							<table class="entryBox" id="memberList">
 							</table>
 							
 						</fieldset>
@@ -434,7 +438,7 @@
                                 </tr>
 							</table>
 							
-							<table id="pickupList">
+							<table class="entryBox" id="pickupList">
 							</table>
 							
                         </fieldset>

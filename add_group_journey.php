@@ -29,6 +29,7 @@
                     'sName':                        document.getElementById('input-sName').value,
                     'Tel_No':                       document.getElementById('input-Tel_No').value,
                     'Group_ID':						document.getElementById('dropdown-Group').value,
+                    'Address_ID':                   document.getElementById('dropdown-Addresses').value,
                     'Address':{
                         'Line1':                    document.getElementById('input-Address_Line1').value,
                         'Line2':                    document.getElementById('input-Address_Line2').value,
@@ -201,6 +202,33 @@
                 });
             }
             
+            function populateAddresses(){
+            var dropdown = document.getElementById('dropdown-Addresses');
+            
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getAddresses'
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                        for(var i = 0; i < returned_data.length; i++) {
+                            var item = document.createElement("option");
+                            item.textContent = returned_data[i]['Line1'] + ' ' + returned_data[i]['Line2'] + ' ' + returned_data[i]['Line3'] + ' ' + returned_data[i]['Line4'] + ' ' + returned_data[i]['Line5'] + ' ' + returned_data[i]['Post_Code'];
+                            item.value = returned_data[i]['Address_ID'];
+                            dropdown.appendChild(item);
+                        }
+                    }
+                });
+            }
+
+            function addAddress(){
+
+            }
+
+            //alert(JSON.stringify(pickups));
+            
             function populateEditFields(Journey_ID) {
             	
                 $.ajax({
@@ -283,6 +311,7 @@
 				populateDrivers();
 				populateVehicles();
 				populateGroups();
+                populateAddresses();
 				
 				var is_edit = '<?php echo $is_edit; ?>';
 				if (is_edit == '1') {
@@ -326,7 +355,7 @@
 					}
 				}
 				
-				if (pickup['Address']['Line1'] != '' && pickup['Address']['Line2'] != '' && pickup['Address']['Post_Code'] != '') {
+                if (pickup['Address']['Line1'] != '' && pickup['Address']['Post_Code'] != '' && pickup['Time'] != '') {
 					pickups['No_Pickups']++;
 					var pickupList = document.getElementById('pickupList');
 					var cell = pickupList.insertRow(0).insertCell(0);
@@ -344,8 +373,6 @@
 				
 					pickups[pickups['No_Pickups']] = pickup;
 				}
-				
-				//alert(JSON.stringify(pickups));
 			}
 
         </script>
@@ -374,6 +401,15 @@
 						<fieldset id="bookeeAddress">
 							<legend>Bookee Address</legend>
 							<table>
+                                <tr><td><label>Addresses: </label></td>
+                                <td><select id="dropdown-Addresses"> 
+                                    <option>Choose an existing address</option>
+                                </select></td>
+                                <td>
+                                <div id="addTCMember" onclick="addAddress()">Add Address</div>
+                                </td></tr>
+                            </table>
+                            <table>
 								<tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Address_Line1"/> </td></tr>
 								<tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Address_Line2"/> </td></tr>
 								<tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Address_Line3"/> </td></tr>
@@ -426,7 +462,7 @@
                                 </tr>
 							</table>
 							
-							<table id="pickupList">
+							<table class="entryBox" id="pickupList">
 							</table>
 							
                         </fieldset>

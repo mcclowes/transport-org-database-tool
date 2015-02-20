@@ -44,7 +44,7 @@ switch ($type) {
 		for ($xx = 0; $xx < $x; $xx++){
 			addPickup($mysqli,$Journey_ID, $data['Pickups'][$xx]);
 		}
-		echo json_encode('success!');
+		echo json_encode($Journey_ID);
 		break;
 
 	case 'addTCMember': 
@@ -206,7 +206,6 @@ switch ($type) {
 		break;
 
 }
-
 
 function connect(){
 	$servername = "mysql.dur.ac.uk";
@@ -940,6 +939,15 @@ function addJourney($mysqli,$Journey){
 		$statement->bind_result($Journey_ID);
 		$statement->fetch();
 	}
+	if(isset($Journey['TC_Members'])){
+		$x = $Journey['TC_Members']['No_Members'];
+		for($xx=1; $xx<=$x; $xx++){
+			$TC_Journey_Member['Journey_ID'] = $Journey_ID;
+			$TC_Journey_Member['TC_Member_ID'] = $Journey['TC_Members'][$xx];
+			addTCJourneyMember($mysqli,$TC_Journey_Member);
+		}
+	}
+
 	return $Journey_ID;
 }
 
@@ -1089,6 +1097,16 @@ function editJourney($mysqli,$Journey){
 			
 		}
 	}
+
+	if(isset($Journey['TC_Members'])){
+		$x = $Journey['TC_Members']['No_Members'];
+		for($xx=1; $xx<=$x; $xx++){
+			$TC_Journey_Member['Journey_ID'] = $Journey_ID;
+			$TC_Journey_Member['TC_Member_ID'] = $Journey['TC_Members'][$xx];
+			addTCJourneyMember($mysqli,$TC_Journey_Member);
+		}
+	}
+	
 	return 'success';
 
 }
