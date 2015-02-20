@@ -447,17 +447,17 @@
                         <fieldset id="pickupDetails">
                             <legend id="legendChange">Start Address</legend>
                             <table>
-                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Pickup_Line1"/> </td></tr>
+                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Pickup_Line1"/> </td>
+                                <td><div id="setDefault" onClick="fillDefault()">Set to Weardale</div></td>
+                                </tr>
                                 <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Pickup_Line2"/> </td></tr>
                                 <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Pickup_Line3"/> </td></tr>
                                 <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Pickup_Line4"/> </td></tr>
                                 <tr><td><label>Address line 5: </label></td><td><input type="text" id="input-Pickup_Line5"/> </td></tr>
                                 <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Pickup_Post_Code"/> </td></tr>
-                                <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-Pickup_Time"/> <td>
-                                <td><div id="setDefault" onClick="fillDefault()">Set to Weardale</div></td>
-                                </tr>
+                                <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-Pickup_Time"/> <td></tr>
                                 <tr>
-                                <td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_Note" placeholder="E.g. Number of people to collect at this location"/> <td>
+                                <td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_Note" placeholder="E.g. Number of people to collect at this location"/> </td>
                                 <td><div id="addTCMember" onclick="addPickupField()">Add start</div> </td>
                                 </tr>
 							</table>
