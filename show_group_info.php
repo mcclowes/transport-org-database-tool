@@ -113,96 +113,96 @@
         <div id="page_wrapper">
 	        <div id="main">
 	            <div id="group">
-						<fieldset id="personalDetails">
-							<legend>Personal Details</legend>
-							<table>
-								<tr><td><label>Organisation Name: </label></td><td id="Name"/> <td></tr>
-								<tr><td><label>Contact Email: </label></td><td id="Email"/> <td></tr>
-								<tr><td><label>Contact Number: </label></td><td id="Tel_No"/> </td></tr>
-							</table>
-						</fieldset>
-						<fieldset id="organisationAddress">
-							<legend>Organisation Address</legend>
-							<table>
-								<tr><td><label>Address line 1: </label></td><td id="Address_Line1"/> </td></tr>
-								<tr><td><label>Address line 2: </label></td><td id="Address_Line2"/> </td></tr>
-								<tr><td><label>Address line 3: </label></td><td id="Address_Line3"/> </td></tr>
-								<tr><td><label>Address line 4: </label></td><td id="Address_Line4"/> </td></tr>
-								<tr><td><label>Address line 5: </label></td><td id="Address_Line5"/> </td></tr>
-								<tr><td><label>Postcode: </label></td><td id="Address_Post_Code"/> </td></tr>
-							</table>
-						</fieldset>
-                        <fieldset id="invoiceAddress">
-                            <legend>Invoice Address</legend>
-                            <table>
-								<tr><td><label>Number: </label></td><td id="Invoice_Tel"/> </td></tr>
-                                <tr><td><label>Address line 1: </label></td><td id="Invoice_Line1"/> </td></tr>
-                                <tr><td><label>Address line 2: </label></td><td id="Invoice_Line2"/> </td></tr>
-                                <tr><td><label>Address line 3: </label></td><td id="Invoice_Line3"/> </td></tr>
-                                <tr><td><label>Address line 4: </label></td><td id="Invoice_Line4"/> </td></tr>
-                                <tr><td><label>Address line 5: </label></td><td id="Invoice_Line5"/> </td></tr>
-                                <tr><td><label>Postcode: </label></td><td id="Invoice_Post_Code"/> </td></tr>
-                            </table>
-                        </fieldset>
-						<fieldset id="emergencyContact">
-							<legend>Emergency Contact</legend>
-							<table>
-								<tr><td><label>Emergency Contact Name: </label></td><td id="Emergency_Name"/></td></tr>
-								<tr><td><label>Emergency Contact Number: </label></td><td id="Emergency_Tel"/></td></tr>
-							</table>
-						</fieldset>
-						<fieldset id="orgStatus">
-							<legend>Organisational Status</legend>
-                            <h2>The group is...</h2>
-							<table>
-								<tr><td><label>Profit making:</label></td><td id="Profitable"/></td></tr>
-								<tr><td><label>A community/voluntary group:</label></td><td id="Community"/></td></tr>
-                                <tr><td><label>A social/family group:</label></td><td id="Social"/></td></tr>
-                                <tr><td><label>A statutory body:</label></td><td id="Statutory"/></td></tr>
-                                <tr><td><label>Charity Number:</label></td><td id="Charity_No"/></td></tr>
-							</table>
-						</fieldset>
-                        <fieldset id="orgAims">
-                            <legend>Aims of your organisation</legend>
-                            <table>
-                                <tr><td><label>Organisation Aims:</label></td><td id="Org_Aim"/></td></tr>
-                            </table>
-                        </fieldset>
-					</div>
-					<div id="page3">
-						<fieldset id="orgActivities">
-							<legend>Please tick all the boxes that apply to show the reasons why you need to use the service.</legend>
-							<table>
-								<tr><td><label>Education </label></td><td id="Activities_Education" value="1"><br></td></tr>
-								<tr><td><label>Recreation </label></td><td id="Activities_Recreation" value="2"><br></td></tr>
-								<tr><td><label>Health </label></td><td id="Activities_Health" value="3"><br></td></tr>
-								<tr><td><label>Religion </label></td><td id="Activities_Religion" value="4"><br></td></tr>
-								<tr><td><label>Social welfare </label></td><td id="Activities_Social" value="5"><br></td></tr>
-								<tr><td><label>Inclusion </label></td><td id="Activities_Inclusion" value="6"><br></td></tr>
-								<tr><td><label>Other activity: </label></td><td id="Activities_Other"/> </br></td></tr>
-							</table>
-						</fieldset>
-                        <fieldset id="orgMembers">
-                            <legend>Please tick all the boxes that apply to show the reasons why you need to use the service.</legend>
-                            <table>
-                                <tr><td><label>People with a physical disability </label></td><td id="Concerned_Physical" value="1"><br></td></tr>
-                                <tr><td><label>People with a learning disability </label></td><td id="Concerned_Learning" value="6"><br></td></tr>
-                                <tr><td><label>People with a mental health problem </label></td><td id="Concerned_Mental_Health" value="6"><br></td></tr>
-                                <tr><td><label>People from ethnic minorities </label></td><td id="Concerned_Ethnic" value="6"><br></td></tr>
-                                <tr><td><label>People with an alcohol related problem </label></td><td id="Concerned_Alcohol" value="6"><br></td></tr>
-                                <tr><td><label>People affected by drug problems </label></td><td id="Concerned_Drug" value="6"><br></td></tr>
-                                <tr><td><label>People affected by HIV or AIDS</label></td><td id="Concerned_HIV_AIDS" value="6"><br></td></tr>
-                                <tr><td><label>People who are socially isolated </label></td><td id="Concerned_Socially_Isolated" value="6"><br></td></tr>
-                                <tr><td><label>People with dementia </label></td><td id="Concerned_Dementia" value="6"><br></td></tr>
-                                <tr><td><label>Elderly people </label></td><td id="Concerned_Elderly" value="6"><br></td></tr>
-                                <tr><td><label>Pre-school age children </label></td><td id="Concerned_Pre_School" value="6"><br></td></tr>
-                                <tr><td><label>Young people </label></td><td id="Concerned_Young" value="6"><br></td></tr>
-                                <tr><td><label>Women </label></td><td id="Concerned_Women" value="6"><br></td></tr>
-                                <tr><td><label>Health groups </label></td><td id="Concerned_Health" value="6"><br></td></tr>
-                                <tr><td><label>People who are rurally isolated </label></td><td id="Concerned_Rurally_Isolated" value="6"><br></td></tr>
-                                <tr><td><label>Other: </label></td><td id="Concerned_Other"/> </br></td></tr>
-                            </table>
-                        </fieldset>
+					<fieldset id="personalDetails">
+						<legend>Personal Details</legend>
+						<table>
+							<tr><td><label>Organisation Name: </label></td><td id="Name"/> <td></tr>
+							<tr><td><label>Contact Email: </label></td><td id="Email"/> <td></tr>
+							<tr><td><label>Contact Number: </label></td><td id="Tel_No"/> </td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="organisationAddress">
+						<legend>Organisation Address</legend>
+						<table>
+							<tr><td><label>Address line 1: </label></td><td id="Address_Line1"/> </td></tr>
+							<tr><td><label>Address line 2: </label></td><td id="Address_Line2"/> </td></tr>
+							<tr><td><label>Address line 3: </label></td><td id="Address_Line3"/> </td></tr>
+							<tr><td><label>Address line 4: </label></td><td id="Address_Line4"/> </td></tr>
+							<tr><td><label>Address line 5: </label></td><td id="Address_Line5"/> </td></tr>
+							<tr><td><label>Postcode: </label></td><td id="Address_Post_Code"/> </td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="invoiceAddress">
+						<legend>Invoice Address</legend>
+						<table>
+							<tr><td><label>Number: </label></td><td id="Invoice_Tel"/> </td></tr>
+							<tr><td><label>Address line 1: </label></td><td id="Invoice_Line1"/> </td></tr>
+							<tr><td><label>Address line 2: </label></td><td id="Invoice_Line2"/> </td></tr>
+							<tr><td><label>Address line 3: </label></td><td id="Invoice_Line3"/> </td></tr>
+							<tr><td><label>Address line 4: </label></td><td id="Invoice_Line4"/> </td></tr>
+							<tr><td><label>Address line 5: </label></td><td id="Invoice_Line5"/> </td></tr>
+							<tr><td><label>Postcode: </label></td><td id="Invoice_Post_Code"/> </td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="emergencyContact">
+						<legend>Emergency Contact</legend>
+						<table>
+							<tr><td><label>Emergency Contact Name: </label></td><td id="Emergency_Name"/></td></tr>
+							<tr><td><label>Emergency Contact Number: </label></td><td id="Emergency_Tel"/></td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="orgStatus">
+						<legend>Organisational Status</legend>
+						<h2>The group is...</h2>
+						<table>
+							<tr><td><label>Profit making:</label></td><td id="Profitable"/></td></tr>
+							<tr><td><label>A community/voluntary group:</label></td><td id="Community"/></td></tr>
+							<tr><td><label>A social/family group:</label></td><td id="Social"/></td></tr>
+							<tr><td><label>A statutory body:</label></td><td id="Statutory"/></td></tr>
+							<tr><td><label>Charity Number:</label></td><td id="Charity_No"/></td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="orgAims">
+						<legend>Aims of your organisation</legend>
+						<table>
+							<tr><td><label>Organisation Aims:</label></td><td id="Org_Aim"/></td></tr>
+						</table>
+					</fieldset>
+				</div>
+				<div id="page3">
+					<fieldset id="orgActivities">
+						<legend>Please tick all the boxes that apply to show the reasons why you need to use the service.</legend>
+						<table>
+							<tr><td><label>Education </label></td><td id="Activities_Education" value="1"><br></td></tr>
+							<tr><td><label>Recreation </label></td><td id="Activities_Recreation" value="2"><br></td></tr>
+							<tr><td><label>Health </label></td><td id="Activities_Health" value="3"><br></td></tr>
+							<tr><td><label>Religion </label></td><td id="Activities_Religion" value="4"><br></td></tr>
+							<tr><td><label>Social welfare </label></td><td id="Activities_Social" value="5"><br></td></tr>
+							<tr><td><label>Inclusion </label></td><td id="Activities_Inclusion" value="6"><br></td></tr>
+							<tr><td><label>Other activity: </label></td><td id="Activities_Other"/> </br></td></tr>
+						</table>
+					</fieldset>
+					<fieldset id="orgMembers">
+						<legend>Please tick all the boxes that apply to show the reasons why you need to use the service.</legend>
+						<table>
+							<tr><td><label>People with a physical disability </label></td><td id="Concerned_Physical" value="1"><br></td></tr>
+							<tr><td><label>People with a learning disability </label></td><td id="Concerned_Learning" value="6"><br></td></tr>
+							<tr><td><label>People with a mental health problem </label></td><td id="Concerned_Mental_Health" value="6"><br></td></tr>
+							<tr><td><label>People from ethnic minorities </label></td><td id="Concerned_Ethnic" value="6"><br></td></tr>
+							<tr><td><label>People with an alcohol related problem </label></td><td id="Concerned_Alcohol" value="6"><br></td></tr>
+							<tr><td><label>People affected by drug problems </label></td><td id="Concerned_Drug" value="6"><br></td></tr>
+							<tr><td><label>People affected by HIV or AIDS</label></td><td id="Concerned_HIV_AIDS" value="6"><br></td></tr>
+							<tr><td><label>People who are socially isolated </label></td><td id="Concerned_Socially_Isolated" value="6"><br></td></tr>
+							<tr><td><label>People with dementia </label></td><td id="Concerned_Dementia" value="6"><br></td></tr>
+							<tr><td><label>Elderly people </label></td><td id="Concerned_Elderly" value="6"><br></td></tr>
+							<tr><td><label>Pre-school age children </label></td><td id="Concerned_Pre_School" value="6"><br></td></tr>
+							<tr><td><label>Young people </label></td><td id="Concerned_Young" value="6"><br></td></tr>
+							<tr><td><label>Women </label></td><td id="Concerned_Women" value="6"><br></td></tr>
+							<tr><td><label>Health groups </label></td><td id="Concerned_Health" value="6"><br></td></tr>
+							<tr><td><label>People who are rurally isolated </label></td><td id="Concerned_Rurally_Isolated" value="6"><br></td></tr>
+							<tr><td><label>Other: </label></td><td id="Concerned_Other"/> </br></td></tr>
+						</table>
+					</fieldset>
 	                </br>
 	            </div>
 	            <input type="submit" id='submitButton' name="submit" value="Edit" onclick='submit()' />
