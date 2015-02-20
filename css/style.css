@@ -201,7 +201,7 @@ input[type=textarea] {
 	border-radius: 3px;
 }
 
-#nextButton, #submitButton, #cancelButton, #addTCMember {
+#nextButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
 	background-color: #106500;
 	color: #fff;
 	font-size: 18pt;
@@ -211,7 +211,7 @@ input[type=textarea] {
 	display: inline;
 }
 
-#addTCMember {
+#addTCMember, #setDefault {
 	font-size: 12pt;
 }
 
