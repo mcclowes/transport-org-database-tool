@@ -21,7 +21,9 @@ Project resources:
  - [PHP File Uploading](http://www.w3schools.com/php/php_file_upload.asp)
  - [CSS Printing 1](http://alistapart.com/article/goingtoprint)
  - [CSS Printing 2](http://www.creativebloq.com/responsive-web-design/make-your-website-printable-css-3132929)
+ - [WCT Website](http://community.dur.ac.uk/w.j.c.johnson/wordpress/)
   
+Add any resources whilst they are relevant
 ________________________________________________________________________________
 
 How to get started:
