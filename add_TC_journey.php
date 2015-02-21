@@ -18,10 +18,10 @@
 		?>
 
         <script type="text/javascript">
+        	is_edit = '<?php echo $is_edit; ?>';
         
             function submit() {
             	var date = new Date();
-                var is_edit = '<?php echo $is_edit; ?>';
 
                 form_data = {
                 	'Booking_Date':					date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate(),
@@ -258,9 +258,15 @@
 								}
 							}
 				
-							var cell = pickupList.insertRow(0).insertCell(0);
+							var row = pickupList.insertRow(0);
+							row.id = ('Pickup_Row_' + pickups['No_Pickups']);
+							row.setAttribute('Address_ID', returned_data['Pickups'][x]['Address_ID']);
+							var cell = row.insertCell(0);
 							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
 							cell.id = 'Pickup_' + toString(x+1);
+					
+							var button = row.insertCell(1);
+							button.innerHTML = '<div class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">Delete Pickup</div>';
 						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
@@ -293,8 +299,9 @@
 				
 				var is_edit = '<?php echo $is_edit; ?>';
 				if (is_edit == '1') {
-					var id = '<?php echo $id; ?>'
-					populateEditFields(id);
+					document.getElementById('addTCMember').innerHTML = 'Add pickup';
+					journey_ID = '<?php echo $id; ?>';
+					populateEditFields(journey_ID);
 				}
 			}
 			
@@ -317,8 +324,29 @@
 
 				}
 			}
+
+            function fillDefault() {
+
+                document.getElementById('input-Pickup_Line1').value = 'Weardale Hub';
+                document.getElementById('input-Pickup_Line2').value = '85b Front Street';
+                document.getElementById('input-Pickup_Line3').value = 'Stanhope';
+                document.getElementById('input-Pickup_Line4').value = 'County Durham';
+                document.getElementById('input-Pickup_Line5').value = '';
+                document.getElementById('input-Pickup_Post_Code').value = 'DL13 2UB';
+                document.getElementById('input-Pickup_Time').placeholder = 'Please enter the start time, eg. 14:00';
+
+            }
 			
 			function addPickupField() {
+
+                var start = "";
+
+                if(document.getElementById('addTCMember').innerHTML == 'Add start') {
+                    document.getElementById('addTCMember').innerHTML = 'Add pickup';
+                    document.getElementById('legendChange').innerHTML = 'Pickup Address';
+                    start = 'Start address: ';
+                }
+                
 				var pickup = {
 					'Time':					document.getElementById('input-Pickup_Time').value,
 					'Note':					document.getElementById('input-Pickup_Note').value,
@@ -335,9 +363,14 @@
                 if (pickup['Address']['Line1'] != '' && pickup['Address']['Post_Code'] != '' && pickup['Time'] != '') {
 					pickups['No_Pickups']++;
 					var pickupList = document.getElementById('pickupList');
-					var cell = pickupList.insertRow(0).insertCell(0);
-					cell.innerHTML = pickup['Address']['Line1'] + ', ' + pickup['Address']['Post_Code'] + ', ' + pickup['Time'];
+					var row = pickupList.insertRow(0);
+					row.id = ('Pickup_Row_' + pickups['No_Pickups']);
+					var cell = row.insertCell(0);
+					cell.innerHTML = start + pickup['Address']['Line1'] + ', ' + pickup['Address']['Post_Code'] + ', ' + pickup['Time'];
 					cell.id = 'Pickup_' + pickups['No_Pickups'];
+					
+					var button = row.insertCell(1);
+					button.innerHTML = '<div class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">Delete Pickup</div>';
 					
 					document.getElementById('input-Pickup_Time').value = '';
 					document.getElementById('input-Pickup_Note').value = '';
@@ -352,6 +385,32 @@
 				}
 				
 				//alert(JSON.stringify(pickups));
+			}
+			
+			function deletePickup(pickupNumber) {
+				if (is_edit == '1') {
+				
+					var pickup_data =  {
+						'Journey_ID':	journey_ID,
+						'Address_ID':	document.getElementById('Pickup_Row_' + pickupNumber).getAttribute('Address_ID')
+					};
+					
+					$.ajax({
+						type: "POST",
+						url:"MySQL_Functions.php",
+						data: {
+							'form_type': 'deletePickup',
+							'form_data': pickup_data
+						},
+						dataType: "json",
+						success: function(returned_data) {
+							document.getElementById('Pickup_Row_' + pickupNumber).remove();
+						}
+					});
+				}
+				else {
+					document.getElementById('Pickup_Row_' + pickupNumber).remove();
+				}
 			}
 
         </script>
@@ -425,7 +484,9 @@
                         <fieldset id="pickupDetails">
                             <legend>Pickup Address</legend>
                             <table>
-                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Pickup_Line1"/> </td></tr>
+                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Pickup_Line1"/> </td>
+                                <td><div id="setDefault" onClick="fillDefault()">Set to Weardale</div></td>
+                                </tr>
                                 <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Pickup_Line2"/> </td></tr>
                                 <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Pickup_Line3"/> </td></tr>
                                 <tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Pickup_Line4"/> </td></tr>
@@ -433,8 +494,8 @@
                                 <tr><td><label>Postcode: </label></td><td><input type="text" id="input-Pickup_Post_Code"/> </td></tr>
                                 <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-Pickup_Time"/> <td></tr>
                                 <tr>
-                                <td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_Note" placeholder="E.g. Number of people to collect at this locaiton"/> <td>
-                                <td><div id="addTCMember" onclick="addPickupField()">Add pickup</div> </td>
+                                <td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_Note" placeholder="E.g. Number of people to collect at this location"/> </td>
+                                <td><div id="addTCMember" onclick="addPickupField()">Add start</div> </td>
                                 </tr>
 							</table>
 							

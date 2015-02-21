@@ -18,12 +18,12 @@
 		?>
 
         <script type="text/javascript">
+        	is_edit = '<?php echo $is_edit; ?>';
         
             function submit() {
                 var date = new Date();
-                var is_edit = '<?php echo $is_edit; ?>';
-            	
-                form_data = {
+                
+                var form_data = {
                 	'Booking_Date':					date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate(),
                     'fName':                        document.getElementById('input-fName').value,
                     'sName':                        document.getElementById('input-sName').value,
@@ -283,9 +283,15 @@
 								}
 							}
 				
-							var cell = pickupList.insertRow(0).insertCell(0);
+							var row = pickupList.insertRow(0);
+							row.id = ('Pickup_Row_' + pickups['No_Pickups']);
+							row.setAttribute('Address_ID', returned_data['Pickups'][x]['Address_ID']);
+							var cell = row.insertCell(0);
 							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
 							cell.id = 'Pickup_' + toString(x+1);
+					
+							var button = row.insertCell(1);
+							button.innerHTML = '<div class="button" class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">Delete Pickup</div>';
 						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
@@ -315,8 +321,9 @@
 				
 				var is_edit = '<?php echo $is_edit; ?>';
 				if (is_edit == '1') {
-					var id = '<?php echo $id; ?>'
-					populateEditFields(id);
+					document.getElementById('addTCMember').innerHTML = 'Add pickup';
+					journey_ID = '<?php echo $id; ?>';
+					populateEditFields(journey_ID);
 				}
 			}
 
@@ -336,7 +343,7 @@
 
                 var start = "";
 
-                if(document.getElementById('addTCMember').innerHTML === 'Add start') {
+                if(document.getElementById('addTCMember').innerHTML == 'Add start') {
                     document.getElementById('addTCMember').innerHTML = 'Add pickup';
                     document.getElementById('legendChange').innerHTML = 'Pickup Address';
                     start = 'Start address: ';
@@ -358,9 +365,14 @@
                 if (pickup['Address']['Line1'] != '' && pickup['Address']['Post_Code'] != '' && pickup['Time'] != '') {
 					pickups['No_Pickups']++;
 					var pickupList = document.getElementById('pickupList');
-					var cell = pickupList.insertRow(0).insertCell(0);
+					var row = pickupList.insertRow(0);
+					row.id = ('Pickup_Row_' + pickups['No_Pickups']);
+					var cell = row.insertCell(0);
 					cell.innerHTML = start + pickup['Address']['Line1'] + ', ' + pickup['Address']['Post_Code'] + ', ' + pickup['Time'];
 					cell.id = 'Pickup_' + pickups['No_Pickups'];
+					
+					var button = row.insertCell(1);
+					button.innerHTML = '<div class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">Delete Pickup</div>';
 					
 					document.getElementById('input-Pickup_Time').value = '';
 					document.getElementById('input-Pickup_Note').value = '';
@@ -372,6 +384,32 @@
 					document.getElementById('input-Pickup_Post_Code').value = '';
 				
 					pickups[pickups['No_Pickups']] = pickup;
+				}
+			}
+			
+			function deletePickup(pickupNumber) {
+				if (is_edit == '1') {
+				
+					var pickup_data =  {
+						'Journey_ID':	journey_ID,
+						'Address_ID':	document.getElementById('Pickup_Row_' + pickupNumber).getAttribute('Address_ID')
+					};
+					
+					$.ajax({
+						type: "POST",
+						url:"MySQL_Functions.php",
+						data: {
+							'form_type': 'deletePickup',
+							'form_data': pickup_data
+						},
+						dataType: "json",
+						success: function(returned_data) {
+							document.getElementById('Pickup_Row_' + pickupNumber).remove();
+						}
+					});
+				}
+				else {
+					document.getElementById('Pickup_Row_' + pickupNumber).remove();
 				}
 			}
 

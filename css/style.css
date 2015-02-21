@@ -211,6 +211,16 @@ input[type=textarea] {
 	display: inline;
 }
 
+.button {
+	background-color: #106500;
+	color: #fff;
+	font-size: 12pt;
+	padding: 5px;
+	border: none;
+	cursor: pointer;	
+	display: inline;
+}
+
 #addTCMember, #setDefault {
 	font-size: 12pt;
 }

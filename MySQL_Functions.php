@@ -180,11 +180,15 @@ switch ($type) {
 		echo json_encode($rdata);
 		break;
 
+	case 'deletePickup':
+		$rdata = deletePickup($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+		
 	case 'deleteTCMember':
 		$rdata = deleteTCMember($mysqli,$data);
 		echo json_encode($rdata);
 		break;
-
 
 	case 'deleteVehicle':
 		$rdata = deleteVehicle($mysqli,$data);
@@ -766,6 +770,7 @@ function getPickups($mysqli,$Journey_ID){
 
 			$Pickup['Note'] = $Note;
 			$Pickup['Address'] = getAddress($mysqli, $Address_ID);
+			$Pickup['Address_ID'] = $Address_ID;
 			$Pickup['Time'] = $Time;
 
 			array_push($Pickups, $Pickup);
@@ -1132,6 +1137,17 @@ function deleteJourney($mysqli,$data){
 		$statement->store_result();
 		$statement->close();
 	}
+	
+	return 'success';
+}
+
+function deletePickup($mysqli,$data){
+	if($statement = $mysqli->prepare("UPDATE Pickups SET Deleted = 'true' WHERE Journey_ID = ? AND Address_ID = ?;") ){
+			$statement->bind_param("ii",$data['Journey_ID'], $data['Address_ID']);
+			$statement->execute();
+			$statement->store_result();
+			$statement->close();
+		}
 	
 	return 'success';
 }
