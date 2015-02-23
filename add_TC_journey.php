@@ -23,7 +23,7 @@
             function submit() {
             	var date = new Date();
 
-                form_data = {
+                var form_data = {
                 	'Booking_Date':					date.getFullYear() + '/' + (date.getMonth()+1) + '/' + date.getDate(),
                     'fName':                        document.getElementById('input-fName').value,
                     'sName':                        document.getElementById('input-sName').value,

@@ -68,7 +68,7 @@
                 };
                 
                 form_data['Pickups'] = pickups;
-
+                alert(JSON.stringify(form_data['Pickups']));
                 if (is_edit == '1') {
                     form_data['Journey_ID'] = '<?php echo $id; ?>';  
 
@@ -227,7 +227,7 @@
 
             }
 
-            //alert(JSON.stringify(pickups));
+            alert(JSON.stringify(pickups));
             
             function populateEditFields(Journey_ID) {
             	

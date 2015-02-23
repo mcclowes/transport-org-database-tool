@@ -41,7 +41,7 @@ switch ($type) {
 		$Journey_ID = addJourney($mysqli,$data);
 		$x = $data['Pickups']['No_Pickups']; 
 
-		for ($xx = 0; $xx < $x; $xx++){
+		for ($xx = 1; $xx <= $x; $xx++){
 			addPickup($mysqli,$Journey_ID, $data['Pickups'][$xx]);
 		}
 		echo json_encode($Journey_ID);
@@ -703,9 +703,11 @@ function getJourneyMembers($mysqli,$Journey_ID){
 			$JourneyMember = getTCMember($mysqli, $TC_Member_ID);
 
 			array_push($JourneyMembers, $JourneyMember);
+			$i++;
 		}
 
 	}
+	$JourneyMembers['No_Members'] = $i;
 	return $JourneyMembers;
 }
 
@@ -759,7 +761,7 @@ function getTCMembers($mysqli){
 function getPickups($mysqli,$Journey_ID){
 	$Pickup = array();
 	$Pickups = array();
-	$No_Pickups = 0;
+	$No_Pickups = 1;
 
 	if($statement = $mysqli->prepare(" SELECT Note, Address_ID, Time FROM  Pickups WHERE Deleted = 'false' AND Journey_ID = ?;")){
 		$statement->bind_param('i',$Journey_ID);
@@ -1082,7 +1084,7 @@ function editJourney($mysqli,$Journey){
 	}
 
 	$x = $Journey['Pickups']['No_Pickups']; 
-	for ($xx = 0; $xx < $x; $xx++){
+	for ($xx = 1; $xx <= $x; $xx++){
 		$Pickup = $Journey['Pickups'][$xx];
 		$Address  = $Pickup['Address'];
 
