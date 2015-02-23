@@ -586,10 +586,10 @@ function getGroupJourneys($mysqli){
 	$Journey = array();
 	$Journeys = array();
 
-	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM Journeys WHERE Group_ID IS NOT NULL AND  Deleted = 'false' ORDER BY Journey_Date DESC;")){
+	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time, Vehicle FROM Journeys WHERE Group_ID IS NOT NULL AND  Deleted = 'false' ORDER BY Journey_Date DESC;")){
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
+		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time, $Vehicle_ID);
 		while($statement->fetch()){
 
 			if($stm = $mysqli->prepare(" SELECT MIN(Time) FROM Pickups WHERE Journey_ID = ?;")){
@@ -601,6 +601,7 @@ function getGroupJourneys($mysqli){
 				$stm->fetch();
 				}
 
+			$Vehicle = getVehicle($mysqli,$Vehicle_ID);
 
 			$Journey['Journey_ID'] = $Journey_ID;
 			$Journey['Journey_Description'] = $Journey_Description;
@@ -608,6 +609,7 @@ function getGroupJourneys($mysqli){
 			$Journey['Return_Time'] = $Return_Time;
 			$Journey['Pickup_Time'] = $Pickup_Time;
 			$Journey['Type'] = 'Group';
+			$Journey['Vehicle_Name'] = $Vehicle['Nickname'];
 
 			array_push($Journeys, $Journey);
 			}
@@ -619,10 +621,10 @@ function getTCJourneys($mysqli){
 	$Journey = array();
 	$Journeys = array();
 
-	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM  Journeys WHERE Group_ID IS NULL AND Deleted = 'false' ORDER BY Journey_Date DESC;")){
+	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time, Vehicle FROM  Journeys WHERE Group_ID IS NULL AND Deleted = 'false' ORDER BY Journey_Date DESC;")){
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
+		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time, $Vehicle_ID);
 		while($statement->fetch()){
 
 			if($stm = $mysqli->prepare(" SELECT MIN(Time) FROM Pickups WHERE Journey_ID = ?;")){
@@ -634,6 +636,7 @@ function getTCJourneys($mysqli){
 				$stm->fetch();
 				}
 
+			$Vehicle = getVehicle($mysqli,$Vehicle_ID);
 
 			$Journey['Journey_ID'] = $Journey_ID;
 			$Journey['Journey_Description'] = $Journey_Description;
@@ -641,6 +644,7 @@ function getTCJourneys($mysqli){
 			$Journey['Return_Time'] = $Return_Time;
 			$Journey['Pickup_Time'] = $Pickup_Time;
 			$Journey['Type'] = 'TC';
+			$Journey['Vehicle_Name'] = $Vehicle['Nickname'];
 
 			array_push($Journeys, $Journey);
 			}
