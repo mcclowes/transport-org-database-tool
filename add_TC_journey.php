@@ -153,7 +153,7 @@
                     	for(var i = 0; i < returned_data.length; i++) {
                     		var item = document.createElement("option");
                     		item.textContent = returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ' (' + returned_data[i]['Post_Code'] + ')';
-                    		item.value = returned_data[i]['TC_TC_Member_ID'];
+                    		item.value = returned_data[i]['TC_Member_ID'];
                     		dropdown.appendChild(item);
                     	}
                     }
