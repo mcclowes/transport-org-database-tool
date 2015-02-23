@@ -266,7 +266,7 @@
 							cell.id = 'Pickup_' + toString(x+1);
 					
 							var button = row.insertCell(1);
-							button.innerHTML = '<div class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">Delete Pickup</div>';
+							button.innerHTML = '<div class="button" id="delete-Pickup_' + (x+1) + '" onclick="deletePickup(' + (x+1) + ')">Delete Pickup</div>';
 						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
@@ -405,6 +405,7 @@
 						dataType: "json",
 						success: function(returned_data) {
 							document.getElementById('Pickup_Row_' + pickupNumber).remove();
+							pickups['No_Pickups']--;
 						}
 					});
 				}
