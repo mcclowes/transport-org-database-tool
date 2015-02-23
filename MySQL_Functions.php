@@ -180,6 +180,11 @@ switch ($type) {
 		echo json_encode($rdata);
 		break;
 
+	case 'deleteJourneyMember':
+		$rdata = deleteJourneyMember($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
 	case 'deletePickup':
 		$rdata = deletePickup($mysqli,$data);
 		echo json_encode($rdata);
@@ -1140,6 +1145,16 @@ function deleteJourney($mysqli,$data){
 		$statement->close();
 	}
 	
+	return 'success';
+}
+
+function deleteJourneyMember($mysqli,$data){
+	if($statement = $mysqli->prepare("UPDATE TC_Journey_Members SET Deleted = 'true' WHERE Journey_ID = ? AND TC_Member_ID = ?;") ){
+		$statement->bind_param("ii",$data['Journey_ID'],$data['TC_Member_ID']);
+		$statement->execute();
+		$statement->store_result();
+		$statement->close();
+	}
 	return 'success';
 }
 
