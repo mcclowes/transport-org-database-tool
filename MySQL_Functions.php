@@ -41,7 +41,7 @@ switch ($type) {
 		$Journey_ID = addJourney($mysqli,$data);
 		$x = $data['Pickups']['No_Pickups']; 
 
-		for ($xx = 1; $xx <= $x; $xx++){
+		for ($xx = 0; $xx < $x; $xx++){
 			addPickup($mysqli,$Journey_ID, $data['Pickups'][$xx]);
 		}
 		echo json_encode($Journey_ID);
@@ -647,7 +647,7 @@ function getJourney($mysqli, $Journey_ID){
 	$rdata = array();
 	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
-										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid FROM  Journeys WHERE Journey_ID = ?;")){
+										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid FROM  Journeys WHERE Journey_ID = ? ORDER BY Journey_Date DESC;")){
 		$statement->bind_param("i", $Journey_ID);
 		$statement->execute();
 		$statement->store_result();
@@ -763,7 +763,7 @@ function getPickups($mysqli,$Journey_ID){
 	$Pickups = array();
 	$No_Pickups = 0;
 
-	if($statement = $mysqli->prepare(" SELECT Note, Address_ID, Time FROM  Pickups WHERE Deleted = 'false' AND Journey_ID = ?;")){
+	if($statement = $mysqli->prepare(" SELECT Note, Address_ID, Time FROM  Pickups WHERE Deleted = 'false' AND Journey_ID = ? ORDER BY Time DESC;")){
 		$statement->bind_param('i',$Journey_ID);
 		$statement->execute();
 		$statement->store_result();
@@ -948,7 +948,7 @@ function addJourney($mysqli,$Journey){
 	}
 	if(isset($Journey['TC_Members'])){
 		$x = $Journey['TC_Members']['No_Members'];
-		for($xx=1; $xx<=$x; $xx++){
+		for($xx=0; $xx<$x; $xx++){
 			$TC_Journey_Member['Journey_ID'] = $Journey_ID;
 			$TC_Journey_Member['TC_Member_ID'] = $Journey['TC_Members'][$xx];
 			addTCJourneyMember($mysqli,$TC_Journey_Member);
@@ -1084,7 +1084,7 @@ function editJourney($mysqli,$Journey){
 	}
 
 	$x = $Journey['Pickups']['No_Pickups']; 
-	for ($xx = 1; $xx <= $x; $xx++){
+	for ($xx = 0; $xx < $x; $xx++){
 		$Pickup = $Journey['Pickups'][$xx];
 		$Address  = $Pickup['Address'];
 
@@ -1107,7 +1107,7 @@ function editJourney($mysqli,$Journey){
 
 	if(isset($Journey['TC_Members'])){
 		$x = $Journey['TC_Members']['No_Members'];
-		for($xx=1; $xx<=$x; $xx++){
+		for($xx=0; $xx<$x; $xx++){
 			$TC_Journey_Member['Journey_ID'] = $Journey_ID;
 			$TC_Journey_Member['TC_Member_ID'] = $Journey['TC_Members'][$xx];
 			addTCJourneyMember($mysqli,$TC_Journey_Member);
