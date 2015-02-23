@@ -232,7 +232,7 @@
                         url:"MySQL_Functions.php",
                         data: {
                             'form_type': 'getAddress',
-                            'form_data': {'Address_ID' : document.getElementById(dropdown).value,}
+                            'form_data': {'Address_ID' : Address_ID}
                         },
                         dataType: "json",
                         success: function(returned_data) {
@@ -265,6 +265,24 @@
                     document.getElementById(id+'Post_Code').value = '';  
                     document.getElementById(id+'Post_Code').readOnly = false;
                 }
+            }
+
+            function clearAddress(id, dropdownID){
+                var dropdown = document.getElementById(dropdownID);
+            
+                dropdown.value = null;
+                document.getElementById(id+'Line1').value = '';
+                document.getElementById(id+'Line1').readOnly = false;
+                document.getElementById(id+'Line2').value = '';
+                document.getElementById(id+'Line2').readOnly = false;
+                document.getElementById(id+'Line3').value = '';
+                document.getElementById(id+'Line3').readOnly = false;
+                document.getElementById(id+'Line4').value = '';
+                document.getElementById(id+'Line4').readOnly = false;
+                document.getElementById(id+'Line5').value = '';
+                document.getElementById(id+'Line5').readOnly = false;
+                document.getElementById(id+'Post_Code').value = '';  
+                document.getElementById(id+'Post_Code').readOnly = false;
             }
             
             
@@ -395,7 +413,7 @@
 					var button = row.insertCell(1);
 					button.innerHTML = '<div class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">Delete Pickup</div>';
 					
-                    document.getElementById('dropdown-Pickups').value = '';
+                    document.getElementById('dropdown-Pickups').value = null;
 					document.getElementById('input-Pickup_Time').value = '';
 					document.getElementById('input-Pickup_Note').value = '';
 					document.getElementById('input-Pickup_Line1').value = '';
@@ -484,15 +502,13 @@
 							<legend>Bookee Address</legend>
 							<table>
                                 <tr><td><label>Stored Addresses: </label></td>
-                                <td><select id="dropdown-Addresses"> 
+                                <td><select id="dropdown-Addresses" onchange="addAddress('input-Address_', 'dropdown-Addresses')"> 
                                     <option>Choose an existing address</option>
                                 </select></td>
                                 <td>
-                                <div id="addTCMember" onclick="addAddress('input-Address_', 'dropdown-Addresses')">Add Address</div>
+                                <div id="addTCMember" onclick="clearAddress('input-Address_', 'dropdown-Addresses')">Clear</div>
                                 </td></tr>
-                            </table>
-                            <table>
-								<tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Address_Line1"/> </td></tr>
+                                <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Address_Line1"/> </td></tr>
 								<tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Address_Line2"/> </td></tr>
 								<tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Address_Line3"/> </td></tr>
 								<tr><td><label>Address line 4: </label></td><td><input type="text" id="input-Address_Line4"/> </td></tr>
@@ -519,14 +535,12 @@
                             <legend>Destination Address</legend>
                             <table>
                                 <tr><td><label> Stored Addresses: </label></td>
-                                <td><select id="dropdown-Destinations"> 
+                                <td><select id="dropdown-Destinations" onchange="addAddress('input-Destination_', 'dropdown-Destinations')"> 
                                     <option>Choose an existing address</option>
                                 </select></td>
                                 <td>
-                                <div id="addTCMember" onclick="addAddress('input-Destination_', 'dropdown-Destinations')">Add Address</div>
+                                <div id="addTCMember" onclick="clearAddress('input-Destination_', 'dropdown-Destinations')">Clear</div>
                                 </td></tr>
-                            </table>
-                            <table>
                                 <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Destination_Line1"/> </td></tr>
                                 <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Destination_Line2"/> </td></tr>
                                 <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Destination_Line3"/> </td></tr>
@@ -539,14 +553,12 @@
                             <legend id="legendChange">Start Address</legend>
                             <table>
                                 <tr><td><label> Stored Addresses: </label></td>
-                                <td><select id="dropdown-Pickups"> 
+                                <td><select id="dropdown-Pickups" onchange="addAddress('input-Pickup_', 'dropdown-Pickups')"> 
                                     <option>Choose an existing address</option>
                                 </select></td>
                                 <td>
-                                <div id="addTCMember" onclick="addAddress('input-Pickup_', 'dropdown-Pickups')">Add Address</div>
+                                <div id="addTCMember" onclick="clearAddress('input-Pickup_', 'dropdown-Pickups')">Clear</div>
                                 </td></tr>
-                            </table>
-                            <table>
                                 <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Pickup_Line1"/> </td>
                                 <td><div id="setDefault" onClick="fillDefault()">Set to Weardale</div></td>
                                 </tr>

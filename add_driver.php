@@ -11,6 +11,7 @@
                 form_data = {
                     'fName':                        document.getElementById('input-fName').value,
                     'sName':                        document.getElementById('input-sName').value,
+                    'Address_ID':                   document.getElementById('dropdown-Addresses').value,
                     'Address':{
                         'Line1':                    document.getElementById('input-Line1').value,
                         'Line2':                    document.getElementById('input-Line2').value,
@@ -47,6 +48,88 @@
                 });
             }
 
+            function populateAddresses(dropdownID){
+                var dropdown = document.getElementById(dropdownID);
+            
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getAddresses'
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                        for(var i = 0; i < returned_data.length; i++) {
+                            var item = document.createElement("option");
+                            item.textContent = returned_data[i]['Line1'] + ' ' + returned_data[i]['Line2'] + ' ' + returned_data[i]['Line3'] + ' ' + returned_data[i]['Line4'] + ' ' + returned_data[i]['Line5'] + ' ' + returned_data[i]['Post_Code'];
+                            item.value = returned_data[i]['Address_ID'];
+                            dropdown.appendChild(item);
+                        }
+                    }
+                });
+            }
+
+           function addAddress(id, dropdown){
+                var Address_ID = document.getElementById(dropdown).value;
+                if(Address_ID > 0){
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'getAddress',
+                            'form_data': {'Address_ID' : document.getElementById(dropdown).value,}
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            document.getElementById(id+'Line1').value = returned_data['Line1'];
+                            document.getElementById(id+'Line1').readOnly = true;
+                            document.getElementById(id+'Line2').value = returned_data['Line2'];
+                            document.getElementById(id+'Line2').readOnly = true;
+                            document.getElementById(id+'Line3').value = returned_data['Line3'];
+                            document.getElementById(id+'Line3').readOnly = true;
+                            document.getElementById(id+'Line4').value = returned_data['Line4'];
+                            document.getElementById(id+'Line4').readOnly = true;
+                            document.getElementById(id+'Line5').value = returned_data['Line5'];
+                            document.getElementById(id+'Line5').readOnly = true;
+                            document.getElementById(id+'Post_Code').value = returned_data['Post_Code'];  
+                            document.getElementById(id+'Post_Code').readOnly = true;
+                        }
+                    });
+                }
+                else{
+                    document.getElementById(id+'Line1').value = '';
+                    document.getElementById(id+'Line1').readOnly = false;
+                    document.getElementById(id+'Line2').value = '';
+                    document.getElementById(id+'Line2').readOnly = false;
+                    document.getElementById(id+'Line3').value = '';
+                    document.getElementById(id+'Line3').readOnly = false;
+                    document.getElementById(id+'Line4').value = '';
+                    document.getElementById(id+'Line4').readOnly = false;
+                    document.getElementById(id+'Line5').value = '';
+                    document.getElementById(id+'Line5').readOnly = false;
+                    document.getElementById(id+'Post_Code').value = '';  
+                    document.getElementById(id+'Post_Code').readOnly = false;
+                }
+            }
+
+            function clearAddress(id, dropdownID){
+                var dropdown = document.getElementById(dropdownID);
+            
+                dropdown.value = null;
+                document.getElementById(id+'Line1').value = '';
+                document.getElementById(id+'Line1').readOnly = false;
+                document.getElementById(id+'Line2').value = '';
+                document.getElementById(id+'Line2').readOnly = false;
+                document.getElementById(id+'Line3').value = '';
+                document.getElementById(id+'Line3').readOnly = false;
+                document.getElementById(id+'Line4').value = '';
+                document.getElementById(id+'Line4').readOnly = false;
+                document.getElementById(id+'Line5').value = '';
+                document.getElementById(id+'Line5').readOnly = false;
+                document.getElementById(id+'Post_Code').value = '';  
+                document.getElementById(id+'Post_Code').readOnly = false;
+            }
+
             var i = 0;
 
             function next(){
@@ -79,6 +162,7 @@
             }
 
             function startScreen(){
+                populateAddresses('dropdown-Addresses');
                 $('#page2').hide();
                 $('#page3').hide();
                 $('#submitButton').hide();
@@ -113,6 +197,13 @@
 						<fieldset id="personalAddress">
 							<legend>Address</legend>
 							<table>
+                                <tr><td><label>Stored Addresses: </label></td>
+                                <td><select id="dropdown-Addresses" onchange="addAddress('input-', 'dropdown-Addresses')"> 
+                                    <option>Choose an existing address</option>
+                                </select></td>
+                                <td>
+                                <div id="addTCMember" onclick="clearAddress('input-', 'dropdown-Addresses')">Clear</div>
+                                </td></tr>
 								<tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Line1"/> </td></tr>
 								<tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Line2"/> </td></tr>
 								<tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Line3"/> </td></tr>
