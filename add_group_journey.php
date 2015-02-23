@@ -226,12 +226,6 @@
             function addAddress(){
 
             }
-
-<<<<<<< Updated upstream
-            //alert(JSON.stringify(pickups));
-=======
-            // alert(JSON.stringify(pickups));
->>>>>>> Stashed changes
             
             function populateEditFields(Journey_ID) {
             	
@@ -289,7 +283,7 @@
 							}
 				
 							var row = pickupList.insertRow(0);
-							row.id = ('Pickup_Row_' + pickups['No_Pickups']);
+							row.id = ('Pickup_Row_' + x);
 							row.setAttribute('Address_ID', returned_data['Pickups'][x]['Address_ID']);
 							var cell = row.insertCell(0);
 							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
@@ -313,24 +307,6 @@
                     }
                 });
             }
-            
-            function init(){
-				number_of_pickups = 0;
-				pickups = {'No_Pickups': number_of_pickups};
-				
-				startScreen();
-				populateDrivers();
-				populateVehicles();
-				populateGroups();
-                populateAddresses();
-				
-				var is_edit = '<?php echo $is_edit; ?>';
-				if (is_edit == '1') {
-					document.getElementById('addTCMember').innerHTML = 'Add pickup';
-					journey_ID = '<?php echo $id; ?>';
-					populateEditFields(journey_ID);
-				}
-			}
 
             function fillDefault() {
 
@@ -417,6 +393,24 @@
 					document.getElementById('Pickup_Row_' + pickupNumber).remove();
 				}
 				pickups['No_Pickups']--;
+			}
+            
+            function init(){
+				number_of_pickups = 0;
+				pickups = {'No_Pickups': number_of_pickups};
+				
+				startScreen();
+				populateDrivers();
+				populateVehicles();
+				populateGroups();
+                populateAddresses();
+				
+				var is_edit = '<?php echo $is_edit; ?>';
+				if (is_edit == '1') {
+					document.getElementById('addTCMember').innerHTML = 'Add pickup';
+					journey_ID = '<?php echo $id; ?>';
+					populateEditFields(journey_ID);
+				}
 			}
 
         </script>

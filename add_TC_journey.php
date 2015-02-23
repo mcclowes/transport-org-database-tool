@@ -259,7 +259,7 @@
 							}
 				
 							var row = pickupList.insertRow(0);
-							row.id = ('Pickup_Row_' + pickups['No_Pickups']);
+							row.id = ('Pickup_Row_' + x);
 							row.setAttribute('Address_ID', returned_data['Pickups'][x]['Address_ID']);
 							var cell = row.insertCell(0);
 							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
@@ -283,27 +283,7 @@
                 		
                     }
                 });
-                
-                
             }
-            
-            function init(){
-				pickups = {'No_Pickups': 0};
-                members = {'No_Members': 0};
-				
-				startScreen();
-				populateDrivers();
-				populateVehicles();
-				
-				populateTCMembers();
-				
-				var is_edit = '<?php echo $is_edit; ?>';
-				if (is_edit == '1') {
-					document.getElementById('addTCMember').innerHTML = 'Add pickup';
-					journey_ID = '<?php echo $id; ?>';
-					populateEditFields(journey_ID);
-				}
-			}
 			
 			function addTCMemberField() {
 
@@ -412,6 +392,24 @@
 					document.getElementById('Pickup_Row_' + pickupNumber).remove();
 				}
 				pickups['No_Pickups']--;
+			}
+            
+            function init(){
+				pickups = {'No_Pickups': 0};
+                members = {'No_Members': 0};
+				
+				startScreen();
+				populateDrivers();
+				populateVehicles();
+				
+				populateTCMembers();
+				
+				var is_edit = '<?php echo $is_edit; ?>';
+				if (is_edit == '1') {
+					document.getElementById('addTCMember').innerHTML = 'Add pickup';
+					journey_ID = '<?php echo $id; ?>';
+					populateEditFields(journey_ID);
+				}
 			}
 
         </script>
