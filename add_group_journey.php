@@ -264,7 +264,7 @@
 						document.getElementById('input-Destination_Line5').value = returned_data['Destination']['Line5'];
 						document.getElementById('input-Destination_Post_Code').value = returned_data['Destination']['Post_Code'];
 						
-						pickups['No_Pickups'] = returned_data['Pickups']['No_Pickups'];
+						//pickups['No_Pickups'] = returned_data['Pickups']['No_Pickups'];
 						var pickupList = document.getElementById('pickupList');
 						for (var x = 0; x < pickups['No_Pickups']; x++) {
 						

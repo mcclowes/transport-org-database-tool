@@ -153,7 +153,7 @@
                     	for(var i = 0; i < returned_data.length; i++) {
                     		var item = document.createElement("option");
                     		item.textContent = returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ' (' + returned_data[i]['Post_Code'] + ')';
-                    		item.value = returned_data[i]['TC_Member_ID'];
+                    		item.value = returned_data[i]['TC_TC_Member_ID'];
                     		dropdown.appendChild(item);
                     	}
                     }
@@ -213,12 +213,40 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
+                    	// alert(JSON.stringify(returned_data));
                 		
 						document.getElementById('input-fName').value = returned_data['fName'];
 						document.getElementById('input-sName').value = returned_data['sName'];
 						document.getElementById('input-Tel_No').value = returned_data['Tel_No'];
 						
-						//ADD SO THAT TC_MEMBERS ARE ADDED TO THE TABLE
+						members['No_Pickups'] = returned_data['Members']['No_Members'];
+						var memberList = document.getElementById('memberList');
+						for (var x = 0; x < members['No_Members']; x++) {
+					
+							members[x] = {
+								'fName':				returned_data['Pickups'][x]['Time'],
+								'sName':				returned_data['Pickups'][x]['Note'],
+								'Address':{
+									'Line1':			returned_data['Pickups'][x]['Address']['Line1'],
+									'Line2':			returned_data['Pickups'][x]['Address']['Line2'],
+									'Line3':			returned_data['Pickups'][x]['Address']['Line3'],
+									'Line4':			returned_data['Pickups'][x]['Address']['Line4'],
+									'Line5':			returned_data['Pickups'][x]['Address']['Line5'],
+									'Post_Code':		returned_data['Pickups'][x]['Address']['Post_Code'],
+								},
+								'TC_Member_ID':			returned_data['Members'][x]['TC_TC_Member_ID']
+							}
+			
+							var row = memberList.insertRow(0);
+							row.id = ('Member_Row_' + x);
+							row.setAttribute('TC_TC_Member_ID', returned_data['Members'][x]['TC_TC_Member_ID']);
+							var cell = row.insertCell(0);
+							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ' (' + returned_data['Members'][x]['Address']['Post_Code'] + ')';
+							cell.id = 'Member_' + x;
+				
+							var button = row.insertCell(1);
+							button.innerHTML = '<div class="button" id="delete-Member_' + x + '" onclick="deleteMember(' + x + ')">Delete Member</div>';
+						}
 						 
 						document.getElementById('input-Address_Line1').value = returned_data['Address']['Line1'];
 						document.getElementById('input-Address_Line2').value = returned_data['Address']['Line2'];
@@ -291,18 +319,44 @@
 				var text = TC_Member_dropdown.options[TC_Member_dropdown.selectedIndex].text;
 				
 				if (text != 'Choose a Travel Club Member') {
-                    members['No_Members']++;
-                    var member_ID = TC_Member_dropdown.value;
-                    members[members['No_Members']] = member_ID;
+                    var TC_Member_ID = TC_Member_dropdown.value;
+                    members[members['No_Members']] = TC_Member_ID;
 
 					var memberList = document.getElementById('memberList');
 					var cell = memberList.insertRow(0).insertCell(0);
 					cell.innerHTML = text;
 					cell.id = 'TCMembers_' + members['No_Members'];
-					cell.setAttribute('TC_id', member_ID);
+					cell.setAttribute('TC_TC_Member_ID', TC_Member_ID);
 					TC_Member_dropdown.remove(TC_Member_dropdown.selectedIndex);
-
+                    members['No_Members']++;
 				}
+			}
+			
+			function deleteMember(memberNumber) {
+				if (is_edit == '1') {
+				
+					var member_data =  {
+						'Journey_ID':	journey_ID,
+						'TC_Member_ID':	document.getElementById('Member_Row_' + pickupNumber).getAttribute('TC_Member_ID')
+					};
+					
+					$.ajax({
+						type: "POST",
+						url:"MySQL_Functions.php",
+						data: {
+							'form_type': 'deleteJourneyMember',
+							'form_data': member_data
+						},
+						dataType: "json",
+						success: function(returned_data) {
+							document.getElementById('Member_Row_' + memberNumber).remove();
+						}
+					});
+				}
+				else {
+					document.getElementById('Member_Row_' + memberNumber).remove();
+				}
+				members['No_Members']--;
 			}
 
             function fillDefault() {
