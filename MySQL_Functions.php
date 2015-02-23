@@ -586,7 +586,7 @@ function getGroupJourneys($mysqli){
 	$Journey = array();
 	$Journeys = array();
 
-	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM Journeys WHERE Group_ID IS NOT NULL AND  Deleted = 'false';")){
+	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM Journeys WHERE Group_ID IS NOT NULL AND  Deleted = 'false' ORDER BY Journey_Date DESC;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
@@ -619,7 +619,7 @@ function getTCJourneys($mysqli){
 	$Journey = array();
 	$Journeys = array();
 
-	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM  Journeys WHERE Group_ID IS NULL AND Deleted = 'false';")){
+	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time FROM  Journeys WHERE Group_ID IS NULL AND Deleted = 'false' ORDER BY Journey_Date DESC;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time);
@@ -652,7 +652,7 @@ function getJourney($mysqli, $Journey_ID){
 	$rdata = array();
 	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Note, Booking_Date, fName, sName, Address_ID, Tel_No, Group_ID, Journey_Date, Destination, Return_Note, Return_Time,
 										No_Passengers, Passengers_Note, Wheelchairs, Transferees, Other_Access, Booked_By, Driver_ID, Vehicle, 
-										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid FROM  Journeys WHERE Journey_ID = ? ORDER BY Journey_Date DESC;")){
+										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid FROM  Journeys WHERE Journey_ID = ?;")){
 		$statement->bind_param("i", $Journey_ID);
 		$statement->execute();
 		$statement->store_result();

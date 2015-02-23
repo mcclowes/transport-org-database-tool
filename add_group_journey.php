@@ -46,6 +46,7 @@
                     'Transferees':                  document.getElementById('number-Transferees').value,
                     'Other_Access':                 document.getElementById('input-Other_Access').value,
                     'Booked_By': 					document.getElementById('input-Booked_By').value,
+                    'Destination_ID':               document.getElementById('dropdown-Destinations').value,
                     'Destination':{
 						'Line1':					document.getElementById('input-Destination_Line1').value,
 						'Line2':					document.getElementById('input-Destination_Line2').value,
@@ -68,7 +69,7 @@
                 };
                 
                 form_data['Pickups'] = pickups;
-                //alert(JSON.stringify(form_data['Pickups']));
+            
                 if (is_edit == '1') {
                     form_data['Journey_ID'] = '<?php echo $id; ?>';  
 
@@ -202,8 +203,8 @@
                 });
             }
             
-            function populateAddresses(){
-            var dropdown = document.getElementById('dropdown-Addresses');
+            function populateAddresses(dropdownID){
+                var dropdown = document.getElementById(dropdownID);
             
                 $.ajax({
                     type: "POST",
@@ -223,9 +224,49 @@
                 });
             }
 
-            function addAddress(){
-
+           function addAddress(id, dropdown){
+                var Address_ID = document.getElementById(dropdown).value;
+                if(Address_ID > 0){
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'getAddress',
+                            'form_data': {'Address_ID' : document.getElementById(dropdown).value,}
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            document.getElementById(id+'Line1').value = returned_data['Line1'];
+                            document.getElementById(id+'Line1').readOnly = true;
+                            document.getElementById(id+'Line2').value = returned_data['Line2'];
+                            document.getElementById(id+'Line2').readOnly = true;
+                            document.getElementById(id+'Line3').value = returned_data['Line3'];
+                            document.getElementById(id+'Line3').readOnly = true;
+                            document.getElementById(id+'Line4').value = returned_data['Line4'];
+                            document.getElementById(id+'Line4').readOnly = true;
+                            document.getElementById(id+'Line5').value = returned_data['Line5'];
+                            document.getElementById(id+'Line5').readOnly = true;
+                            document.getElementById(id+'Post_Code').value = returned_data['Post_Code'];  
+                            document.getElementById(id+'Post_Code').readOnly = true;
+                        }
+                    });
+                }
+                else{
+                    document.getElementById(id+'Line1').value = '';
+                    document.getElementById(id+'Line1').readOnly = false;
+                    document.getElementById(id+'Line2').value = '';
+                    document.getElementById(id+'Line2').readOnly = false;
+                    document.getElementById(id+'Line3').value = '';
+                    document.getElementById(id+'Line3').readOnly = false;
+                    document.getElementById(id+'Line4').value = '';
+                    document.getElementById(id+'Line4').readOnly = false;
+                    document.getElementById(id+'Line5').value = '';
+                    document.getElementById(id+'Line5').readOnly = false;
+                    document.getElementById(id+'Post_Code').value = '';  
+                    document.getElementById(id+'Post_Code').readOnly = false;
+                }
             }
+            
             
             function populateEditFields(Journey_ID) {
             	
@@ -332,6 +373,7 @@
 				var pickup = {
 					'Time':					document.getElementById('input-Pickup_Time').value,
 					'Note':					document.getElementById('input-Pickup_Note').value,
+                    'Address_ID':           document.getElementById('dropdown-Pickups').value,
 					'Address':{
 						'Line1':			document.getElementById('input-Pickup_Line1').value,
 						'Line2':			document.getElementById('input-Pickup_Line2').value,
@@ -353,6 +395,7 @@
 					var button = row.insertCell(1);
 					button.innerHTML = '<div class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">Delete Pickup</div>';
 					
+                    document.getElementById('dropdown-Pickups').value = '';
 					document.getElementById('input-Pickup_Time').value = '';
 					document.getElementById('input-Pickup_Note').value = '';
 					document.getElementById('input-Pickup_Line1').value = '';
@@ -402,7 +445,9 @@
 				populateDrivers();
 				populateVehicles();
 				populateGroups();
-                populateAddresses();
+                populateAddresses('dropdown-Addresses');
+                populateAddresses('dropdown-Destinations');
+                populateAddresses('dropdown-Pickups');
 				
 				var is_edit = '<?php echo $is_edit; ?>';
 				if (is_edit == '1') {
@@ -438,12 +483,12 @@
 						<fieldset id="bookeeAddress">
 							<legend>Bookee Address</legend>
 							<table>
-                                <tr><td><label>Addresses: </label></td>
+                                <tr><td><label>Stored Addresses: </label></td>
                                 <td><select id="dropdown-Addresses"> 
                                     <option>Choose an existing address</option>
                                 </select></td>
                                 <td>
-                                <div id="addTCMember" onclick="addAddress()">Add Address</div>
+                                <div id="addTCMember" onclick="addAddress('input-Address_', 'dropdown-Addresses')">Add Address</div>
                                 </td></tr>
                             </table>
                             <table>
@@ -473,6 +518,15 @@
                         <fieldset id="destinationAddress">
                             <legend>Destination Address</legend>
                             <table>
+                                <tr><td><label> Stored Addresses: </label></td>
+                                <td><select id="dropdown-Destinations"> 
+                                    <option>Choose an existing address</option>
+                                </select></td>
+                                <td>
+                                <div id="addTCMember" onclick="addAddress('input-Destination_', 'dropdown-Destinations')">Add Address</div>
+                                </td></tr>
+                            </table>
+                            <table>
                                 <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Destination_Line1"/> </td></tr>
                                 <tr><td><label>Address line 2: </label></td><td><input type="text" id="input-Destination_Line2"/> </td></tr>
                                 <tr><td><label>Address line 3: </label></td><td><input type="text" id="input-Destination_Line3"/> </td></tr>
@@ -483,6 +537,15 @@
                         </fieldset>
                         <fieldset id="pickupDetails">
                             <legend id="legendChange">Start Address</legend>
+                            <table>
+                                <tr><td><label> Stored Addresses: </label></td>
+                                <td><select id="dropdown-Pickups"> 
+                                    <option>Choose an existing address</option>
+                                </select></td>
+                                <td>
+                                <div id="addTCMember" onclick="addAddress('input-Pickup_', 'dropdown-Pickups')">Add Address</div>
+                                </td></tr>
+                            </table>
                             <table>
                                 <tr><td><label>Address line 1: </label></td><td><input type="text" id="input-Pickup_Line1"/> </td>
                                 <td><div id="setDefault" onClick="fillDefault()">Set to Weardale</div></td>
