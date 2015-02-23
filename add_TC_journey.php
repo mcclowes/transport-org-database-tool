@@ -263,10 +263,10 @@
 							row.setAttribute('Address_ID', returned_data['Pickups'][x]['Address_ID']);
 							var cell = row.insertCell(0);
 							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
-							cell.id = 'Pickup_' + toString(x+1);
+							cell.id = 'Pickup_' + x;
 					
 							var button = row.insertCell(1);
-							button.innerHTML = '<div class="button" id="delete-Pickup_' + (x+1) + '" onclick="deletePickup(' + (x+1) + ')">Delete Pickup</div>';
+							button.innerHTML = '<div class="button" id="delete-Pickup_' + x + '" onclick="deletePickup(' + x + ')">Delete Pickup</div>';
 						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
@@ -361,7 +361,6 @@
 				}
 				
                 if (pickup['Address']['Line1'] != '' && pickup['Address']['Post_Code'] != '' && pickup['Time'] != '') {
-					pickups['No_Pickups']++;
 					var pickupList = document.getElementById('pickupList');
 					var row = pickupList.insertRow(0);
 					row.id = ('Pickup_Row_' + pickups['No_Pickups']);
@@ -382,6 +381,7 @@
 					document.getElementById('input-Pickup_Post_Code').value = '';
 				
 					pickups[pickups['No_Pickups']] = pickup;
+					pickups['No_Pickups']++;
 				}
 				
 				//alert(JSON.stringify(pickups));
@@ -405,13 +405,13 @@
 						dataType: "json",
 						success: function(returned_data) {
 							document.getElementById('Pickup_Row_' + pickupNumber).remove();
-							pickups['No_Pickups']--;
 						}
 					});
 				}
 				else {
 					document.getElementById('Pickup_Row_' + pickupNumber).remove();
 				}
+				pickups['No_Pickups']--;
 			}
 
         </script>
