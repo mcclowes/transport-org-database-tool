@@ -702,9 +702,10 @@ function getJourneyMembers($mysqli,$Journey_ID){
 		$statement->bind_param('i', $Journey_ID);
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($TC_Member_ID);
+		$statement->bind_result($Member_ID);
 		while($statement->fetch()){
 
+			$TC_Member_ID = $Member_ID
 			$JourneyMember = getTCMember($mysqli, $TC_Member_ID);
 
 			array_push($JourneyMembers, $JourneyMember);
