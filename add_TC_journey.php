@@ -219,33 +219,34 @@
 						document.getElementById('input-sName').value = returned_data['sName'];
 						document.getElementById('input-Tel_No').value = returned_data['Tel_No'];
 						
-						members['No_Pickups'] = returned_data['Members']['No_Members'];
+						members['No_Members'] = returned_data['Members']['No_Members'];
 						var memberList = document.getElementById('memberList');
 						for (var x = 0; x < members['No_Members']; x++) {
 					
 							members[x] = {
-								'fName':				returned_data['Pickups'][x]['Time'],
-								'sName':				returned_data['Pickups'][x]['Note'],
+								'fName':				returned_data['Members'][x]['sName'],
+								'sName':				returned_data['Members'][x]['fName'],
 								'Address':{
-									'Line1':			returned_data['Pickups'][x]['Address']['Line1'],
-									'Line2':			returned_data['Pickups'][x]['Address']['Line2'],
-									'Line3':			returned_data['Pickups'][x]['Address']['Line3'],
-									'Line4':			returned_data['Pickups'][x]['Address']['Line4'],
-									'Line5':			returned_data['Pickups'][x]['Address']['Line5'],
-									'Post_Code':		returned_data['Pickups'][x]['Address']['Post_Code'],
+									'Line1':			returned_data['Members'][x]['Address']['Line1'],
+									'Line2':			returned_data['Members'][x]['Address']['Line2'],
+									'Line3':			returned_data['Members'][x]['Address']['Line3'],
+									'Line4':			returned_data['Members'][x]['Address']['Line4'],
+									'Line5':			returned_data['Members'][x]['Address']['Line5'],
+									'Post_Code':		returned_data['Members'][x]['Address']['Post_Code'],
 								},
-								'TC_Member_ID':			returned_data['Members'][x]['TC_TC_Member_ID']
+								'TC_Member_ID':			returned_data['Members'][x]['TC_Member_ID']
 							}
 			
 							var row = memberList.insertRow(0);
 							row.id = ('Member_Row_' + x);
-							row.setAttribute('TC_TC_Member_ID', returned_data['Members'][x]['TC_TC_Member_ID']);
-							var cell = row.insertCell(0);
+							row.setAttribute('TC_Member_ID', returned_data['Members'][x]['TC_Member_ID']);
+				
+							var button = row.insertCell(0);
+							button.innerHTML = '<div class="button" id="delete-Member_' + x + '" onclick="deleteMember(' + x + ')">X</div>';
+							
+							var cell = row.insertCell(1);
 							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ' (' + returned_data['Members'][x]['Address']['Post_Code'] + ')';
 							cell.id = 'Member_' + x;
-				
-							var button = row.insertCell(1);
-							button.innerHTML = '<div class="button" id="delete-Member_' + x + '" onclick="deleteMember(' + x + ')">Delete Member</div>';
 						}
 						 
 						document.getElementById('input-Address_Line1').value = returned_data['Address']['Line1'];
@@ -289,12 +290,13 @@
 							var row = pickupList.insertRow(0);
 							row.id = ('Pickup_Row_' + x);
 							row.setAttribute('Address_ID', returned_data['Pickups'][x]['Address_ID']);
-							var cell = row.insertCell(0);
-							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
-							cell.id = 'Pickup_' + x;
 					
-							var button = row.insertCell(1);
-							button.innerHTML = '<div class="button" id="delete-Pickup_' + x + '" onclick="deletePickup(' + x + ')">Delete Pickup</div>';
+							var button = row.insertCell(0);
+							button.innerHTML = '<div class="button" id="delete-Pickup_' + x + '" onclick="deletePickup(' + x + ')">X</div>';
+							
+							var cell = row.insertCell(1);
+							cell.innerHTML = returned_data['Pickups'][x]['Time'] + ', ' + returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Line2'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ' (' + returned_data['Pickups'][x]['Note'] + ')';
+							cell.id = 'Pickup_' + x;
 						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
@@ -323,10 +325,17 @@
                     members[members['No_Members']] = TC_Member_ID;
 
 					var memberList = document.getElementById('memberList');
-					var cell = memberList.insertRow(0).insertCell(0);
+					var row = memberList.insertRow(0);
+					row.id = ('Member_Row_' + members['No_Members']);
+					
+					var button = row.insertCell(0);
+					button.innerHTML = '<div class="button" id="delete-Member_' + members['No_Members'] + '" onclick="deleteMember(' + members['No_Members'] + ')">X</div>';
+					
+					var cell = row.insertCell(1);
 					cell.innerHTML = text;
 					cell.id = 'TCMembers_' + members['No_Members'];
-					cell.setAttribute('TC_TC_Member_ID', TC_Member_ID);
+					cell.setAttribute('TC_Member_ID', TC_Member_ID);
+					
 					TC_Member_dropdown.remove(TC_Member_dropdown.selectedIndex);
                     members['No_Members']++;
 				}
@@ -398,12 +407,14 @@
 					var pickupList = document.getElementById('pickupList');
 					var row = pickupList.insertRow(0);
 					row.id = ('Pickup_Row_' + pickups['No_Pickups']);
-					var cell = row.insertCell(0);
-					cell.innerHTML = start + pickup['Address']['Line1'] + ', ' + pickup['Address']['Post_Code'] + ', ' + pickup['Time'];
+					
+					var button = row.insertCell(0);
+					button.innerHTML = '<div class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">X</div>';
+					
+					var cell = row.insertCell(1);
+					cell.innerHTML = start + pickup['Time'] + ', ' + pickup['Address']['Line1'] + ', ' + pickup['Address']['Line2'] + ', ' + pickup['Address']['Post_Code'] + ' (' + pickup['Note'] + ')';
 					cell.id = 'Pickup_' + pickups['No_Pickups'];
 					
-					var button = row.insertCell(1);
-					button.innerHTML = '<div class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">Delete Pickup</div>';
 					
 					document.getElementById('input-Pickup_Time').value = '';
 					document.getElementById('input-Pickup_Note').value = '';

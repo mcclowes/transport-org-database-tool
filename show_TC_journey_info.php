@@ -56,12 +56,22 @@
                         $('#Destination_Line4').text(returned_data['Destination']['Line4']);
                         $('#Destination_Line5').text(returned_data['Destination']['Line5']);
                         $('#Destination_Post_Code').text(returned_data['Destination']['Post_Code']);
+						
+						var memberList = document.getElementById('memberList');
+						for (var x = 0; x < returned_data['Members']['No_Members']; x++) {
+							var row = memberList.insertRow(0);
+							row.id = ('Member_Row_' + x);
+							row.setAttribute('TC_Member_ID', returned_data['Members'][x]['TC_Member_ID']);
+							var cell = row.insertCell(0);
+							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ' (' + returned_data['Members'][x]['Address']['Post_Code'] + ')';
+							cell.id = 'Member_' + x;
+						}
                         
                         //alert(JSON.stringify(returned_data['Pickups']));
 						var pickupList = document.getElementById('pickupList');
 						for (var x = 0; x < returned_data['Pickups']['No_Pickups']; x++) {
 							var cell = pickupList.insertRow(0).insertCell(0);
-							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
+							cell.innerHTML = returned_data['Pickups'][x]['Time'] + ', ' + returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Line2'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ' (' + returned_data['Pickups'][x]['Note'] + ')';
 							cell.id = 'Pickup_' + toString(x+1);
 						}
 						
@@ -118,10 +128,9 @@
 	                        <tr><td><label>First Name: </label></td><td id="fName"><td></tr>
 	                        <tr><td><label>Surname: </label></td><td id="sName"><td></tr>
 	                        <tr><td><label>Contact Number: </label></td><td id="Tel_No"></td></tr>
-							<!--
-							<tr><td><label>Members: </label></td></tr>
-							HAVE NOT ADDED FUNCTIONALITY TO RETURN MEMBERS OF CREATED JOURNEY
-							-->
+						</table>
+							
+						<table class="entryBox" id="memberList">
 						</table>
 						
 						<table id="memberList">
