@@ -6,19 +6,32 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+        <?php
+            if (isset($_GET['id'])) {
+                $is_edit = true;
+                
+                $id = $_GET['id'];
+            }
+            else {
+                $is_edit = false;
+            }
+        ?>
+
         <script type="text/javascript">
+            is_edit = '<?php echo $is_edit; ?>';
+
             function submit() {
                 form_data = {
                     'Nickname':						document.getElementById('input-Nickname').value,
-                    'Registration':						document.getElementById('input-Licence').value,
+                    'Registration':					document.getElementById('input-Licence').value,
                     'Make':							document.getElementById('input-Make').value,
                     'Model':						document.getElementById('input-Model').value,
                     'Colour':						document.getElementById('input-Colour').value,
                     'Capacity_Passengers':			document.getElementById('number-Capacity_Passengers').value,
-                    'Seating_Configurations':				document.getElementById('input-Capacity_Note').value,
+                    'Seating_Configurations':		document.getElementById('input-Capacity_Note').value,
                     'Tax_Due':						document.getElementById('date-Tax_Due').value,
                     'MOT_Due':						document.getElementById('date-MOT_Due').value,
-                    'Inspection_Due':					document.getElementById('date-Safety_Due').value,
+                    'Inspection_Due':				document.getElementById('date-Safety_Due').value,
                     'Service_Due':					document.getElementById('date-Service_Due').value,
                     'Tail_Service_Due':				document.getElementById('date-Tail_Lift_Service_Due').value,
                     'Section_19_No':				document.getElementById('input-Permit_Number').value,
@@ -37,9 +50,48 @@
                     }
                 });
             }
+
+            function populateEditFields(Vehicle_ID) {
+                
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getVehicle',
+                        'form_data': {'Vehicle_ID': Vehicle_ID}
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                        document.getElementById('input-Nickname').value = returned_data['Nickname'];
+                        document.getElementById('input-Licence').value = returned_data['Registration'];
+                        document.getElementById('input-Make').value = returned_data['Make'];
+                        document.getElementById('input-Model').value = returned_data['Model']; //CHANGE THIS TO FIND GROUP NAME
+                        document.getElementById('input-Colour').value = returned_data['Colour'];
+                        document.getElementById('number-Capacity_Passengers').value = returned_data['Capacity_Passengers'];
+                        document.getElementById('input-Capacity_Note').value = returned_data['Seating_Configurations'];
+                        document.getElementById('date-Tax_Due').value = returned_data['Tax_Due'];
+                        document.getElementById('date-MOT_Due').value = returned_data['MOT_Due'];
+                        document.getElementById('date-Safety_Due').value = returned_data['Inspection_Due'];
+                        document.getElementById('date-Service_Due').value = returned_data['Service_Due'];
+                        document.getElementById('date-Tail_Lift_Service_Due').value = returned_data['Tail_Service_Due'];
+                        document.getElementById('input-Permit_Number').value = returned_data['Section_19_No'];
+                        document.getElementById('date-Permit_Expiry').value = returned_data['Section_19_Due'];
+                    }
+                });
+            }
+
+            function init(){
+   
+                var is_edit = '<?php echo $is_edit; ?>';
+                if (is_edit == '1') {
+                    Vehicle_ID = '<?php echo $id; ?>';
+                    populateEditFields(Vehicle_ID);
+                }
+            }
+
         </script>
     </head>
-    <body onload="startScreen()">
+    <body onload="init()">
         <div id="wctLogo"></div>
         <?php include 'nav.php' ?>
         <div id="page_wrapper">

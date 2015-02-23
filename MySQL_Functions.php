@@ -233,7 +233,7 @@ function connect(){
 
 function outputDate($data){
 	$s = str_split($data);
-	$date = "$s[8]"."$s[9]"."/"."$s[5]"."$s[6]"."/"."$s[0]"."$s[1]"."$s[2]"."$s[3]";
+	$date = "$s[8]"."$s[9]"."-"."$s[5]"."$s[6]"."-"."$s[0]"."$s[1]"."$s[2]"."$s[3]";
 	return $date;
 }
 
@@ -363,12 +363,12 @@ function getVehicle($mysqli, $Vehicle_ID){
 			$Vehicle['Section_19_No'] = $Section_19_No;
 			$Vehicle['Seating_Configurations'] = $Seating_Configurations;
 
-			$Vehicle['Tax_Due'] = outputDate($Tax_Due);
-			$Vehicle['MOT_Due'] = outputDate($MOT_Due);
-			$Vehicle['Inspection_Due'] = outputDate($Inspection_Due);
-			$Vehicle['Service_Due'] = outputDate($Service_Due);
-			$Vehicle['Tail_Service_Due'] = outputDate($Tail_Service_Due);
-			$Vehicle['Section_19_Due'] = outputDate($Section_19_Due);
+			$Vehicle['Tax_Due'] = $Tax_Due;
+			$Vehicle['MOT_Due'] = $MOT_Due;
+			$Vehicle['Inspection_Due'] = $Inspection_Due;
+			$Vehicle['Service_Due'] = $Service_Due;
+			$Vehicle['Tail_Service_Due'] = $Tail_Service_Due;
+			$Vehicle['Section_19_Due'] = $Section_19_Due;
 
 		}
 	}	
@@ -624,7 +624,8 @@ function getTCJourneys($mysqli){
 	if($statement = $mysqli->prepare(" SELECT Journey_ID, Journey_Description, Journey_Date, Return_Time, Vehicle FROM  Journeys WHERE Group_ID IS NULL AND Deleted = 'false' ORDER BY Journey_Date DESC;")){
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time, $Vehicle_ID);
+		$statement->bind_result($Journey_ID, $Journey_Description, $Journey_Date, $Return_Time, $Vehicle_ID
+			);
 		while($statement->fetch()){
 
 			if($stm = $mysqli->prepare(" SELECT MIN(Time) FROM Pickups WHERE Journey_ID = ?;")){
@@ -666,10 +667,6 @@ function getJourney($mysqli, $Journey_ID){
 		$statement->fetch();
 		$statement->close();
 	}
-	$rdata['Booking_Date'] = outputDate($rdata['Booking_Date']);
-	$rdata['Journey_Date'] = outputDate($rdata['Journey_Date']);
-	$rdata['Invoice_Sent'] = outputDate($rdata['Invoice_Sent']);
-	$rdata['Invoice_Paid'] = outputDate($rdata['Invoice_Paid']);
 
 	if(!is_null($rdata['Group_ID'])){
 		$GroupDets =  getGroup($mysqli, $rdata['Group_ID']);
