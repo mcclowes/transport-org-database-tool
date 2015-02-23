@@ -6,6 +6,17 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+        <?php
+            if (isset($_GET['id'])) {
+                $is_edit = true;
+                
+                $id = $_GET['id'];
+            }
+            else {
+                $is_edit = false;
+            }
+        ?>
+
         <script type="text/javascript">
             function submit() {
                 form_data = {
@@ -44,6 +55,42 @@
                     dataType: "json",
                     success: function(returned_data) {
                         window.location = 'index.php';
+                    }
+                });
+            }
+
+            function populateEditFields(Driver_ID) {
+                
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getDriver',
+                        'form_data': {'Driver_ID': Driver_ID}
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                        document.getElementById('input-fName').value = returned_data['fName'];
+                        document.getElementById('input-sName').value = returned_data['sName'];
+                        document.getElementById('date-DOB').value = returned_data['DOB'];
+                        document.getElementById('input-Home_Tel_No').value = returned_data['Tel_No'];
+                        document.getElementById('input-Line1').value = returned_data['Address']['Line1'];
+                        document.getElementById('input-Line2').value = returned_data['Address']['Line2'];
+                        document.getElementById('input-Line3').value = returned_data['Address']['Line3'];
+                        document.getElementById('input-Line4').value = returned_data['Address']['Line4'];
+                        document.getElementById('input-Line5').value = returned_data['Address']['Line5'];
+                        document.getElementById('input-Post_Code').value = returned_data['Address']['Post_Code'];
+                        document.getElementById('input-Mobile_Tel_No').value = returned_data['Mobile_No'];
+                        document.getElementById('input-Licence_Number').value = returned_data['Licence_No'];
+                        document.getElementById('input-Licence_Points').value = returned_data['Licence_Points'];
+                        document.getElementById('date-Licence_Expiry').value = returned_data['Licence_Expires'];
+                        document.getElementById('input-DBS_Number').value = returned_data['DBS_No'];
+                        document.getElementById('date-DBS_Issue_Date').value = returned_data['DBS_Issued'];
+                        document.getElementById('input-Emergency_Name').value = returned_data['Emergency_Name'];
+                        document.getElementById('input-Emergency_Tel').value = returned_data['Emergency_Tel'];
+                        document.getElementById('input-Emergency_Relationship').value = returned_data['Emergency_Relationship'];
+                        //document.getElementById('input-Is_Volunteer').value = returned_data['Is_Volunteer'];
+                        
                     }
                 });
             }
@@ -162,11 +209,17 @@
             }
 
             function startScreen(){
+
                 populateAddresses('dropdown-Addresses');
                 $('#page2').hide();
                 $('#page3').hide();
                 $('#submitButton').hide();
                 var i = 0;
+                var is_edit = '<?php echo $is_edit; ?>';
+                if (is_edit == '1') {
+                    Driver_ID = '<?php echo $id; ?>';
+                    populateEditFields(Driver_ID);
+                }
             }
 
         </script>

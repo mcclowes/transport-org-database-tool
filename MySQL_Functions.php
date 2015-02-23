@@ -432,9 +432,9 @@ function getDriver($mysqli, $Driver_ID){
 			$Driver['Emergency_Relationship'] = $Emergency_Relationship;
 			$Driver['Is_Volunteer'] = $Is_Volunteer;
 
-			$Driver['DOB'] = outputDate($DOB);
-			$Driver['Licence_Expires'] = outputDate($Licence_Expires);
-			$Driver['DBS_Issued'] = outputDate($DBS_Issued);
+			$Driver['DOB'] = $DOB;
+			$Driver['Licence_Expires'] = $Licence_Expires;
+			$Driver['DBS_Issued'] = $DBS_Issued;
 
 		}
 
