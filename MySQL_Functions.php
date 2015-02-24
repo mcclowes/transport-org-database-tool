@@ -677,7 +677,7 @@ function getJourney($mysqli, $Journey_ID){
 
 	else{
 
-		$rdata['Members'] = getJourneyMembers($mysqli,$Journey_ID);
+		$rdata['Members'] = getJourneyMembers($mysqli,$rdata['Journey_ID']);
 		
 	}
 		
@@ -699,6 +699,7 @@ function getJourney($mysqli, $Journey_ID){
 
 function getJourneyMembers($mysqli,$Journey_ID){
 	$JourneyMembers = array();
+	$JourneyMemberIDs = array();
 	$JourneyMember = array();
 	$i = 0;
 	if($statement = $mysqli->prepare(" SELECT TC_Member_ID FROM TC_Journey_Members WHERE Journey_ID = ?;")){
@@ -726,7 +727,8 @@ function getTCMember($mysqli, $TC_Member_ID){
 										Details_Wheelchair, Details_Wheelchair_Type, Details_Wheelchair_Seat, Details_Scooter, Details_Mobility_Aid, Details_Shopping_Trolley, 
 										Details_Guide_Dog, Details_People_Carrier, Details_Assistant, Details_Travelcard, Reasons_Transport, Reasons_Bus_Stop, Reasons_Anxiety,
 										Reasons_Door, Reasons_Handrails, Reasons_Lift, Reasons_Level_Floors, Reasons_Low_Steps, Reasons_Assistance, Reasons_Board_Time,
-										Reasons_Wheelchair_Access, Reasons_Other FROM  TC_Members;")){
+										Reasons_Wheelchair_Access, Reasons_Other FROM  TC_Members WHERE TC_Member_ID = ?;")){
+		$statement->bind_param('i',$TC_Member_ID);
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($TC_Member['TC_Member_ID'], $TC_Member['fName'],$TC_Member['sName'], $TC_Member['Address_ID'],$TC_Member['Tel_No'],$TC_Member['Emergency_Name'],$TC_Member['Emergency_Tel'], $TC_Member['Emergency_Relationship'], $TC_Member['DOB'],
@@ -737,9 +739,9 @@ function getTCMember($mysqli, $TC_Member_ID){
 		$statement->fetch();
 		$TC_Member['Address'] = getAddress($mysqli, $TC_Member['Address_ID']);
 
-
+		return $TC_Member;
 	}
-	return $TC_Member;
+	
 } 
 
 function getTCMembers($mysqli){
