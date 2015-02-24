@@ -22,6 +22,7 @@ Project resources:
  - [CSS Printing 1](http://alistapart.com/article/goingtoprint)
  - [CSS Printing 2](http://www.creativebloq.com/responsive-web-design/make-your-website-printable-css-3132929)
  - [WCT Website](http://community.dur.ac.uk/w.j.c.johnson/wordpress/)
+ - [Calendar Colour Scheme](http://www.colourlovers.com/palette/3661687/WCT_Calendar)
   
 Add any resources whilst they are relevant
 ________________________________________________________________________________
