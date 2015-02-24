@@ -83,7 +83,7 @@ For help or to report an issue please contact our team by email at maximilian.cl
     ```
     This form can be revisited at a later stage to complete the journey as appropriate. E.g. Once the customer has paid, the 'Invoice paid on' field can be completed
     ```
-
+________________________________________________________________________________
 #### Adding WCT Members
 ##### Adding Member Groups and Organisations
 1. Navigate to **'Add Group or Organisation'**. *Groups > Add Group or Organisation*
@@ -91,7 +91,6 @@ For help or to report an issue please contact our team by email at maximilian.cl
 3. Press 'Submit' to complete the form and submit the information
 
 ##### Adding Individual Travel Club Members
-________________________________________________________________________________
 1. Navigate to **'Add Travel Club Member'**. *Travel Club > Add Travel Club Member*
 2. Fill in all details. *Press next to navigate through the form, cancel to reset the form*
 3. Press 'Submit' to complete the form and submit the information
@@ -105,3 +104,14 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 ## Notes
 PHP PDF Creator API: http://www.tcpdf.org/
+
+________________________________________________________________________________
+## To Do On The Day
+- Take staff pictures
+- Take pictures of vehicles
+- Take pictures of the country side
+- Confirm 'Our Services' (and all copy generally) is ok
+- Load Wordpress onto servers
+- Check wordpress links
+- Upload wordpress hi res images
+- Guide through Wordpress How To Guide
