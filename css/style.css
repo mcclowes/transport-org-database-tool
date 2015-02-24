@@ -8,6 +8,10 @@ body {
 	padding: 20px;
 }
 
+#vmain {
+	padding: 20px;
+}
+
 #page_wrapper {
 	width: 800px;
     margin: 0 auto;
@@ -16,6 +20,19 @@ body {
 #calendar {
 	width: 900px;
 	margin: 0 auto;
+}
+
+#vcalendar {
+	width: 900px;
+	float: left;
+	left: 10%;
+}
+
+#checkboxCont {
+	width: 200px;
+	float: left;
+	padding: 50px;
+	top: 500px;
 }
 
 div .fc-toolbar {
