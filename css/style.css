@@ -229,15 +229,7 @@ input[type=textarea] {
 	border-radius: 3px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-#search, #nextButton, #backButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
-=======
-#nextButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
->>>>>>> origin/master
-=======
-#nextButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
->>>>>>> origin/master
+#nextButton, #backButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
 	background-color: #106500;
 	color: #fff;
 	font-size: 18pt;
