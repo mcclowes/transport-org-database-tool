@@ -3,9 +3,9 @@
         <li><a href="index.php">Home</a></li>
         <li><a href="index.php">Journeys</a>
             <ul>
-                <li><a href="group_journeys.php">View Group Journeys</a></li>
+                <li><a href="manage_group_journeys.php">Manage Group Journeys</a></li>
                 <li><a href="add_group_journey.php">Add Group Journey</a></li>
-                <li><a href="TC_journeys.php">View Travel Club Journeys</a></li>
+                <li><a href="manage_TC_journeys.php">Manage Travel Club Journeys</a></li>
                 <li><a href="add_TC_journey.php">Add Travel Club Journey</a></li>
             </ul>
         </li>
