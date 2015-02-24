@@ -851,7 +851,7 @@ function addVehicle($mysqli,$Vehicle){
 }
 
 function addDriver($mysqli,$Driver){
-	if(isset($Driver['Address_ID'])){
+	if($Driver['Address_ID']>0){
 		$Address_ID = $Driver['Address_ID'];
 	}
 	else{
@@ -884,14 +884,14 @@ function addDamageReport($mysqli,$Damage_Report){
 }
 
 function addGroup($mysqli,$Group){
-	if(isset($Group['Address_ID'])){
+	if($Group['Address_ID']>0){
 		$Address_ID1 = $Group['Address_ID'];
 	}
 	else{
 		$Address_ID1 = addAddress($mysqli,$Group['Address']);
 	}
 
-	if(isset($Group['Invoice_Address_ID'])){
+	if($Group['Invoice_Address_ID']>0){
 		$Address_ID2 = $Group['Invoice_Address_ID'];
 	}
 	else{
@@ -920,14 +920,14 @@ function addGroup($mysqli,$Group){
 
 function addJourney($mysqli,$Journey){
 
-	if(isset($Journey['Address_ID'])){
+	if($Journey['Address_ID']>0){
 		$Address_ID1 = $Journey['Address_ID'];
 	}
 	else{
 		$Address_ID1 = addAddress($mysqli,$Journey['Address']);
 	}
 
-	if(isset($Journey['Destination_ID'])){
+	if($Journey['Destination_ID']>0){
 		$Address_ID2 = $Journey['Destination_ID'];
 	}
 	else{
@@ -940,19 +940,16 @@ function addJourney($mysqli,$Journey){
 										Keys_To_Collect, Distance, Quote, Invoiced_Cost, Invoice_Sent, Invoice_Paid) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);") ){
 
 		$statement->bind_param("sssssisisissisiisssssdddss",
-								$Journey['Journey_Description'],$Journey['Journey_Note'],$Booking_Date ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
+								$Journey['Journey_Description'],$Journey['Journey_Note'],$Journey['Booking_Date'] ,$Journey['fName'],$Journey['sName'], $Address_ID1, $Journey['Tel_No'],$Journey['Group_ID'],$Journey['Journey_Date'], $Address_ID2, $Journey['Return_Note'], $Journey['Return_Time'], 
 								$Journey['No_Passengers'], $Journey['Passengers_Note'], $Journey['Wheelchairs'], $Journey['Transferees'], $Journey['Other_Access'], $Journey['Booked_By'], $Journey['Driver_ID'], $Journey['Vehicle'], 
 								$Journey['Keys_To_Collect'], $Journey['Distance_Run'], $Journey['Quote'], $Journey['Invoiced_Cost'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
 		$statement->execute();
 		$statement->store_result();
+		$Journey_ID = $statement->lastInsertId('Journey_ID');
 		$statement->close();
 	}
-	if($statement = $mysqli->prepare(" SELECT MAX(Journey_ID) FROM  Journeys;")){
-		$statement->execute();
-		$statement->store_result();
-		$statement->bind_result($Journey_ID);
-		$statement->fetch();
-	}
+	
+	
 	if(isset($Journey['TC_Members'])){
 		$x = $Journey['TC_Members']['No_Members'];
 		for($xx=0; $xx<$x; $xx++){
@@ -966,7 +963,7 @@ function addJourney($mysqli,$Journey){
 }
 
 function addTCMember($mysqli,$TC_Member){
-	if(isset($TC_Member['Address_ID'])){
+	if($TC_Member['Address_ID']>0){
 		$Address_ID = $TC_Member['Address_ID'];
 	}
 	else{
@@ -996,7 +993,7 @@ function addTCMember($mysqli,$TC_Member){
 }
 
 function addPickup($mysqli,$Journey_ID,$Pickup){
-	if(isset($Pickup['Address_ID'])){
+	if($Pickup['Address_ID']>0){
 		$Address_ID = $Pickup['Address_ID'];
 	}
 	else{
@@ -1063,13 +1060,13 @@ function editJourney($mysqli,$Journey){
 		$statement->close();
 	}
 
-	if(isset($Journey['Address_ID'])){
+	if($Journey['Address_ID']>0){
 		$Address_ID1 = $Journey['Address_ID'];
 	}
 	else{
 		$Address_ID1 = addAddress($mysqli,$Journey['Address']);
 	}
-	if(isset($Journey['Destination_ID'])){
+	if($Journey['Destination_ID']>0){
 		$Address_ID2 = $Journey['Destination_ID'];
 	}
 	else{
@@ -1095,7 +1092,7 @@ function editJourney($mysqli,$Journey){
 		$Pickup = $Journey['Pickups'][$xx];
 		$Address  = $Pickup['Address'];
 
-		if(isset($Pickup['Address_ID'])){
+		if($Pickup['Address_ID']>0){
 			$Address_ID = $Pickup['Address_ID'];
 		}
 		else{

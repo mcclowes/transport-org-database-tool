@@ -47,6 +47,7 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
+                        window.location = 'index.php';
                     }
                 });
             }
