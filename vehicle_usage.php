@@ -35,7 +35,7 @@
 						colour = colours[j];
 						ids.push(returned_data[i]['Vehicle_ID']);
 						cols.push(colour);
-						$("#checkboxCont").append( "<input type='checkbox' onclick ='updateCalendar()' name='vehicle_" + returned_data[i]['Vehicle_ID'] + "' value='" + returned_data[i]['Vehicle_ID'] + "' checked>   " + returned_data[i]['Vehicle_Name'] + "<br><br>" );
+						$("#checkboxCont").append( "<input type='checkbox' onclick ='updateCalendar()' name='vehicle_" + returned_data[i]['Vehicle_ID'] + "' value='" + returned_data[i]['Vehicle_ID'] + "' checked>   " + "<div class='color-box' style='background-color: " + colour + ";'>  " + returned_data[i]['Vehicle_Name'] + "</div>" + "<br><br>" );
 					} else {
 						var ind = ids.indexOf(returned_data[i]['Vehicle_ID']);
 						colour = cols[ind];
@@ -43,12 +43,12 @@
 
 					if (returned_data[i]['Type'] == "Group") {
 
-						var journey = "{		title: '" + String(returned_data[i]['Vehicle_Name']) + "',		start: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Pickup_Time']) + "', end: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Return_Time']) + "',	url: 'show_group_journey_info.php?id=" + String(returned_data[i]['Journey_ID']) + "', className: 'v" + String(returned_data[i]['Vehicle_ID']) + "', color: '" + colour + "'	}";
+						var journey = "{		title: '" + String(returned_data[i]['Journey_Description']) + "',		start: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Pickup_Time']) + "', end: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Return_Time']) + "',	url: 'show_group_journey_info.php?id=" + String(returned_data[i]['Journey_ID']) + "', className: 'v" + String(returned_data[i]['Vehicle_ID']) + "', color: '" + colour + "'	}";
 						
 					}
 					else {						
 
-						var journey = "{		title: '" + String(returned_data[i]['Vehicle_Name']) + "',		start: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Pickup_Time']) + "', end: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Return_Time']) + "',	url: 'show_TC_journey_info.php?id=" + String(returned_data[i]['Journey_ID']) + "', className: 'v" + String(returned_data[i]['Vehicle_ID']) + "', color: '" + colour + "'	}";
+						var journey = "{		title: '" + String(returned_data[i]['Journey_Description']) + "',		start: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Pickup_Time']) + "', end: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Return_Time']) + "',	url: 'show_TC_journey_info.php?id=" + String(returned_data[i]['Journey_ID']) + "', className: 'v" + String(returned_data[i]['Vehicle_ID']) + "', color: '" + colour + "'	}";
 					}
 					//var journey = "{		title: 'WI to Quiz Night',		start: '2015-02-03',		url: 'show_journey_info.php?id=1'	},	{		title: 'Shopping Trip',		start: '2015-02-09T11-00',		end: '2015-02-09T13-00', url: 'show_journey_info.php?id=2'	}";
 					journeys += journey;
@@ -127,9 +127,9 @@
 		</script>
 		
         <div id="vmain">
-        	<div id='cTitle'><br>Vehicle Usage</div>
-			<div id='vcalendar' onclick="updateCalendar()"></div>
-			<div id ='checkboxCont'>
+        	<div id='main'>
+				<div id='vcalendar' onclick="updateCalendar()"></div>
+				<div id ='checkboxCont'></div>
 			</div>
         </div>
     </body>

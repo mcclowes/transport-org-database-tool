@@ -8,6 +8,16 @@ body {
 	padding: 20px;
 }
 
+.color-box {
+    width: 120px;
+    height: 17px;
+    display: inline-block;
+    background-color: #ccc;
+    color: white;
+    border-radius: 3px;
+    text-align: center;
+}
+
 #vmain {
 	padding: 20px;
 }
@@ -218,7 +228,7 @@ input[type=textarea] {
 	border-radius: 3px;
 }
 
-#nextButton, #backButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
+#nextButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
 	background-color: #106500;
 	color: #fff;
 	font-size: 18pt;
