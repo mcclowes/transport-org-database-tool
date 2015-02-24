@@ -6,6 +6,7 @@ body {
 
 #main {
 	padding: 20px;
+	margin: 0 auto;
 }
 
 .color-box {
@@ -39,7 +40,7 @@ body {
 }
 
 #checkboxCont {
-	width: 200px;
+	width: 150px;
 	float: left;
 	padding: 50px;
 	top: 500px;
