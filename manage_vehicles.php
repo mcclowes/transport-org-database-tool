@@ -31,9 +31,6 @@
 							
 							var row = vehicle_table.insertRow();
 							row.id = ('Vehicle_ID_' + id);
-
- 							var button = row.insertCell();
- 							button.innerHTML = '<div class="button" id="view-Vehicle_' + id + '" onclick="submit(' + id + ')">View</div>';
 							
 							var cell = row.insertCell();
 							cell.innerHTML = returned_data[i]['Nickname'];
@@ -47,6 +44,7 @@
 							cell.innerHTML = returned_data[i]['Colour'];
 							var cell = row.insertCell();
 							cell.innerHTML = returned_data[i]['Capacity_Passengers'];
+							/*
 							var cell = row.insertCell();
 							cell.innerHTML = returned_data[i]['Seating_Configurations'];
 							var cell = row.insertCell();
@@ -63,6 +61,10 @@
 							cell.innerHTML = returned_data[i]['Service_Due'];
 							var cell = row.insertCell();
 							cell.innerHTML = returned_data[i]['Tail_Service_Due'];
+							*/
+
+ 							var button = row.insertCell();
+ 							button.innerHTML = '<div class="button" id="view-Vehicle_' + id + '" onclick="submit(' + id + ')">View</div>';
                         }
                         $("table").tablesorter(); 
                         $("table").trigger("update"); 
@@ -75,33 +77,36 @@
     <body onload="populateVehicles()">
         <div id="wctLogo"></div>
         <?php include 'nav.php' ?>
-        <div id="main">
-            <div>
-            	<table cellspacing="1" class="tablesorter">
-            		<thead>
-						<tr>
-							<th></th>
-							<th>Nickname</th>
-							<th>Registration</th>
-							<th>Make</th>
-							<th>Model</th>
-							<th>Colour</th>
-							<th>Capacity</th>
-							<th>Seating Configurations</th>
-							<th>Section 19 Number</th>
-							<th>Section 19 due</th>
-							<th>Tax due</th>
-							<th>MOT due</th>
-							<th>Inspection due</th>
-							<th>Service due</th>
-							<th>Tail Lift service due</th>
-						</tr>
-					</thead>
-					<tbody id='vehicle_body'>
-					</tbody>
-				</table>
-            </div>
-        	<br>
+        <div id="page_wrapper">
+			<div id="main">
+				<div>
+					<table cellspacing="1" class="tablesorter">
+						<thead>
+							<tr>
+								<th>Nickname</th>
+								<th>Registration</th>
+								<th>Make</th>
+								<th>Model</th>
+								<th>Colour</th>
+								<th>Capacity</th>
+								<!--
+								<th>Seating Configurations</th>
+								<th>Section 19 Number</th>
+								<th>Section 19 due</th>
+								<th>Tax due</th>
+								<th>MOT due</th>
+								<th>Inspection due</th>
+								<th>Service due</th>
+								<th>Tail Lift service due</th>
+								-->
+							</tr>
+						</thead>
+						<tbody id='vehicle_body'>
+						</tbody>
+					</table>
+				</div>
+				<br>
+			</div>
         </div>
     </body>
 </html>
