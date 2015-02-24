@@ -19,12 +19,12 @@
 			function buildJourneyString(returned_data) {				
 				
 				var journeys = "[ ";
-				var colours = ["#F44336", "#2196F3", "#4CAF50", "#FFEB3B", "#FF9800", "#9C27B0", "#009688", "#8BC34A", "#E91E63", "#00BCD4","#795548", "#FFC107", "#3F51B5","#CDDC39", "#BD5158", "#040C41", "#915C0C", "#ED6F83", "#BB4F11", "#148674"];
+				var colours = ["#9FC199", "#73B5D6", "#9E3C3B", "#E2DC52", "#C7B0DA", "#106500", "#006598", "#8A0504", "#D9D003", "#5B05A1","#795548", "#FFC107", "#3F51B5","#CDDC39", "#BD5158", "#040C41", "#915C0C", "#ED6F83", "#BB4F11", "#148674"];
 				var j = -1;
 				var ids = [];
 				var cols = [];
 
-				var colour = "#F44336";
+				var colour = "#9FC199";
 			
 				for(var i = 0; i < returned_data.length; i++) {
 
