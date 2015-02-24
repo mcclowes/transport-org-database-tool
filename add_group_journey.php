@@ -129,6 +129,47 @@
                         $('#submitButton').show();
                     }); 
                 }
+
+                if (i == 1){
+                    $('#backButton').animate({
+                        height : "toggle"
+                    }, 250, function(){
+                        $('#backButton').show();
+                    }); 
+                }
+            }
+
+            function back(){
+                var pages = ['#page1', '#page2', '#page3'];
+                var currentPage = $(pages[i]);
+                var prevPage = $(pages[i-1]);
+
+                currentPage.animate({
+                    height: "toggle"
+                }, 500, function(){
+                    currentPage.hide();
+                    prevPage.animate({
+                        height: "toggle"
+                    });  
+                });
+
+                i = i - 1;
+
+                if (i == pages.length - 2){
+                    $('#submitButton').animate({
+                        height : "toggle"
+                    }, 250, function(){
+                        $('#nextButton').show();
+                    }); 
+                }
+
+                if (i == 0){
+                    $('#backButton').animate({
+                        height : "toggle"
+                    }, 250, function(){
+                        $('#backButton').hide();
+                    }); 
+                }
             }
 
             function cancel(){
@@ -138,6 +179,7 @@
             function startScreen(){
                 $('#page2').hide();
                 $('#page3').hide();
+                $('#backButton').hide();
                 $('#submitButton').hide();
                 var i = 0;
             }
@@ -327,7 +369,7 @@
 						document.getElementById('input-Destination_Line5').value = returned_data['Destination']['Line5'];
 						document.getElementById('input-Destination_Post_Code').value = returned_data['Destination']['Post_Code'];
 						
-						pickups['No_Pickups'] = returned_data['Pickups']['No_Pickups'];
+						//pickups['No_Pickups'] = returned_data['Pickups']['No_Pickups'];
 						var pickupList = document.getElementById('pickupList');
 						for (var x = 0; x < pickups['No_Pickups']; x++) {
 						
@@ -348,13 +390,12 @@
 							var row = pickupList.insertRow(0);
 							row.id = ('Pickup_Row_' + x);
 							row.setAttribute('Address_ID', returned_data['Pickups'][x]['Address_ID']);
-                    
-                            var button = row.insertCell(0);
-                            button.innerHTML = '<div class="button" class="button" id="delete-Pickup_' + x + '" onclick="deletePickup(' + x + ')">X</div>';
-
-							var cell = row.insertCell(1);
+							var cell = row.insertCell(0);
 							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
 							cell.id = 'Pickup_' + x;
+					
+							var button = row.insertCell(1);
+							button.innerHTML = '<div class="button" class="button" id="delete-Pickup_' + x + '" onclick="deletePickup(' + x + ')">Delete Pickup</div>';
 						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
@@ -629,6 +670,7 @@
                 </form>
 				<div id="nextButton" onclick="next()">Next</div>
 				<div id="submitButton" onclick="submit();">Submit</div>
+				<div id="backButton" onclick="back()">Back</div>
 				<div id="cancelButton" onclick="cancel()">Cancel</div>
 				<div id='result'></div> 
             </div>
