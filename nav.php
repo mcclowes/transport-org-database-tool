@@ -25,8 +25,9 @@
                 <li><a href="forms/Individual_Registration_Form.pdf" class="downloadBox" download><img src="img/downloadArrow.png" class="downloadArrow"/>Member Registration Form</a></li>
             </ul>
         </li>
-        <li><a href="add_vehicle.php">Vehicles</a>
+        <li><a href="vehicle_usage.php">Vehicles</a>
             <ul>
+                <li><a href="vehicle_usage.php">Vehicle Usage</a></li>
                 <li><a href="manage_vehicles.php">Manage Vehicles</a></li>
                 <li><a href="add_vehicle.php">Add vehicle</a></li>
             </ul>
