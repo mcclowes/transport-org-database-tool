@@ -218,7 +218,7 @@ input[type=textarea] {
 	border-radius: 3px;
 }
 
-#nextButton, #backButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
+#search, #nextButton, #backButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
 	background-color: #106500;
 	color: #fff;
 	font-size: 18pt;
