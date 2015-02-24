@@ -416,12 +416,12 @@ function getDriver($mysqli, $Driver_ID){
 		$statement->bind_param('i',$Driver_ID);
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($fName, $sName, $Address_ID, $Tel_No, $Mobile_No, $DOB, $Licence_No, $Licence_Expires, $Licence_Points, $DBS_No, $DBS_Issued, 
+		$statement->bind_result($fName, $sName, $Driver['Address_ID'], $Tel_No, $Mobile_No, $DOB, $Licence_No, $Licence_Expires, $Licence_Points, $DBS_No, $DBS_Issued, 
 										$Emergency_Name, $Emergency_Tel, $Emergency_Relationship, $Is_Volunteer);
 		while($statement->fetch()){
 			$Driver['fName'] = $fName;
 			$Driver['sName'] = $sName;
-			$Driver['Address'] = getAddress($mysqli, $Address_ID);
+			$Driver['Address'] = getAddress($mysqli, $Driver['Address_ID']);
 			$Driver['Tel_No'] = $Tel_No;
 			$Driver['Mobile_No'] = $Mobile_No;
 			$Driver['Licence_No'] = $Licence_No;
@@ -520,15 +520,15 @@ function getGroup($mysqli, $Group_ID){
 		$statement->bind_param("i", $Group_ID);
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($Group['Name'],$Address_ID1,$Group['Address_Tel'],$Group['Invoice_Email'], $Address_ID2,$Group['Invoice_Tel'],$Group['Emergency_Name'],$Group['Emergency_Tel'], $Group['Profitable'], $Group['Community'], 
+		$statement->bind_result($Group['Name'],$Group['Address_ID'],$Group['Address_Tel'],$Group['Invoice_Email'], $Group['Invoice_Address_ID'],$Group['Invoice_Tel'],$Group['Emergency_Name'],$Group['Emergency_Tel'], $Group['Profitable'], $Group['Community'], 
 								$Group['Social'], $Group['Statutory'], $Group['Charity_No'], $Group['Org_Aim'], $Group['Activities_Education'], $Group['Activities_Recreation'], $Group['Activities_Health'], $Group['Activities_Religion'], $Group['Activities_Social'], $Group['Activities_Inclusion'],
 								$Group['Activities_Other'], $Group['Concerned_Physical'], $Group['Concerned_Learning'], $Group['Concerned_Mental_Health'], $Group['Concerned_Ethnic'], $Group['Concerned_Alcohol'], $Group['Concerned_Drug'], $Group['Concerned_HIV_AIDS'], 
 								$Group['Concerned_Socially_Isolated'], $Group['Concerned_Dementia'], $Group['Concerned_Elderly'], $Group['Concerned_Pre_School'], $Group['Concerned_Young'], $Group['Concerned_Women'], $Group['Concerned_Health'], 
 								$Group['Concerned_Rurally_Isolated'], $Group['Concerned_Other']);
 		$statement->fetch();
 		
-		$Group['Address'] = getAddress($mysqli, $Address_ID1);
-		$Group['Invoice'] = getAddress($mysqli, $Address_ID2);
+		$Group['Address'] = getAddress($mysqli, $Group['Address_ID']);
+		$Group['Invoice'] = getAddress($mysqli, $Group['Invoice_Address_ID']);
 
 	}
 
@@ -609,6 +609,7 @@ function getGroupJourneys($mysqli){
 			$Journey['Return_Time'] = $Return_Time;
 			$Journey['Pickup_Time'] = $Pickup_Time;
 			$Journey['Type'] = 'Group';
+			$Journey['Vehicle_ID'] = $Vehicle_ID;
 			$Journey['Vehicle_Name'] = $Vehicle['Nickname'];
 
 			array_push($Journeys, $Journey);
@@ -645,6 +646,7 @@ function getTCJourneys($mysqli){
 			$Journey['Return_Time'] = $Return_Time;
 			$Journey['Pickup_Time'] = $Pickup_Time;
 			$Journey['Type'] = 'TC';
+			$Journey['Vehicle_ID'] = $Vehicle_ID;
 			$Journey['Vehicle_Name'] = $Vehicle['Nickname'];
 
 			array_push($Journeys, $Journey);

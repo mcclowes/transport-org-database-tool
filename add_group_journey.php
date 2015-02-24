@@ -302,7 +302,8 @@
 						document.getElementById('input-sName').value = returned_data['sName'];
 						document.getElementById('input-Tel_No').value = returned_data['Tel_No'];
 						document.getElementById('dropdown-Group').value = returned_data['Group_ID']; //CHANGE THIS TO FIND GROUP NAME
-						document.getElementById('input-Address_Line1').value = returned_data['Address']['Line1'];
+						document.getElementById('dropdown-Addresses').value = returned_data['Address_ID'];
+                        document.getElementById('input-Address_Line1').value = returned_data['Address']['Line1'];
 						document.getElementById('input-Address_Line2').value = returned_data['Address']['Line2'];
 						document.getElementById('input-Address_Line3').value = returned_data['Address']['Line3'];
 						document.getElementById('input-Address_Line4').value = returned_data['Address']['Line4'];
@@ -316,6 +317,7 @@
 						document.getElementById('number-Transferees').value = returned_data['Transferees'];
 						document.getElementById('input-Other_Access').value = returned_data['Other_Access'];
 						document.getElementById('input-Booked_By').value = returned_data['Booked_By'];
+                        document.getElementById('dropdown-Destinations').value = returned_data['Destination_ID'];
 						document.getElementById('input-Destination_Line1').value = returned_data['Destination']['Line1'];
 						document.getElementById('input-Destination_Line2').value = returned_data['Destination']['Line2'];
 						document.getElementById('input-Destination_Line3').value = returned_data['Destination']['Line3'];

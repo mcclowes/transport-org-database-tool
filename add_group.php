@@ -6,6 +6,17 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+        <?php
+            if (isset($_GET['id'])) {
+                $is_edit = true;
+                
+                $id = $_GET['id'];
+            }
+            else {
+                $is_edit = false;
+            }
+        ?>
+
         <script type="text/javascript">
             function submit() {
                 form_data = {
@@ -78,6 +89,70 @@
                 });
             }
 
+
+            function populateEditFields(Group_ID) {
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getGroup',
+                        'form_data': {'Group_ID': Group_ID}
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                        //alert(JSON.stringify(returned_data));
+                        document.getElementById('input-Name').value = returned_data['Name'];
+                        document.getElementById('input-Tel_No').value = returned_data['Address_Tel'];
+                        document.getElementById('input-Email').value = returned_data['Invoice_Email'];
+                        document.getElementById('dropdown-Addresses').value = returned_data['Address_ID'];
+                        document.getElementById('input-Address_Line1').value = returned_data['Address']['Line1'];
+                        document.getElementById('input-Address_Line2').value = returned_data['Address']['Line2'];
+                        document.getElementById('input-Address_Line3').value = returned_data['Address']['Line3'];
+                        document.getElementById('input-Address_Line4').value = returned_data['Address']['Line4'];
+                        document.getElementById('input-Address_Line5').value = returned_data['Address']['Line5'];
+                        document.getElementById('input-Address_Post_Code').value = returned_data['Address']['Post_Code'];
+                        document.getElementById('input-Invoice_Tel').value = returned_data['Invoice_Tel'];
+                        document.getElementById('dropdown-Invoice_Addresses').value = returned_data['Invoice_Address_ID'];
+                        document.getElementById('input-Invoice_Line1').value = returned_data['Invoice']['Line1'];
+                        document.getElementById('input-Invoice_Line2').value = returned_data['Invoice']['Line2'];
+                        document.getElementById('input-Invoice_Line3').value = returned_data['Invoice']['Line3'];
+                        document.getElementById('input-Invoice_Line4').value = returned_data['Invoice']['Line4'];
+                        document.getElementById('input-Invoice_Line5').value = returned_data['Invoice']['Line5'];
+                        document.getElementById('input-Invoice_Post_Code').value = returned_data['Invoice']['Post_Code'];
+                        document.getElementById('input-Emergency_Name').value = returned_data['Emergency_Name'];
+                        document.getElementById('input-Emergency_Tel').value = returned_data['Emergency_Tel'];   
+                        document.getElementById('input-Profitable').value = returned_data['Profitable'];
+                        document.getElementById('boolean-Community').value = returned_data['Community'];
+                        document.getElementById('boolean-Social').value = returned_data['Social'];
+                        document.getElementById('boolean-Statutory').value = returned_data['Statutory'];
+                        document.getElementById('input-Charity_No').value = returned_data['Charity_No'];
+                        document.getElementById('input-Org_Aim').value = returned_data['Org_Aim'];
+                        document.getElementById('boolean-Activities_Education').value = returned_data['Activities_Education'];
+                        document.getElementById('boolean-Activities_Recreation').value = returned_data['Activities_Recreation'];
+                        document.getElementById('boolean-Activities_Health').value = returned_data['Activities_Health'];
+                        document.getElementById('boolean-Activities_Religion').value = returned_data['Activities_Religion'];
+                        document.getElementById('boolean-Activities_Social').value = returned_data['Activities_Social'];
+                        document.getElementById('boolean-Activities_Inclusion').value = returned_data['Activities_Inclusion'];
+                        document.getElementById('input-Activities_Other').value = returned_data['Activities_Other'];
+                        document.getElementById('boolean-Concerned_Physical').value = returned_data['Concerned_Physical'];
+                        document.getElementById('boolean-Concerned_Learning').value = returned_data['Concerned_Learning'];
+                        document.getElementById('boolean-Concerned_Mental_Health').value = returned_data['Concerned_Mental_Health'];
+                        document.getElementById('boolean-Concerned_Ethnic').value = returned_data['Concerned_Ethnic'];
+                        document.getElementById('boolean-Concerned_Alcohol').value = returned_data['Concerned_Alcohol'];
+                        document.getElementById('boolean-Concerned_Drug').value = returned_data['Concerned_Drug'];
+                        document.getElementById('boolean-Concerned_HIV_AIDS').value = returned_data['Concerned_HIV_AIDS'];
+                        document.getElementById('boolean-Concerned_Socially_Isolated').value = returned_data['Concerned_Socially_Isolated'];
+                        document.getElementById('boolean-Concerned_Dementia').value = returned_data['Concerned_Dementia'];
+                        document.getElementById('boolean-Concerned_Elderly').value = returned_data['Concerned_Elderly'];
+                        document.getElementById('boolean-Concerned_Pre_School').value = returned_data['Concerned_Pre_School'];
+                        document.getElementById('boolean-Concerned_Young').value = returned_data['Concerned_Young'];
+                        document.getElementById('boolean-Concerned_Women').value = returned_data['Concerned_Women'];
+                        document.getElementById('boolean-Concerned_Health').value = returned_data['Concerned_Health'];
+                        document.getElementById('boolean-Concerned_Rurally_Isolated').value = returned_data['Concerned_Rurally_Isolated'];
+                        document.getElementById('input-Concerned_Other').value = returned_data['Concerned_Other'];
+                    }
+                });
+            }
 
             function populateAddresses(dropdownID){
                 var dropdown = document.getElementById(dropdownID);
@@ -199,6 +274,11 @@
                 $('#page3').hide();
                 $('#submitButton').hide();
                 var i = 0;
+                var is_edit = '<?php echo $is_edit; ?>';
+                if (is_edit == '1') {
+                    Group_ID = '<?php echo $id; ?>';
+                    populateEditFields(Group_ID);
+                }
             }
 
         </script>
