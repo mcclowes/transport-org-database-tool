@@ -286,7 +286,7 @@ function getAddresses($mysqli){
 	$Addresses = array();
 	$Address = array();
 
-	if($statement = $mysqli->prepare(" SELECT Address_ID, Line1, Line2, Line3, Line4, Line5, Post_Code FROM  Addresses;")){
+	if($statement = $mysqli->prepare(" SELECT Address_ID, Line1, Line2, Line3, Line4, Line5, Post_Code FROM  Addresses ORDER BY Post_Code;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Address_ID,$Line1,$Line2,$Line3,$Line4,$Line5,$Post_Code);

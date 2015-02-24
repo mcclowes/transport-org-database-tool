@@ -260,7 +260,7 @@
                     success: function(returned_data) {
                         for(var i = 0; i < returned_data.length; i++) {
                             var item = document.createElement("option");
-                            item.textContent = returned_data[i]['Line1'] + ' ' + returned_data[i]['Line2'] + ' ' + returned_data[i]['Line3'] + ' ' + returned_data[i]['Line4'] + ' ' + returned_data[i]['Line5'] + ' ' + returned_data[i]['Post_Code'];
+                            item.textContent = returned_data[i]['Post_Code'] + ', ' + returned_data[i]['Line1'] + ', ' + returned_data[i]['Line2'] + ', ' + returned_data[i]['Line3'] + ', ' + returned_data[i]['Line4'] + ', ' + returned_data[i]['Line5'];
                             item.value = returned_data[i]['Address_ID'];
                             dropdown.appendChild(item);
                         }
@@ -476,7 +476,7 @@
 				
 					var member_data =  {
 						'Journey_ID':	journey_ID,
-						'TC_Member_ID':	document.getElementById('Member_Row_' + pickupNumber).getAttribute('TC_Member_ID')
+						'TC_Member_ID':	document.getElementById('Member_Row_' + memberNumber).getAttribute('TC_Member_ID')
 					};
 					
 					$.ajax({
