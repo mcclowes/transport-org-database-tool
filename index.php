@@ -41,7 +41,8 @@
 						var curDate = new Date();
 
 						if (journey_date < curDate) {
-							colour = "#73B5D6";
+							//colour = "#C7E1EF";
+							colour = "#B3CAD7";
 						}
 
 						var journey = "{		title: '" + String(returned_data[i]['Journey_Description']) + "',		start: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Pickup_Time']) + "', end: '" + changeDate(returned_data[i]['Journey_Date']) + "T" + formatTime(returned_data[i]['Return_Time']) + "',	url: 'show_TC_journey_info.php?id=" + String(returned_data[i]['Journey_ID']) + "', color: '" + colour + "'	}";
