@@ -369,7 +369,7 @@
 						document.getElementById('input-Destination_Line5').value = returned_data['Destination']['Line5'];
 						document.getElementById('input-Destination_Post_Code').value = returned_data['Destination']['Post_Code'];
 						
-						//pickups['No_Pickups'] = returned_data['Pickups']['No_Pickups'];
+						pickups['No_Pickups'] = returned_data['Pickups']['No_Pickups'];
 						var pickupList = document.getElementById('pickupList');
 						for (var x = 0; x < pickups['No_Pickups']; x++) {
 						
@@ -390,12 +390,13 @@
 							var row = pickupList.insertRow(0);
 							row.id = ('Pickup_Row_' + x);
 							row.setAttribute('Address_ID', returned_data['Pickups'][x]['Address_ID']);
-							var cell = row.insertCell(0);
+                    
+                            var button = row.insertCell(0);
+                            button.innerHTML = '<div class="button" class="button" id="delete-Pickup_' + x + '" onclick="deletePickup(' + x + ')">X</div>';
+
+							var cell = row.insertCell(1);
 							cell.innerHTML = returned_data['Pickups'][x]['Address']['Line1'] + ', ' + returned_data['Pickups'][x]['Address']['Post_Code'] + ', ' + returned_data['Pickups'][x]['Time'];
 							cell.id = 'Pickup_' + x;
-					
-							var button = row.insertCell(1);
-							button.innerHTML = '<div class="button" class="button" id="delete-Pickup_' + x + '" onclick="deletePickup(' + x + ')">Delete Pickup</div>';
 						}
 						
 						document.getElementById('input-Return_Time').value = returned_data['Return_Time'];
