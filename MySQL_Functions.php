@@ -1122,7 +1122,7 @@ function editJourney($mysqli,$Journey){
 	if(isset($Journey['TC_Members'])){
 		$x = $Journey['TC_Members']['No_Members'];
 		for($xx=0; $xx<$x; $xx++){
-			$TC_Journey_Member['Journey_ID'] = $Journey_ID;
+			$TC_Journey_Member['Journey_ID'] = $Journey['Journey_ID'];
 			$TC_Journey_Member['TC_Member_ID'] = $Journey['TC_Members'][$xx];
 			addTCJourneyMember($mysqli,$TC_Journey_Member);
 		}
