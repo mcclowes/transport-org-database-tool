@@ -74,6 +74,7 @@
                         document.getElementById('input-sName').value = returned_data['sName'];
                         document.getElementById('date-DOB').value = returned_data['DOB'];
                         document.getElementById('input-Home_Tel_No').value = returned_data['Tel_No'];
+                        document.getElementById('dropdown-Addresses').value = returned_data['Address_ID'];
                         document.getElementById('input-Line1').value = returned_data['Address']['Line1'];
                         document.getElementById('input-Line2').value = returned_data['Address']['Line2'];
                         document.getElementById('input-Line3').value = returned_data['Address']['Line3'];
@@ -89,7 +90,7 @@
                         document.getElementById('input-Emergency_Name').value = returned_data['Emergency_Name'];
                         document.getElementById('input-Emergency_Tel').value = returned_data['Emergency_Tel'];
                         document.getElementById('input-Emergency_Relationship').value = returned_data['Emergency_Relationship'];
-                        //document.getElementById('input-Is_Volunteer').value = returned_data['Is_Volunteer'];
+                        document.getElementById('boolean-Volunteer').value = returned_data['Is_Volunteer'];
                         
                     }
                 });

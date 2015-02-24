@@ -18,6 +18,8 @@
         ?>
 
         <script type="text/javascript">
+            var is_edit = '<?php echo $is_edit; ?>';
+            
             function submit() {
                 form_data = {
                     'fName':                        document.getElementById('input-fName').value,
@@ -74,6 +76,57 @@
                 });
             }
 
+            function populateEditFields(TC_Member_ID) {
+                $.ajax({
+                    type: "POST",
+                    url:"MySQL_Functions.php",
+                    data: {
+                        'form_type': 'getTCMember',
+                        'form_data': {'TC_Member_ID': TC_Member_ID}
+                    },
+                    dataType: "json",
+                    success: function(returned_data) {
+                        alert(JSON.stringify(returned_data));
+                        document.getElementById('input-fName').value = returned_data['fName'];
+                        document.getElementById('input-sName').value = returned_data['sName'];
+                        document.getElementById('dropdown-Addresses').value = returned_data['Address_ID'];
+                        document.getElementById('input-Line1').value = returned_data['Address']['Line1'];
+                        document.getElementById('input-Line2').value = returned_data['Address']['Line2'];
+                        document.getElementById('input-Line3').value = returned_data['Address']['Line3'];
+                        document.getElementById('input-Line4').value = returned_data['Address']['Line4'];
+                        document.getElementById('input-Line5').value = returned_data['Address']['Line5'];
+                        document.getElementById('input-Post_Code').value = returned_data['Address']['Post_Code'];
+                        document.getElementById('input-Tel_No').value = returned_data['Tel_No'];
+                        document.getElementById('input-Emergency_Name').value = returned_data['Emergency_Name'];
+                        document.getElementById('input-Emergency_Tel').value = returned_data['Emergency_Tel'];
+                        document.getElementById('input-Emergency_Relationship').value = returned_data['Emergency_Relationship'];
+                        document.getElementById('input-Capacity_Note').value = returned_data['Seating_Configurations'];
+                        document.getElementById('date-DOB').value = returned_data['DOB'];
+                        document.getElementById('dropdown-Details_Wheelchair').value = returned_data['Details_Wheelchair'];
+                        document.getElementById('dropdown-Details_Wheelchair_Type').value = returned_data['Details_Wheelchair_Type'];
+                        document.getElementById('dropdown-Details_Wheelchair_Seat').value = returned_data['Details_Wheelchair_Seat'];
+                        document.getElementById('dropdown-Details_Scooter').value = returned_data['Details_Scooter'];
+                        document.getElementById('dropdown-Details_Mobility_Aid').value = returned_data['Details_Mobility_Aid'];
+                        document.getElementById('dropdown-Details_Shopping_Trolley').value = returned_data['Details_Shopping_Trolley'];
+                        document.getElementById('dropdown-Details_Guide_Dog').value = returned_data['Details_Guide_Dog'];
+                        document.getElementById('dropdown-Details_People_Carrier').value = returned_data['Details_People_Carrier'];
+                        document.getElementById('dropdown-Details_Assistant').value = returned_data['Details_Assistant'];
+                        document.getElementById('dropdown-Details_Travelcard').value = returned_data['Details_Travelcard'];
+                        document.getElementById('boolean-Reasons_Transport').value = returned_data['Reasons_Transport'];
+                        document.getElementById('boolean-Reasons_Bus_Stop').value = returned_data['Reasons_Bus_Stop'];
+                        document.getElementById('boolean-Reasons_Anxiety').value = returned_data['Reasons_Anxiety'];
+                        document.getElementById('boolean-Reasons_Door').value = returned_data['Reasons_Door'];
+                        document.getElementById('boolean-Reasons_Handrails').value = returned_data['Reasons_Handrails'];
+                        document.getElementById('boolean-Reasons_Lift').value = returned_data['Reasons_Lift'];
+                        document.getElementById('boolean-Reasons_Level_Floors').value = returned_data['Reasons_Level_Floors'];
+                        document.getElementById('boolean-Reasons_Low_Steps').value = returned_data['Reasons_Low_Steps'];
+                        document.getElementById('boolean-Reasons_Assistance').value = returned_data['Reasons_Assistance'];
+                        document.getElementById('boolean-Reasons_Board_Time').value = returned_data['Reasons_Board_Time'];
+                        document.getElementById('boolean-Reasons_Wheelchair_Access').value = returned_data['Reasons_Wheelchair_Access'];
+                        document.getElementById('input-Reasons_Other').value = returned_data['Reasons_Other'];
+                    }
+                });
+            }
 
             function populateAddresses(dropdownID){
                 var dropdown = document.getElementById(dropdownID);
@@ -195,6 +248,11 @@
                 $('#page3').hide();
                 $('#submitButton').hide();
                 var i = 0;
+
+                if (is_edit == '1') {
+                    TC_Member_ID = '<?php echo $id; ?>';
+                    populateEditFields(TC_Member_ID);
+                }
             }
 
         </script>
@@ -212,7 +270,7 @@
 							<table>
 								<tr><td><label>First Name: </label></td><td><input type="text" id="input-fName"/> <td></tr>
 								<tr><td><label>Surname: </label></td><td><input type="text" id="input-sName"/> <td></tr>
-								<tr><td><label>Date of Birth: </label></td><td><input type="text" id="date-DOB"/> <td></tr>
+								<tr><td><label>Date of Birth: </label></td><td><input type="date" id="date-DOB"/> <td></tr>
 								<tr><td><label>Contact Number: </label></td><td><input type="text" id="input-Tel_No"/> </td></tr>
 							</table>
 						</fieldset>

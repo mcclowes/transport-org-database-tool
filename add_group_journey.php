@@ -69,6 +69,8 @@
                 };
                 
                 form_data['Pickups'] = pickups;
+
+                //alert(JSON.stringify(form_data));
             
                 if (is_edit == '1') {
                     form_data['Journey_ID'] = '<?php echo $id; ?>';  
@@ -270,7 +272,7 @@
             function clearAddress(id, dropdownID){
                 var dropdown = document.getElementById(dropdownID);
             
-                dropdown.value = null;
+                dropdown.value = 0;
                 document.getElementById(id+'Line1').value = '';
                 document.getElementById(id+'Line1').readOnly = false;
                 document.getElementById(id+'Line2').value = '';
@@ -332,6 +334,7 @@
 							pickups[x] = {
 								'Time':					returned_data['Pickups'][x]['Time'],
 								'Note':					returned_data['Pickups'][x]['Note'],
+                                'Address_ID':           returned_data['Pickups'][x]['Address_ID'],
 								'Address':{
 									'Line1':			returned_data['Pickups'][x]['Address']['Line1'],
 									'Line2':			returned_data['Pickups'][x]['Address']['Line2'],
@@ -369,7 +372,7 @@
             }
 
             function fillDefault() {
-
+                document.getElementById('dropdown-Pickups').value = 43;
                 document.getElementById('input-Pickup_Line1').value = 'Weardale Hub';
                 document.getElementById('input-Pickup_Line2').value = '85b Front Street';
                 document.getElementById('input-Pickup_Line3').value = 'Stanhope';
@@ -415,7 +418,7 @@
 					var button = row.insertCell(1);
 					button.innerHTML = '<div class="button" id="delete-Pickup_' + pickups['No_Pickups'] + '" onclick="deletePickup(' + pickups['No_Pickups'] + ')">Delete Pickup</div>';
 					
-                    document.getElementById('dropdown-Pickups').value = null;
+                    document.getElementById('dropdown-Pickups').value = 0;
 					document.getElementById('input-Pickup_Time').value = '';
 					document.getElementById('input-Pickup_Note').value = '';
 					document.getElementById('input-Pickup_Line1').value = '';
@@ -424,7 +427,13 @@
 					document.getElementById('input-Pickup_Line4').value = '';
 					document.getElementById('input-Pickup_Line5').value = '';
 					document.getElementById('input-Pickup_Post_Code').value = '';
-				
+				    document.getElementById('input-Pickup_Line1').readOnly = false;
+                    document.getElementById('input-Pickup_Line2').readOnly = false;
+                    document.getElementById('input-Pickup_Line3').readOnly = false;
+                    document.getElementById('input-Pickup_Line4').readOnly = false;
+                    document.getElementById('input-Pickup_Line5').readOnly = false;
+                    document.getElementById('input-Pickup_Post_Code').readOnly = false;
+
 					pickups[pickups['No_Pickups']] = pickup;
 					pickups['No_Pickups']++;
 				}
@@ -505,7 +514,7 @@
 							<table>
                                 <tr><td><label>Stored Addresses: </label></td>
                                 <td><select id="dropdown-Addresses" onchange="addAddress('input-Address_', 'dropdown-Addresses')"> 
-                                    <option>Choose an existing address</option>
+                                    <option value = 0> Choose an existing address</option> 
                                 </select></td>
                                 <td>
                                 <div id="addTCMember" onclick="clearAddress('input-Address_', 'dropdown-Addresses')">Clear</div>
@@ -538,7 +547,7 @@
                             <table>
                                 <tr><td><label> Stored Addresses: </label></td>
                                 <td><select id="dropdown-Destinations" onchange="addAddress('input-Destination_', 'dropdown-Destinations')"> 
-                                    <option>Choose an existing address</option>
+                                    <option value = 0>Choose an existing address</option>
                                 </select></td>
                                 <td>
                                 <div id="addTCMember" onclick="clearAddress('input-Destination_', 'dropdown-Destinations')">Clear</div>
@@ -556,7 +565,7 @@
                             <table>
                                 <tr><td><label> Stored Addresses: </label></td>
                                 <td><select id="dropdown-Pickups" onchange="addAddress('input-Pickup_', 'dropdown-Pickups')"> 
-                                    <option>Choose an existing address</option>
+                                    <option value = 0>Choose an existing address</option>
                                 </select></td>
                                 <td>
                                 <div id="addTCMember" onclick="clearAddress('input-Pickup_', 'dropdown-Pickups')">Clear</div>

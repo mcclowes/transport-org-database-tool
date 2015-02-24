@@ -729,14 +729,13 @@ function getTCMember($mysqli, $TC_Member_ID){
 										Reasons_Wheelchair_Access, Reasons_Other FROM  TC_Members;")){
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($TC_Member['TC_Member_ID'], $TC_Member['fName'],$TC_Member['sName'], $Address_ID,$TC_Member['Tel_No'],$TC_Member['Emergency_Name'],$TC_Member['Emergency_Tel'], $TC_Member['Emergency_Relationship'], $TC_Member['DOB'],
+		$statement->bind_result($TC_Member['TC_Member_ID'], $TC_Member['fName'],$TC_Member['sName'], $TC_Member['Address_ID'],$TC_Member['Tel_No'],$TC_Member['Emergency_Name'],$TC_Member['Emergency_Tel'], $TC_Member['Emergency_Relationship'], $TC_Member['DOB'],
 								$TC_Member['Details_Wheelchair'], $TC_Member['Details_Wheelchair_Type'], $TC_Member['Details_Wheelchair_Seat'], $TC_Member['Details_Scooter'], $TC_Member['Details_Mobility_Aid'], $TC_Member['Details_Shopping_Trolley'], 
 								$TC_Member['Details_Guide_Dog'], $TC_Member['Details_People_Carrier'], $TC_Member['Details_Assistant'], $TC_Member['Details_Travelcard'],$TC_Member['Reasons_Transport'],$TC_Member['Reasons_Bus_Stop'],$TC_Member['Reasons_Anxiety'],
 								$TC_Member['Reasons_Door'],$TC_Member['Reasons_Handrails'],$TC_Member['Reasons_Lift'],$TC_Member['Reasons_Level_Floors'],$TC_Member['Reasons_Low_Steps'], $TC_Member['Reasons_Assistance'], $TC_Member['Reasons_Board_Time'],
 								$TC_Member['Reasons_Wheelchair_Access'], $TC_Member['Reasons_Other']);
 		$statement->fetch();
-		$TC_Member['Address'] = getAddress($mysqli, $Address_ID);
-		$TC_Member['DOB'] = outputDate($TC_Member['DOB']);
+		$TC_Member['Address'] = getAddress($mysqli, $TC_Member['Address_ID']);
 
 
 	}
@@ -947,11 +946,19 @@ function addJourney($mysqli,$Journey){
 								$Journey['Keys_To_Collect'], $Journey['Distance_Run'], $Journey['Quote'], $Journey['Invoiced_Cost'], $Journey['Invoice_Sent'], $Journey['Invoice_Paid']);
 		$statement->execute();
 		$statement->store_result();
-		$Journey_ID = $statement->lastInsertId('Journey_ID');
 		$statement->close();
+		
 	}
 	
 	
+	if($statement = $mysqli->prepare(" SELECT MAX(Journey_ID) FROM  Journeys;")){
+		$statement->execute();
+		$statement->store_result();
+		$statement->bind_result($Journey_ID);
+		$statement->fetch();
+	}
+
+
 	if(isset($Journey['TC_Members'])){
 		$x = $Journey['TC_Members']['No_Members'];
 		for($xx=0; $xx<$x; $xx++){
@@ -960,7 +967,6 @@ function addJourney($mysqli,$Journey){
 			addTCJourneyMember($mysqli,$TC_Journey_Member);
 		}
 	}
-
 	return $Journey_ID;
 }
 

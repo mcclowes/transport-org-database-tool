@@ -28,6 +28,7 @@
                     'fName':                        document.getElementById('input-fName').value,
                     'sName':                        document.getElementById('input-sName').value,
                     'Tel_No':                       document.getElementById('input-Tel_No').value,
+                    'Address_ID':                   document.getElementById('dropdown-Addresses').value,
                     'Address':{
                         'Line1':                    document.getElementById('input-Address_Line1').value,
                         'Line2':                    document.getElementById('input-Address_Line2').value,
@@ -44,6 +45,7 @@
                     'Transferees':                  document.getElementById('number-Transferees').value,
                     'Other_Access':                 document.getElementById('input-Other_Access').value,
                     'Booked_By': 					document.getElementById('input-Booked_By').value,
+                    'Destination_ID':               document.getElementById('dropdown-Destinations').value,
                     'Destination':{
 						'Line1':					document.getElementById('input-Destination_Line1').value,
 						'Line2':					document.getElementById('input-Destination_Line2').value,
@@ -67,7 +69,8 @@
                 
                 form_data['Pickups'] = pickups;
                 form_data['TC_Members'] = members;
-                //alert(JSON.stringify(members));
+
+                //alert(JSON.stringify(form_data));
 
                 if (is_edit == '1') {
                     form_data['Journey_ID'] = '<?php echo $id; ?>';  
@@ -269,7 +272,7 @@
             function clearAddress(id, dropdownID){
                 var dropdown = document.getElementById(dropdownID);
             
-                dropdown.value = null;
+                dropdown.value = 0;
                 document.getElementById(id+'Line1').value = '';
                 document.getElementById(id+'Line1').readOnly = false;
                 document.getElementById(id+'Line2').value = '';
@@ -331,7 +334,7 @@
 							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ' (' + returned_data['Members'][x]['Address']['Post_Code'] + ')';
 							cell.id = 'Member_' + x;
 						}
-						 
+						document.getElementById('dropdown-Addresses').value = returned_data['Address_ID'];
 						document.getElementById('input-Address_Line1').value = returned_data['Address']['Line1'];
 						document.getElementById('input-Address_Line2').value = returned_data['Address']['Line2'];
 						document.getElementById('input-Address_Line3').value = returned_data['Address']['Line3'];
@@ -346,6 +349,7 @@
 						document.getElementById('number-Transferees').value = returned_data['Transferees'];
 						document.getElementById('input-Other_Access').value = returned_data['Other_Access'];
 						document.getElementById('input-Booked_By').value = returned_data['Booked_By'];
+                        document.getElementById('dropdown-Destinations').value = returned_data['Destination_ID'];
 						document.getElementById('input-Destination_Line1').value = returned_data['Destination']['Line1'];
 						document.getElementById('input-Destination_Line2').value = returned_data['Destination']['Line2'];
 						document.getElementById('input-Destination_Line3').value = returned_data['Destination']['Line3'];
@@ -360,6 +364,7 @@
 							pickups[x] = {
 								'Time':					returned_data['Pickups'][x]['Time'],
 								'Note':					returned_data['Pickups'][x]['Note'],
+                                'Address_ID':           returned_data['Pickups'][x]['Address_ID'],
 								'Address':{
 									'Line1':			returned_data['Pickups'][x]['Address']['Line1'],
 									'Line2':			returned_data['Pickups'][x]['Address']['Line2'],
@@ -453,6 +458,7 @@
 
             function fillDefault() {
 
+                document.getElementById('dropdown-Pickups').value = 43;
                 document.getElementById('input-Pickup_Line1').value = 'Weardale Hub';
                 document.getElementById('input-Pickup_Line2').value = '85b Front Street';
                 document.getElementById('input-Pickup_Line3').value = 'Stanhope';
@@ -476,6 +482,7 @@
 				var pickup = {
 					'Time':					document.getElementById('input-Pickup_Time').value,
 					'Note':					document.getElementById('input-Pickup_Note').value,
+                    'Address_ID':           document.getElementById('dropdown-Pickups').value,
 					'Address':{
 						'Line1':			document.getElementById('input-Pickup_Line1').value,
 						'Line2':			document.getElementById('input-Pickup_Line2').value,
@@ -499,7 +506,7 @@
 					cell.id = 'Pickup_' + pickups['No_Pickups'];
 					
 					
-                    document.getElementById('dropdown-Pickups').value = null;
+                    document.getElementById('dropdown-Pickups').value = 0;
 					document.getElementById('input-Pickup_Time').value = '';
 					document.getElementById('input-Pickup_Note').value = '';
 					document.getElementById('input-Pickup_Line1').value = '';
@@ -508,6 +515,12 @@
 					document.getElementById('input-Pickup_Line4').value = '';
 					document.getElementById('input-Pickup_Line5').value = '';
 					document.getElementById('input-Pickup_Post_Code').value = '';
+                    document.getElementById('input-Pickup_Line1').readOnly = false;
+                    document.getElementById('input-Pickup_Line2').readOnly = false;
+                    document.getElementById('input-Pickup_Line3').readOnly = false;
+                    document.getElementById('input-Pickup_Line4').readOnly = false;
+                    document.getElementById('input-Pickup_Line5').readOnly = false;
+                    document.getElementById('input-Pickup_Post_Code').readOnly = false;
 				
 					pickups[pickups['No_Pickups']] = pickup;
 					pickups['No_Pickups']++;
@@ -600,7 +613,7 @@
 							<table>
                                 <tr><td><label>Stored Addresses: </label></td>
                                 <td><select id="dropdown-Addresses" onchange="addAddress('input-Address_', 'dropdown-Addresses')"> 
-                                    <option>Choose an existing address</option>
+                                    <option value = 0>Choose an existing address</option>
                                 </select></td>
                                 <td>
                                 <div id="addTCMember" onclick="clearAddress('input-Address_', 'dropdown-Addresses')">Clear</div>
@@ -633,7 +646,7 @@
                             <table>
                                 <tr><td><label> Stored Addresses: </label></td>
                                 <td><select id="dropdown-Destinations" onchange="addAddress('input-Destination_', 'dropdown-Destinations')"> 
-                                    <option>Choose an existing address</option>
+                                    <option  value = 0>Choose an existing address</option>
                                 </select></td>
                                 <td>
                                 <div id="addTCMember" onclick="clearAddress('input-Destination_', 'dropdown-Destinations')">Clear</div>
@@ -651,7 +664,7 @@
                             <table>
                                  <tr><td><label> Stored Addresses: </label></td>
                                 <td><select id="dropdown-Pickups" onchange="addAddress('input-Pickup_', 'dropdown-Pickups')"> 
-                                    <option>Choose an existing address</option>
+                                    <option value = 0>Choose an existing address</option>
                                 </select></td>
                                 <td>
                                 <div id="addTCMember" onclick="clearAddress('input-Pickup_', 'dropdown-Pickups')">Clear</div>
