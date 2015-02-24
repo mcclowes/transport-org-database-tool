@@ -70,7 +70,7 @@
                 form_data['Pickups'] = pickups;
                 form_data['TC_Members'] = members;
 
-                alert(JSON.stringify(form_data));
+                //alert(JSON.stringify(form_data));
 
                 if (is_edit == '1') {
                     form_data['Journey_ID'] = '<?php echo $id; ?>';  
