@@ -6,6 +6,17 @@ body {
 
 #main {
 	padding: 20px;
+	margin: 0 auto;
+}
+
+.color-box {
+    width: 120px;
+    height: 17px;
+    display: inline-block;
+    background-color: #ccc;
+    color: white;
+    border-radius: 3px;
+    text-align: center;
 }
 
 #vmain {
@@ -29,7 +40,7 @@ body {
 }
 
 #checkboxCont {
-	width: 200px;
+	width: 150px;
 	float: left;
 	padding: 50px;
 	top: 500px;
@@ -218,7 +229,11 @@ input[type=textarea] {
 	border-radius: 3px;
 }
 
+<<<<<<< HEAD
 #search, #nextButton, #backButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
+=======
+#nextButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
+>>>>>>> origin/master
 	background-color: #106500;
 	color: #fff;
 	font-size: 18pt;

@@ -260,7 +260,7 @@
                     success: function(returned_data) {
                         for(var i = 0; i < returned_data.length; i++) {
                             var item = document.createElement("option");
-                            item.textContent = returned_data[i]['Line1'] + ' ' + returned_data[i]['Line2'] + ' ' + returned_data[i]['Line3'] + ' ' + returned_data[i]['Line4'] + ' ' + returned_data[i]['Line5'] + ' ' + returned_data[i]['Post_Code'];
+                            item.textContent = returned_data[i]['Post_Code'] + ', ' + returned_data[i]['Line1'] + ', ' + returned_data[i]['Line2'] + ', ' + returned_data[i]['Line3'] + ', ' + returned_data[i]['Line4'] + ', ' + returned_data[i]['Line5'];
                             item.value = returned_data[i]['Address_ID'];
                             dropdown.appendChild(item);
                         }
@@ -351,19 +351,7 @@
 						var memberList = document.getElementById('memberList');
 						for (var x = 0; x < members['No_Members']; x++) {
 					
-							members[x] = {
-								'fName':				returned_data['Members'][x]['sName'],
-								'sName':				returned_data['Members'][x]['fName'],
-								'Address':{
-									'Line1':			returned_data['Members'][x]['Address']['Line1'],
-									'Line2':			returned_data['Members'][x]['Address']['Line2'],
-									'Line3':			returned_data['Members'][x]['Address']['Line3'],
-									'Line4':			returned_data['Members'][x]['Address']['Line4'],
-									'Line5':			returned_data['Members'][x]['Address']['Line5'],
-									'Post_Code':		returned_data['Members'][x]['Address']['Post_Code'],
-								},
-								'TC_Member_ID':			returned_data['Members'][x]['TC_Member_ID']
-							}
+							members[x] = returned_data['Members'][x]['TC_Member_ID'];
 			
 							var row = memberList.insertRow(0);
 							row.id = ('Member_Row_' + x);
@@ -451,7 +439,7 @@
 				var text = TC_Member_dropdown.options[TC_Member_dropdown.selectedIndex].text;
 				
 				if (text != 'Choose a Travel Club Member') {
-                    var TC_Member_ID = TC_Member_dropdown.value;
+                    var TC_Member_ID = parseInt(TC_Member_dropdown.value);
                     members[members['No_Members']] = TC_Member_ID;
 
 					var memberList = document.getElementById('memberList');
@@ -476,7 +464,7 @@
 				
 					var member_data =  {
 						'Journey_ID':	journey_ID,
-						'TC_Member_ID':	document.getElementById('Member_Row_' + pickupNumber).getAttribute('TC_Member_ID')
+						'TC_Member_ID':	document.getElementById('Member_Row_' + memberNumber).getAttribute('TC_Member_ID')
 					};
 					
 					$.ajax({
@@ -613,7 +601,7 @@
 				
 				var is_edit = '<?php echo $is_edit; ?>';
 				if (is_edit == '1') {
-					document.getElementById('addTCMember').innerHTML = 'Add pickup';
+					document.getElementById('addTCMember').innerHTML = 'Add to journey';
 					journey_ID = '<?php echo $id; ?>';
 					populateEditFields(journey_ID);
 				}
