@@ -6,6 +6,17 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+        <?php
+            if (isset($_GET['id'])) {
+                $is_edit = true;
+                
+                $id = $_GET['id'];
+            }
+            else {
+                $is_edit = false;
+            }
+        ?>
+
         <script type="text/javascript">
             function submit() {
                 form_data = {
