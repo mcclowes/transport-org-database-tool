@@ -63,7 +63,7 @@
 							row.id = ('Member_Row_' + x);
 							row.setAttribute('TC_Member_ID', returned_data['Members'][x]['TC_Member_ID']);
 							var cell = row.insertCell(0);
-							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ' (' + returned_data['Members'][x]['Address']['Post_Code'] + ')';
+							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'] + '.</br>Emergency contact info: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
 							cell.id = 'Member_' + x;
 						}
                         
