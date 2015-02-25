@@ -25,11 +25,11 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                    	var vehicle_table = document.getElementById('vehicle_body');
+                    	var table_body = document.getElementById('table_body');
                         for(var i = 0; i < returned_data.length; i++) {
 							var id = returned_data[i]['Vehicle_ID'];
 							
-							var row = vehicle_table.insertRow();
+							var row = table_body.insertRow();
 							row.id = ('Vehicle_ID_' + id);
 							
 							var cell = row.insertCell();
@@ -64,7 +64,7 @@
 							*/
 
  							var button = row.insertCell();
- 							button.innerHTML = '<div class="button" id="view-Vehicle_' + id + '" onclick="submit(' + id + ')">View</div>';
+ 							button.innerHTML = '<div class="button" id="view-' + id + '" onclick="submit(' + id + ')">View</div>';
                         }
                         $("table").tablesorter(); 
                         $("table").trigger("update"); 
@@ -101,7 +101,7 @@
 								-->
 							</tr>
 						</thead>
-						<tbody id='vehicle_body'>
+						<tbody id='table_body'>
 						</tbody>
 					</table>
 				</div>

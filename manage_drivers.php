@@ -4,17 +4,19 @@
         <title>WCT Tool</title>
         <link rel="icon" type="image/png" href="./img/wct_icon.png">
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="table_sorter_api/themes/blue/style.css" type="text/css" media="screen" />
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="table_sorter_api/jquery.tablesorter.js"></script> 
+		<script type="text/javascript" src="table_sorter_api/jquery.tablesorter.widgets.js"></script>
         
         <script type="text/javascript">
         
-            function submit(){
-                window.location = 'show_driver_info.php?id=' + document.getElementById('dropdown-Drivers').value;
+            function submit(id){
+                window.location = 'show_driver_info.php?id=' + id;
             }
             
             function populateDrivers(){
-                var dropdown = document.getElementById('dropdown-Drivers');
-                
                 $.ajax({
                     type: "POST",
                     url:"MySQL_Functions.php",
@@ -23,12 +25,33 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
+                    	var table_body = document.getElementById('table_body');
                         for(var i = 0; i < returned_data.length; i++) {
-                            var item = document.createElement("option");
-                            item.textContent = returned_data[i]['fName'] + ' ' + returned_data[i]['sName'];
-                            item.value = returned_data[i]['Driver_ID'];
-                            dropdown.appendChild(item);
+							var id = returned_data[i]['Driver_ID'];
+							
+							var row = table_body.insertRow();
+							row.id = ('Driver_ID' + id);
+							
+							var cell = row.insertCell();
+							cell.innerHTML = returned_data[i]['fName'];
+							var cell = row.insertCell();
+							cell.innerHTML = returned_data[i]['sName'];
+							var cell = row.insertCell();
+							cell.innerHTML = returned_data[i]['DOB'];
+							var cell = row.insertCell();
+							cell.innerHTML = returned_data[i]['Address']['Post_Code'];
+							var cell = row.insertCell();
+							cell.innerHTML = returned_data[i]['Tel_No'];
+							var cell = row.insertCell();
+							cell.innerHTML = returned_data[i]['Mobile_No'];
+							var cell = row.insertCell();
+							cell.innerHTML = returned_data[i]['Is_Volunteer'];
+
+ 							var button = row.insertCell();
+ 							button.innerHTML = '<div class="button" id="view-' + id + '" onclick="submit(' + id + ')">View</div>';
                         }
+                        $("table").tablesorter(); 
+                        $("table").trigger("update"); 
                     }
                 });
             }
@@ -37,16 +60,26 @@
     <body onload='populateDrivers()'>
         <div id="wctLogo"></div>
         <?php include 'nav.php' ?>
-        <div id="main">
-            <div>
-                <tr><td><label>Choose a driver: </label></td><td>
-                <select id="dropdown-Drivers" name='Driver_ID'>
-                </select><td></tr>
-            </div>
-            <br>
-            <div>
-            <input type="submit" id="submitButton" name="submit" value="Submit" onclick='submit()' />
-            </div>
+        <div id="page_wrapper">
+			<div id="main">
+				<div>
+					<table cellspacing="1" class="tablesorter">
+						<thead>
+							<tr>
+								<th>Forename</th>
+								<th>Surname</th>
+								<th>Date of Birth</th>
+								<th>Post Code</th>
+								<th>Telephone number</th>
+								<th>Mobile number</th>
+								<th>Volunteer</th>
+							</tr>
+						</thead>
+						<tbody id='table_body'>
+						</tbody>
+					</table>
+				</div>
+			</div>
         </div>
     </body>
 </html>
