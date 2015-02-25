@@ -86,7 +86,7 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                        alert(JSON.stringify(returned_data));
+                        //alert(JSON.stringify(returned_data));
                         document.getElementById('input-fName').value = returned_data['fName'];
                         document.getElementById('input-sName').value = returned_data['sName'];
                         document.getElementById('dropdown-Addresses').value = returned_data['Address_ID'];
