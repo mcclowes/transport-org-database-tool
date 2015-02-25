@@ -652,7 +652,7 @@ function getTCJourneys($mysqli){
 			$Journey['Vehicle_ID'] = $Vehicle_ID;
 			$Journey['Vehicle_Name'] = $Vehicle['Nickname'];
 			$Journey['Driver_ID'] = $Driver_ID;
-			$Journey['Driver_Name'] = $Driver['fName']+' '+$Driver['sName'];
+			$Journey['Driver_Name'] = $Driver['fName'].' '.$Driver['sName'];
 
 			array_push($Journeys, $Journey);
 			}
