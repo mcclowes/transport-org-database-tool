@@ -433,6 +433,7 @@ function getDriver($mysqli, $Driver_ID){
 			$Driver['Is_Volunteer'] = $Is_Volunteer;
 
 			$Driver['DOB'] = $DOB;
+
 			$Driver['Licence_Expires'] = $Licence_Expires;
 			$Driver['DBS_Issued'] = $DBS_Issued;
 
@@ -752,10 +753,10 @@ function getTCMember($mysqli, $TC_Member_ID){
 function getTCMembers($mysqli){
 	$TC_Member = array();
 	$TC_Members = array();
-	if($statement = $mysqli->prepare(" SELECT TC_Member_ID, fName, sName, Address_ID FROM  TC_Members WHERE Deleted = 'false';")){
+	if($statement = $mysqli->prepare(" SELECT TC_Member_ID, fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship  FROM  TC_Members WHERE Deleted = 'false';")){
 		$statement->execute();
 		$statement->store_result();
-		$statement->bind_result($TC_Member_ID,$fName,$sName,$Address_ID);
+		$statement->bind_result($TC_Member_ID, $fName, $sName, $Address_ID, $Tel_No, $Emergency_Name, $Emergency_Tel, $Emergency_Relationship);
 		while($statement->fetch()){
 
 			$Address = getAddress($mysqli, $Address_ID);
@@ -764,6 +765,11 @@ function getTCMembers($mysqli){
 			$TC_Member['fName'] = $fName;
 			$TC_Member['sName'] = $sName;
 			$TC_Member['Post_Code'] = $Address['Post_Code'];
+			$TC_Member['Tel_No'] = $Tel_No;
+			$TC_Member['Emergency_Name'] = $Emergency_Name;
+			$TC_Member['Emergency_Tel'] = $Emergency_Tel;
+			$TC_Member['Emergency_Relationship'] = $Emergency_Relationship;
+
 			
 
 			array_push($TC_Members, $TC_Member);
