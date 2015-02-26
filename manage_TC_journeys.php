@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
         <link rel="stylesheet" href="table_sorter_api/themes/blue/style.css" type="text/css" media="screen" />
         
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="jQuery/jquery-2.1.3.min.js"></script> 
 		<script type="text/javascript" src="table_sorter_api/jquery.tablesorter.js"></script> 
 		<script type="text/javascript" src="table_sorter_api/jquery.tablesorter.widgets.js"></script>
         
