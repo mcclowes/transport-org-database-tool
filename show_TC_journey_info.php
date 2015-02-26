@@ -8,6 +8,7 @@
         <title>WCT Tool | Home</title>
         <link rel="icon" type="image/png" href="./img/wct_icon.png">
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		
 		<script>

@@ -255,8 +255,7 @@ input[type=textarea] {
 
 #memberList {
 	background: #fff;
-	margin: 20px 0 0 20px;
-	width:350px;
+	margin: 20px 0 2px 20px;
 	color: gray;
 }
 
