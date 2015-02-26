@@ -1,0 +1,150 @@
+
+body {
+	font-family: helvetica;
+	margin: 0;
+}
+
+#main {
+	padding: 20px;
+	margin: 0 auto;
+}
+
+.color-box {
+    width: 120px;
+    height: 17px;
+    display: inline-block;
+    background-color: #ccc;
+    color: white;
+    border-radius: 3px;
+    text-align: center;
+}
+
+#vmain {
+	padding: 20px;
+}
+
+#page_wrapper {
+	width: 800px;
+    margin: 0 auto;
+}
+
+#calendar {
+	width: 900px;
+	margin: 0 auto;
+}
+
+#vcalendar {
+	width: 900px;
+	float: left;
+	left: 10%;
+}
+
+#checkboxCont {
+	width: 150px;
+	float: left;
+	padding: 50px;
+	top: 500px;
+}
+
+div .fc-toolbar {
+	z-index: -1;
+}
+
+div .fc-view-container {
+	z-index: -1;
+}
+
+#cTitle {
+	width: 175px;
+	height: 100px;
+	font-size: 20px;
+	text-align: centre;
+	margin: 0 auto;
+}
+
+/*Navigation Bar Styling*/
+nav {
+	display: none;
+}
+
+/* Form styling */
+
+fieldset {
+	padding: 20px;
+	margin:10px;
+	background-color: #d0d1c9;
+	border: none;
+	display: inline;
+}
+
+legend {
+	padding-top: 0px;
+	font-weight: bold;
+	padding: 0.2em 0.5em;
+	border:1px solid green;
+	color:green;
+	font-size:90%;
+	text-align:left;
+	background-color: white;
+}
+
+label {
+	padding: 5px;
+	font-weight: bold;
+}
+
+input[type=text], input[type=email], input[type=date] {
+	background: #fff;
+	width: 280px;
+	height: 20px;
+	padding: 10px;
+	margin: 0 0 0 10px;
+	line-height: 1;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+}
+
+select {
+	margin: 0 0 0 10px;
+	width:280px;
+}
+
+input[type=checkbox] {
+	margin: 0 0 0 10px;
+}
+
+input[type=textarea] {
+	margin: 0 0 0 10px;
+	width: 280px;
+	height: 80px;
+	-moz-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#nextButton, #backButton, #submitButton, #cancelButton, #addTCMember, #setDefault {
+	display: none;
+}
+
+.button {
+	display: none;
+}
+
+#addTCMember, #setDefault {
+	font-size: 12pt;
+}
+
+#memberList {
+	background: #fff;
+	margin: 20px 0 0 20px;
+	width:350px;
+	color: gray;
+}
+
+#memberList td{
+	padding: 5px 0 0 5px;
+}
+
