@@ -246,6 +246,11 @@
                     }
                 });
             }
+
+            function changeDate(date_string) {          
+                date_string = date_string.replace(/\//g, "-");              
+                return date_string.split("-").reverse().join("-");  
+            }
             
             function populateAddresses(dropdownID){
                 var dropdown = document.getElementById(dropdownID);
@@ -509,6 +514,30 @@
 				pickups['No_Pickups']--;
 			}
             
+            function showVCal(type) {
+
+                var jDate = document.getElementById('date-Journey_Date').value;
+                //alert(jDate);
+                var calUrl = "calendar_window.php?day=";
+
+
+                if(jDate != ""){
+                    var newDate = changeDate(jDate);
+                    calUrl = calUrl + newDate;
+                } else {
+                    calUrl = calUrl + "day";
+                }
+
+                if(type == 'vehicle'){
+                    calUrl = calUrl + '&type=vehicle';
+                } else {
+                    calUrl = calUrl + '&type=driver';
+                }
+                
+                window.open(calUrl, 'Schedule', 'height=500,width=600');
+
+            }
+
             function init(){
 				number_of_pickups = 0;
 				pickups = {'No_Pickups': number_of_pickups};
@@ -648,11 +677,14 @@
     							<tr><td><label>Driver: </label></td>
 								<td><select id="dropdown-Driver"> 
 									<option>Choose a Driver</option>
-								</select><td></tr>
+								</select><td>
+                                <td><div id="scheduleButton" class="button" onclick="showVCal('driver')">Show Schedule</div></td>
+                                </tr>
     							<tr><td><label>Allocated Vehicle: </label></td>
 								<td><select id="dropdown-Vehicle"> 
 									<option>Choose a Vehicle</option>
-								</select><td></tr>
+								</select><td>
+                                <td><div id="scheduleButton" class="button" onclick="showVCal('vehicle')">Show Schedule</div></td></tr>
                                 <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-Keys_To_Collect" placeholder="E.g. Weardale Hub at 8.45am"/> <td></tr>
                                 <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-Quote"/> <td></tr>
                                 <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-Distance_Run"/> <td></tr>

@@ -198,10 +198,7 @@
                     	for(var i = 0; i < returned_data.length; i++) {
                     		var item = document.createElement("option");
                     		item.textContent = returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ' (' + returned_data[i]['Post_Code'] + ')';
-                    		item.setAttribute('info', returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ', ' + returned_data[i]['Tel_No'] + '. Emergency contact info: ' + returned_data[i]['Emergency_Name'] + ', ' + returned_data[i]['Emergency_Tel'] + ' (' + returned_data[i]['Emergency_Relationship'] + ').');
-                    		//item.setAttribute('info', returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ', ' + returned_data[i]['Tel_No'] + '.</br>Emergency contact info: ' + returned_data[i]['Emergency_Name'] + ', ' + returned_data[i]['Emergency_Tel'] + ' (' + returned_data[i]['Emergency_Relationship'] + ').');
                     		item.value = returned_data[i]['TC_Member_ID'];
-                    		item.id = 'TC_Member_option_' + returned_data[i]['TC_Member_ID'];
                     		dropdown.appendChild(item);
                     	}
                     }
@@ -364,8 +361,7 @@
 							button.innerHTML = '<div class="button" id="delete-Member_' + x + '" onclick="deleteMember(' + x + ')">X</div>';
 							
 							var cell = row.insertCell(1);
-							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'] + '. Emergency contact info: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
-							//cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'] + '.</br>Emergency contact info: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
+							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ' (' + returned_data['Members'][x]['Address']['Post_Code'] + ')';
 							cell.id = 'Member_' + x;
 						}
 						document.getElementById('dropdown-Addresses').value = returned_data['Address_ID'];
@@ -454,8 +450,7 @@
 					button.innerHTML = '<div class="button" id="delete-Member_' + members['No_Members'] + '" onclick="deleteMember(' + members['No_Members'] + ')">X</div>';
 					
 					var cell = row.insertCell(1);
-					cell.innerHTML = document.getElementById('TC_Member_option_' + TC_Member_ID).getAttribute('info');
-					//returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'] + '.</br>Emergency contact info: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
+					cell.innerHTML = text;
 					cell.id = 'TCMembers_' + members['No_Members'];
 					cell.setAttribute('TC_Member_ID', TC_Member_ID);
 					
@@ -590,6 +585,33 @@
 				}
 				pickups['No_Pickups']--;
 			}
+
+            function changeDate(date_string) {          
+                date_string = date_string.replace(/\//g, "-");              
+                return date_string.split("-").reverse().join("-");  
+            }
+
+            function showVCal(type) {
+
+                var jDate = document.getElementById('date-Journey_Date').value;
+                var calUrl = "calendar_window.php?day=";
+
+
+                if(jDate != ""){
+                    var newDate = changeDate(jDate);
+                    calUrl = calUrl + newDate;
+                } else {
+                    calUrl = calUrl + "day";
+                }
+
+                if(type == 'vehicle'){
+                    calUrl = calUrl + '&type=vehicle';
+                } else {
+                    calUrl = calUrl + '&type=driver';
+                }
+                window.open(calUrl, 'Schedule', 'height=500,width=600');
+
+            }
             
             function init(){
 				pickups = {'No_Pickups': 0};
@@ -739,11 +761,15 @@
     							<tr><td><label>Driver: </label></td>
 								<td><select id="dropdown-Driver"> 
 									<option>Choose a Driver</option>
-								</select><td></tr>
+								</select><td>
+                                <td><div id="scheduleButton" class="button" onclick="showVCal('driver')">Show Schedule</div></td>
+                                </tr>
     							<tr><td><label>Allocated Vehicle: </label></td>
 								<td><select id="dropdown-Vehicle"> 
 									<option>Choose a Vehicle</option>
-								</select><td></tr>
+								</select><td>
+                                <td><div id="scheduleButton" class="button" onclick="showVCal('vehicle')">Show Schedule</div></td></tr>
+                                </tr>
                                 <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-Keys_To_Collect" placeholder="E.g. Weardale Hub at 8.45am"/> <td></tr>
                                 <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-Quote"/> <td></tr>
                                 <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-Distance_Run"/> <td></tr>
