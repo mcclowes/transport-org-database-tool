@@ -67,6 +67,11 @@
 							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'] + '. Emergency contact info: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
 							//cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'] + '.</br>Emergency contact info: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
 							cell.id = 'Member_' + x;
+							
+							var cell = row.insertCell();
+							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'];
+							var cell = row.insertCell();
+							cell.innerHTML = 'Emergency contact: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
 						}
                         
                         //alert(JSON.stringify(returned_data['Pickups']));
@@ -88,8 +93,6 @@
                         $('#Invoice_Sent').text(returned_data['Invoice_Sent']);
                         $('#Invoice_Paid').text(returned_data['Invoice_Paid']);
                         $('#Journey_Notes').text(returned_data['Journey_Note']);
-
-
 
                     }
                 });
@@ -131,13 +134,14 @@
 	                        <tr><td><label>Surname: </label></td><td id="sName"><td></tr>
 	                        <tr><td><label>Contact Number: </label></td><td id="Tel_No"></td></tr>
 						</table>
-							
-						<table class="entryBox" id="memberList">
-						</table>
-						
-						<table id="memberList">
+	                </fieldset>
+
+	                <fieldset id="tcMembers">
+	                	<legend>Manifesto</legend>
+	                	<table class="entryBox" id="memberList">
 						</table>
 	                </fieldset>
+
 	                <fieldset id="bookeeAddress">
 	                    <legend>Bookee Address</legend>
 	                    <table>
