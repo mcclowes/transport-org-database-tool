@@ -32,10 +32,11 @@
                 <li><a href="add_vehicle.php">Add vehicle</a></li>
             </ul>
         </li>
-        <li><a href="add_driver.php">Drivers</a>
+        <li><a href="driver_schedule.php">Drivers</a>
             <ul>
+                <li><a href="driver_schedule.php">Driver Schedule</a></li>
                 <li><a href="manage_drivers.php">Manage Drivers</a></li>
-                <li><a href="add_driver.php">Add Driver</a></li>
+                <li><a href="add_driver.php">Add Driver</a></li>                
             </ul>
         </li>
     </ul>
