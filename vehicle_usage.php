@@ -128,8 +128,8 @@
 		
         <div id="vmain">
         	<div id='main'>
+        		<div id ='checkboxCont'></div>
 				<div id='vcalendar' onclick="updateCalendar()"></div>
-				<div id ='checkboxCont'></div>
 			</div>
         </div>
     </body>
