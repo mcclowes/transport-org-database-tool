@@ -315,7 +315,7 @@
 							<table>
                                 <tr><td><label>Stored Addresses: </label></td>
                                 <td><select id="dropdown-Addresses" onchange="addAddress('input-', 'dropdown-Addresses')"> 
-                                    <option>Choose an existing address</option>
+                                    <option value = 0>Choose an existing address</option>
                                 </select></td>
                                 <td>
                                 <div id="addTCMember" onclick="clearAddress('input-', 'dropdown-Addresses')">Clear</div>

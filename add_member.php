@@ -48,23 +48,22 @@
                     'Details_People_Carrier':       document.getElementById('dropdown-Details_People_Carrier').value,
                     'Details_Assistant':            document.getElementById('dropdown-Details_Assistant').value,
                     'Details_Travelcard':           document.getElementById('dropdown-Details_Travelcard').value,
-                    'Reasons_Transport':            document.getElementById('boolean-Reasons_Transport').checked,
-                    'Reasons_Bus_Stop':             document.getElementById('boolean-Reasons_Bus_Stop').checked,
-                    'Reasons_Anxiety':              document.getElementById('boolean-Reasons_Anxiety').checked,
-                    'Reasons_Door':                 document.getElementById('boolean-Reasons_Door').checked,
-                    'Reasons_Handrails':            document.getElementById('boolean-Reasons_Handrails').checked,
-                    'Reasons_Lift':                 document.getElementById('boolean-Reasons_Lift').checked,
-                    'Reasons_Level_Floors':         document.getElementById('boolean-Reasons_Level_Floors').checked,
-                    'Reasons_Low_Steps':            document.getElementById('boolean-Reasons_Low_Steps').checked,
-                    'Reasons_Assistance':           document.getElementById('boolean-Reasons_Assistance').checked,
-                    'Reasons_Board_Time':           document.getElementById('boolean-Reasons_Board_Time').checked,
-                    'Reasons_Wheelchair_Access':    document.getElementById('boolean-Reasons_Wheelchair_Access').checked,
+                    'Reasons_Transport':            String(document.getElementById('boolean-Reasons_Transport').checked),
+                    'Reasons_Bus_Stop':             String(document.getElementById('boolean-Reasons_Bus_Stop').checked),
+                    'Reasons_Anxiety':              String(document.getElementById('boolean-Reasons_Anxiety').checked),
+                    'Reasons_Door':                 String(document.getElementById('boolean-Reasons_Door').checked),
+                    'Reasons_Handrails':            String(document.getElementById('boolean-Reasons_Handrails').checked),
+                    'Reasons_Lift':                 String(document.getElementById('boolean-Reasons_Lift').checked),
+                    'Reasons_Level_Floors':         String(document.getElementById('boolean-Reasons_Level_Floors').checked),
+                    'Reasons_Low_Steps':            String(document.getElementById('boolean-Reasons_Low_Steps').checked),
+                    'Reasons_Assistance':           String(document.getElementById('boolean-Reasons_Assistance').checked),
+                    'Reasons_Board_Time':           String(document.getElementById('boolean-Reasons_Board_Time').checked),
+                    'Reasons_Wheelchair_Access':    String(document.getElementById('boolean-Reasons_Wheelchair_Access').checked),
                     'Reasons_Other':                document.getElementById('input-Reasons_Other').value
                 };
 
                 if (is_edit == '1') {
                     form_data['TC_Member_ID'] = '<?php echo $id; ?>';
-                    alert(JSON.stringify(form_data));
 
                     $.ajax({
                         type: "POST",
@@ -75,6 +74,8 @@
                         },
                         dataType: "json",
                         success: function(returned_data) {
+                            alert(JSON.stringify(form_data));
+                            alert(JSON.stringify(returned_data));
                             window.location = 'index.php';
                         }
                     });
@@ -340,7 +341,7 @@
 							<table>
 							 	<tr><td><label>Stored Addresses: </label></td>
                                 <td><select id="dropdown-Addresses" onchange="addAddress('input-', 'dropdown-Addresses')"> 
-                                    <option>Choose an existing address</option>
+                                    <option value = 0>Choose an existing address</option>
                                 </select></td>
                                 <td>
                                 <div id="addTCMember" onclick="clearAddress('input-', 'dropdown-Addresses')">Clear</div>
@@ -431,17 +432,17 @@
 						<fieldset id="serviceReasons">
 							<legend>Please tick all the boxes that apply to show the reasons why you need to use the service.</legend>
 							<table>
-								<tr><td><label>Public transport is not available to me </label></td><td><input type="checkbox" id="boolean-Reasons_Transport" value="1"><br></td></tr>
-								<tr><td><label>I need to feel reassurance that the bus will stop when required </label></td><td><input type="checkbox" id="boolean-Reasons_Bus_Stop" value="2"><br></td></tr>
-								<tr><td><label>I have anxiety about using public transport </label></td><td><input type="checkbox" id="boolean-Reasons_Anxiety" value="3"><br></td></tr>
-								<tr><td><label>I need a door to door service </label></td><td><input type="checkbox" id="boolean-Reasons_Door" value="4"><br></td></tr>
-								<tr><td><label>I need additional handrails and grips </label></td><td><input type="checkbox" id="boolean-Reasons_Handrails" value="5"><br></td></tr>
-								<tr><td><label>I need to use a passenger lift to access the bus </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" value="6"><br></td></tr>
-								<tr><td><label>I need the floors to be level </label></td><td><input type="checkbox" id="boolean-Reasons_Level_Floors" value="7"><br></td></tr>
-								<tr><td><label>I need low steps to board and exit from the bus </label></td><td><input type="checkbox" id="boolean-Reasons_Low_Steps" value="8"><br></td></tr>
-								<tr><td><label>I need personal assistance </label></td><td><input type="checkbox" id="boolean-Reasons_Assistance" value="9"><br></td></tr>
-								<tr><td><label>I need time to board and exit form the bus</label></td><td><input type="checkbox" id="boolean-Reasons_Board_Time" value="10"><br></td></tr>
-								<tr><td><label>I need wheelchair access and restraining systems for my chair and myself</label></td><td><input type="checkbox" id="boolean-Reasons_Wheelchair_Access" value="11"></td></tr>
+								<tr><td><label>Public transport is not available to me </label></td><td><input type="checkbox" id="boolean-Reasons_Transport" ><br></td></tr>
+								<tr><td><label>I need to feel reassurance that the bus will stop when required </label></td><td><input type="checkbox" id="boolean-Reasons_Bus_Stop" ><br></td></tr>
+								<tr><td><label>I have anxiety about using public transport </label></td><td><input type="checkbox" id="boolean-Reasons_Anxiety" ><br></td></tr>
+								<tr><td><label>I need a door to door service </label></td><td><input type="checkbox" id="boolean-Reasons_Door" ><br></td></tr>
+								<tr><td><label>I need additional handrails and grips </label></td><td><input type="checkbox" id="boolean-Reasons_Handrails" v><br></td></tr>
+								<tr><td><label>I need to use a passenger lift to access the bus </label></td><td><input type="checkbox" id="boolean-Reasons_Lift" ><br></td></tr>
+								<tr><td><label>I need the floors to be level </label></td><td><input type="checkbox" id="boolean-Reasons_Level_Floors" ><br></td></tr>
+								<tr><td><label>I need low steps to board and exit from the bus </label></td><td><input type="checkbox" id="boolean-Reasons_Low_Steps" ><br></td></tr>
+								<tr><td><label>I need personal assistance </label></td><td><input type="checkbox" id="boolean-Reasons_Assistance" ><br></td></tr>
+								<tr><td><label>I need time to board and exit form the bus</label></td><td><input type="checkbox" id="boolean-Reasons_Board_Time" ><br></td></tr>
+								<tr><td><label>I need wheelchair access and restraining systems for my chair and myself</label></td><td><input type="checkbox" id="boolean-Reasons_Wheelchair_Access" ></td></tr>
 								<tr><td><label>Other: </label><input type="text" id="input-Reasons_Other"/> </br></td></tr>
 							</table>
 						</fieldset>

@@ -175,8 +175,8 @@ switch ($type) {
 		echo json_encode($rdata);
 		break;
 
-	case 'editTCMemeber':
-		$rdata = editTCMemeber($mysqli,$data);
+	case 'editTCMember':
+		$rdata = editTCMember($mysqli,$data);
 		echo json_encode($rdata);
 		break;
 
@@ -1162,7 +1162,7 @@ function editJourney($mysqli,$Journey){
 	return 'success';
 }
 
-function editTCMemeber($mysqli, $TC_Member){
+function editTCMember($mysqli, $TC_Member){
 	if($TC_Member['Address_ID']>0){
 		$Address_ID = $TC_Member['Address_ID'];
 	}
