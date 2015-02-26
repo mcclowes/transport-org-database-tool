@@ -487,12 +487,12 @@
 
             function fillDefault() {
 
-                document.getElementById('dropdown-Pickups').value = 43;
+                document.getElementById('dropdown-Pickups').value = 1;
                 document.getElementById('input-Pickup_Line1').value = 'Weardale Hub';
                 document.getElementById('input-Pickup_Line2').value = '85b Front Street';
                 document.getElementById('input-Pickup_Line3').value = 'Stanhope';
                 document.getElementById('input-Pickup_Line4').value = 'County Durham';
-                document.getElementById('input-Pickup_Line5').value = '';
+                document.getElementById('input-Pickup_Line5').value = 'UK';
                 document.getElementById('input-Pickup_Post_Code').value = 'DL13 2UB';
                 document.getElementById('input-Pickup_Time').placeholder = 'Please enter the start time, eg. 14:00';
 
