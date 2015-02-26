@@ -198,7 +198,8 @@
                     	for(var i = 0; i < returned_data.length; i++) {
                     		var item = document.createElement("option");
                     		item.textContent = returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ' (' + returned_data[i]['Post_Code'] + ')';
-                    		item.setAttribute('info', returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ', ' + returned_data[i]['Tel_No'] + '.</br>Emergency contact info: ' + returned_data[i]['Emergency_Name'] + ', ' + returned_data[i]['Emergency_Tel'] + ' (' + returned_data[i]['Emergency_Relationship'] + ').');
+                    		item.setAttribute('info', returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ', ' + returned_data[i]['Tel_No'] + '. Emergency contact info: ' + returned_data[i]['Emergency_Name'] + ', ' + returned_data[i]['Emergency_Tel'] + ' (' + returned_data[i]['Emergency_Relationship'] + ').');
+                    		//item.setAttribute('info', returned_data[i]['fName'] + ' ' + returned_data[i]['sName'] + ', ' + returned_data[i]['Tel_No'] + '.</br>Emergency contact info: ' + returned_data[i]['Emergency_Name'] + ', ' + returned_data[i]['Emergency_Tel'] + ' (' + returned_data[i]['Emergency_Relationship'] + ').');
                     		item.value = returned_data[i]['TC_Member_ID'];
                     		item.id = 'TC_Member_option_' + returned_data[i]['TC_Member_ID'];
                     		dropdown.appendChild(item);
@@ -363,7 +364,8 @@
 							button.innerHTML = '<div class="button" id="delete-Member_' + x + '" onclick="deleteMember(' + x + ')">X</div>';
 							
 							var cell = row.insertCell(1);
-							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'] + '.</br>Emergency contact info: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
+							cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'] + '. Emergency contact info: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
+							//cell.innerHTML = returned_data['Members'][x]['fName'] + ' ' + returned_data['Members'][x]['sName'] + ', ' + returned_data['Members'][x]['Tel_No'] + '.</br>Emergency contact info: ' + returned_data['Members'][x]['Emergency_Name'] + ', ' + returned_data['Members'][x]['Emergency_Tel'] + ' (' + returned_data['Members'][x]['Emergency_Relationship'] + ').';
 							cell.id = 'Member_' + x;
 						}
 						document.getElementById('dropdown-Addresses').value = returned_data['Address_ID'];
