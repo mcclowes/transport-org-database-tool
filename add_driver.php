@@ -46,7 +46,7 @@
                     'Is_Volunteer':       			document.getElementById('boolean-Volunteer').value
                 };
                 if (is_edit == '1') {
-                    form_data['Driver_ID'] = '<?php echo $id; ?>';  
+                    form_data['Driver_ID'] = '<?php if($is_edit) {echo $id;} ?>';  
                     $.ajax({
                         type: "POST",
                         url:"MySQL_Functions.php",
@@ -277,7 +277,7 @@
                 var i = 0;
                 var is_edit = '<?php echo $is_edit; ?>';
                 if (is_edit == '1') {
-                    Driver_ID = '<?php echo $id; ?>';
+                    Driver_ID = '<?php if($is_edit) {echo $id;} ?>';
                     populateEditFields(Driver_ID);
                 }
             }

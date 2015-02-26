@@ -72,7 +72,7 @@
 
             
                 if (is_edit == '1') {
-                    form_data['Journey_ID'] = '<?php echo $id; ?>';  
+                    form_data['Journey_ID'] = '<?php if($is_edit) {echo $id;} ?>';  
 
                     $.ajax({
                         type: "POST",
@@ -434,7 +434,7 @@
 
                 var start = "";
 
-                if(document.getElementById('addTCMember').innerHTML == 'Add start') {
+                if(document.getElementById('addTCMember').innerHTML == 'Add Pickup') {
                     document.getElementById('addTCMember').innerHTML = 'Add pickup';
                     document.getElementById('legendChange').innerHTML = 'Pickup Address';
                     start = 'Start address: ';
@@ -551,7 +551,7 @@
 				var is_edit = '<?php echo $is_edit; ?>';
 				if (is_edit == '1') {
 					document.getElementById('addTCMember').innerHTML = 'Add pickup';
-					journey_ID = '<?php echo $id; ?>';
+					journey_ID = '<?php if($is_edit) {echo $id;} ?>';
 					populateEditFields(journey_ID);
 				}
 			}
@@ -651,7 +651,7 @@
                                 <tr><td><label>Pickup Time: </label></td><td><input type="text" id="input-Pickup_Time"/> <td></tr>
                                 <tr>
                                 <td><label>Pickup Note: </label></td><td><input type="text" id="input-Pickup_Note" placeholder="E.g. Number of people to collect at this location"/> </td>
-                                <td><div id="addTCMember" onclick="addPickupField()">Add start</div> </td>
+                                <td><div id="addTCMember" onclick="addPickupField()">Add Pickup</div> </td>
                                 </tr>
 							</table>
 							
@@ -684,9 +684,9 @@
 								</select><td>
                                 <td><div id="scheduleButton" class="button" onclick="showVCal('vehicle')">Show Schedule</div></td></tr>
                                 <tr><td><label>Keys to collect: </label></td><td><input type="text" id="input-Keys_To_Collect" placeholder="E.g. Weardale Hub at 8.45am"/> <td></tr>
-                                <tr><td><label>Price quoted: </label></td><td><input type="text" id="input-Quote"/> <td></tr>
+                                <tr><td><label>Price quoted:    £</label></td><td><input type="text" id="input-Quote" placeholder="0.00"/> <td></tr>
                                 <tr><td><label>Miles/KMs run: </label></td><td><input type="text" id="input-Distance_Run"/> <td></tr>
-                                <tr><td><label>Invoiced cost: </label></td><td><input type="text" id="input-Invoiced_Cost"/> <td></tr>
+                                <tr><td><label>Invoiced cost:   £</label></td><td><input type="text" id="input-Invoiced_Cost" placeholder="0.00"/> <td></tr>
                                 <tr><td><label>Invoice sent on: </label></td><td><input type="date" id="date-Invoice_Sent"/> <td></tr>
                                 <tr><td><label>Invoice paid on: </label></td><td><input type="date" id="date-Invoice_Paid"/> <td></tr>
                             </table>

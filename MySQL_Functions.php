@@ -237,10 +237,10 @@ switch ($type) {
 }
 
 function connect(){
-	$servername = "mysql.dur.ac.uk";
-	$dbname = "Xgfjl56_WCT";
-	$user = "gfjl56";
-	$pass = "houston3";
+	$servername = "localhost";
+	$dbname = "WCT";
+	$user = "JMS";
+	$pass = "password";
 	// Create connection
 	$conn = new mysqli($servername, $user, $pass, $dbname);
 	// Check connection

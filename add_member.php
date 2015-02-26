@@ -63,7 +63,7 @@
                 };
 
                 if (is_edit == '1') {
-                    form_data['TC_Member_ID'] = '<?php echo $id; ?>';
+                    form_data['TC_Member_ID'] = '<?php if($is_edit) {echo $id;} ?>';
 
                     $.ajax({
                         type: "POST",
@@ -128,17 +128,28 @@
                         document.getElementById('dropdown-Details_People_Carrier').value = returned_data['Details_People_Carrier'];
                         document.getElementById('dropdown-Details_Assistant').value = returned_data['Details_Assistant'];
                         document.getElementById('dropdown-Details_Travelcard').value = returned_data['Details_Travelcard'];
-                        document.getElementById('boolean-Reasons_Transport').value = returned_data['Reasons_Transport'];
-                        document.getElementById('boolean-Reasons_Bus_Stop').value = returned_data['Reasons_Bus_Stop'];
-                        document.getElementById('boolean-Reasons_Anxiety').value = returned_data['Reasons_Anxiety'];
-                        document.getElementById('boolean-Reasons_Door').value = returned_data['Reasons_Door'];
-                        document.getElementById('boolean-Reasons_Handrails').value = returned_data['Reasons_Handrails'];
-                        document.getElementById('boolean-Reasons_Lift').value = returned_data['Reasons_Lift'];
-                        document.getElementById('boolean-Reasons_Level_Floors').value = returned_data['Reasons_Level_Floors'];
-                        document.getElementById('boolean-Reasons_Low_Steps').value = returned_data['Reasons_Low_Steps'];
-                        document.getElementById('boolean-Reasons_Assistance').value = returned_data['Reasons_Assistance'];
-                        document.getElementById('boolean-Reasons_Board_Time').value = returned_data['Reasons_Board_Time'];
-                        document.getElementById('boolean-Reasons_Wheelchair_Access').value = returned_data['Reasons_Wheelchair_Access'];
+                        if(returned_data['Reasons_Transport']=="true")
+                            {document.getElementById('boolean-Reasons_Transport').checked = true;}
+                        if(returned_data['Reasons_Bus_Stop']=="true")
+                            {document.getElementById('boolean-Reasons_Bus_Stop').checked = true;}
+                        if(returned_data['Reasons_Anxiety']=="true")
+                            {document.getElementById('boolean-Reasons_Anxiety').checked = true;}
+                        if(returned_data['Reasons_Door']=="true")
+                            {document.getElementById('boolean-Reasons_Door').checked = true;}
+                        if(returned_data['Reasons_Handrails']=="true")
+                            {document.getElementById('boolean-Reasons_Handrails').checked = true;}
+                        if(returned_data['Reasons_Lift']=="true")
+                            {document.getElementById('boolean-Reasons_Lift').checked = true;}
+                        if(returned_data['Reasons_Level_Floors']=="true")
+                            {document.getElementById('boolean-Reasons_Level_Floors').checked = true;}
+                        if(returned_data['Reasons_Low_Steps']=="true")
+                            {document.getElementById('boolean-Reasons_Low_Steps').checked = true;}
+                        if(returned_data['Reasons_Assistance']=="true")
+                            {document.getElementById('boolean-Reasons_Assistance').checked = true;}
+                        if(returned_data['Reasons_Board_Time']=="true")
+                            {document.getElementById('boolean-Reasons_Board_Time').checked = true;}
+                        if(returned_data['Reasons_Wheelchair_Access']=="true")
+                            {document.getElementById('boolean-Reasons_Wheelchair_Access').checked = true;}
                         document.getElementById('input-Reasons_Other').value = returned_data['Reasons_Other'];
                     }
                 });
@@ -309,7 +320,7 @@
                 var i = 0;
 
                 if (is_edit == '1') {
-                    TC_Member_ID = '<?php echo $id; ?>';
+                    TC_Member_ID = '<?php if($is_edit) {echo $id;} ?>';
                     populateEditFields(TC_Member_ID);
                 }
             }

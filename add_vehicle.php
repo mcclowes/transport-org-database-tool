@@ -39,7 +39,7 @@
                 };
 
                 if (is_edit == '1') {
-                    form_data['Vehicle_ID'] = '<?php echo $id; ?>';  
+                    form_data['Vehicle_ID'] = '<?php if($is_edit) {echo $id;} ?>';  
 
                     $.ajax({
                         type: "POST",
@@ -103,7 +103,7 @@
    
                 var is_edit = '<?php echo $is_edit; ?>';
                 if (is_edit == '1') {
-                    Vehicle_ID = '<?php echo $id; ?>';
+                    Vehicle_ID = '<?php if($is_edit) {echo $id;} ?>';
                     populateEditFields(Vehicle_ID);
                 }
             }

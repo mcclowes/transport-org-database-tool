@@ -76,7 +76,7 @@
                     'Concerned_Other':				document.getElementById('input-Concerned_Other').value
                 };
                 if (is_edit == '1') {
-                    form_data['Group_ID'] = '<?php echo $id; ?>';  
+                    form_data['Group_ID'] = '<?php if($is_edit) {echo $id;} ?>';  
 
                     $.ajax({
                         type: "POST",
@@ -138,34 +138,59 @@
                         document.getElementById('input-Invoice_Post_Code').value = returned_data['Invoice']['Post_Code'];
                         document.getElementById('input-Emergency_Name').value = returned_data['Emergency_Name'];
                         document.getElementById('input-Emergency_Tel').value = returned_data['Emergency_Tel'];   
-                        document.getElementById('boolean-Profitable').value = returned_data['Profitable'];
-                        document.getElementById('boolean-Community').value = returned_data['Community'];
-                        document.getElementById('boolean-Social').value = returned_data['Social'];
-                        document.getElementById('boolean-Statutory').value = returned_data['Statutory'];
+                       if(returned_data['Profitable']=="true")
+                            {document.getElementById('boolean-Profitable').value = returned_data['Profitable'];}
+                       if(returned_data['Community']=="true")
+                            {document.getElementById('boolean-Community').value = returned_data['Community'];}
+                       if(returned_data['Social']=="true")
+                            {document.getElementById('boolean-Social').value = returned_data['Social'];}
+                       if(returned_data['Statutory']=="true")
+                            {document.getElementById('boolean-Statutory').value = returned_data['Statutory'];}
                         document.getElementById('input-Charity_No').value = returned_data['Charity_No'];
                         document.getElementById('input-Org_Aim').value = returned_data['Org_Aim'];
-                        document.getElementById('boolean-Activities_Education').value = returned_data['Activities_Education'];
-                        document.getElementById('boolean-Activities_Recreation').value = returned_data['Activities_Recreation'];
-                        document.getElementById('boolean-Activities_Health').value = returned_data['Activities_Health'];
-                        document.getElementById('boolean-Activities_Religion').value = returned_data['Activities_Religion'];
-                        document.getElementById('boolean-Activities_Social').value = returned_data['Activities_Social'];
-                        document.getElementById('boolean-Activities_Inclusion').value = returned_data['Activities_Inclusion'];
+                       if(returned_data['Activities_Education']=="true")
+                            {document.getElementById('boolean-Activities_Education').value = returned_data['Activities_Education'];}
+                       if(returned_data['Activities_Recreation']=="true")
+                            {document.getElementById('boolean-Activities_Recreation').value = returned_data['Activities_Recreation'];}
+                       if(returned_data['Activities_Health']=="true")
+                            {document.getElementById('boolean-Activities_Health').value = returned_data['Activities_Health'];}
+                       if(returned_data['Activities_Religion']=="true")
+                            {document.getElementById('boolean-Activities_Religion').value = returned_data['Activities_Religion'];}
+                       if(returned_data['Activities_Social']=="true")
+                            {document.getElementById('boolean-Activities_Social').value = returned_data['Activities_Social'];}
+                       if(returned_data['Activities_Inclusion']=="true")
+                            {document.getElementById('boolean-Activities_Inclusion').value = returned_data['Activities_Inclusion'];}
                         document.getElementById('input-Activities_Other').value = returned_data['Activities_Other'];
-                        document.getElementById('boolean-Concerned_Physical').value = returned_data['Concerned_Physical'];
-                        document.getElementById('boolean-Concerned_Learning').value = returned_data['Concerned_Learning'];
-                        document.getElementById('boolean-Concerned_Mental_Health').value = returned_data['Concerned_Mental_Health'];
-                        document.getElementById('boolean-Concerned_Ethnic').value = returned_data['Concerned_Ethnic'];
-                        document.getElementById('boolean-Concerned_Alcohol').value = returned_data['Concerned_Alcohol'];
-                        document.getElementById('boolean-Concerned_Drug').value = returned_data['Concerned_Drug'];
-                        document.getElementById('boolean-Concerned_HIV_AIDS').value = returned_data['Concerned_HIV_AIDS'];
-                        document.getElementById('boolean-Concerned_Socially_Isolated').value = returned_data['Concerned_Socially_Isolated'];
-                        document.getElementById('boolean-Concerned_Dementia').value = returned_data['Concerned_Dementia'];
-                        document.getElementById('boolean-Concerned_Elderly').value = returned_data['Concerned_Elderly'];
-                        document.getElementById('boolean-Concerned_Pre_School').value = returned_data['Concerned_Pre_School'];
-                        document.getElementById('boolean-Concerned_Young').value = returned_data['Concerned_Young'];
-                        document.getElementById('boolean-Concerned_Women').value = returned_data['Concerned_Women'];
-                        document.getElementById('boolean-Concerned_Health').value = returned_data['Concerned_Health'];
-                        document.getElementById('boolean-Concerned_Rurally_Isolated').value = returned_data['Concerned_Rurally_Isolated'];
+                       if(returned_data['Concerned_Physical']=="true")
+                            {document.getElementById('boolean-Concerned_Physical').value = returned_data['Concerned_Physical'];}
+                       if(returned_data['Concerned_Learning']=="true")
+                            {document.getElementById('boolean-Concerned_Learning').value = returned_data['Concerned_Learning'];}
+                       if(returned_data['Concerned_Mental_Health']=="true")
+                            {document.getElementById('boolean-Concerned_Mental_Health').value = returned_data['Concerned_Mental_Health'];}
+                       if(returned_data['Concerned_Ethnic']=="true")
+                            {document.getElementById('boolean-Concerned_Ethnic').value = returned_data['Concerned_Ethnic'];}
+                       if(returned_data['Concerned_Alcohol']=="true")
+                            {document.getElementById('boolean-Concerned_Alcohol').value = returned_data['Concerned_Alcohol'];}
+                       if(returned_data['Concerned_Drug']=="true")
+                            {document.getElementById('boolean-Concerned_Drug').value = returned_data['Concerned_Drug'];}
+                       if(returned_data['Concerned_HIV_AIDS']=="true")
+                            {document.getElementById('boolean-Concerned_HIV_AIDS').value = returned_data['Concerned_HIV_AIDS'];}
+                       if(returned_data['Concerned_Socially_Isolated']=="true")
+                            {document.getElementById('boolean-Concerned_Socially_Isolated').value = returned_data['Concerned_Socially_Isolated'];}
+                       if(returned_data['Concerned_Dementia']=="true")
+                            {document.getElementById('boolean-Concerned_Dementia').value = returned_data['Concerned_Dementia'];}
+                       if(returned_data['Concerned_Elderly']=="true")
+                            {document.getElementById('boolean-Concerned_Elderly').value = returned_data['Concerned_Elderly'];}
+                       if(returned_data['Concerned_Pre_School']=="true")
+                            {document.getElementById('boolean-Concerned_Pre_School').value = returned_data['Concerned_Pre_School'];}
+                       if(returned_data['Concerned_Young']=="true")
+                            {document.getElementById('boolean-Concerned_Young').value = returned_data['Concerned_Young'];}
+                       if(returned_data['Concerned_Women']=="true")
+                            {document.getElementById('boolean-Concerned_Women').value = returned_data['Concerned_Women'];}
+                       if(returned_data['Concerned_Health']=="true")
+                            {document.getElementById('boolean-Concerned_Health').value = returned_data['Concerned_Health'];}
+                       if(returned_data['Concerned_Rurally_Isolated']=="true")
+                            {document.getElementById('boolean-Concerned_Rurally_Isolated').value = returned_data['Concerned_Rurally_Isolated'];}
                         document.getElementById('input-Concerned_Other').value = returned_data['Concerned_Other'];
                     }
                 });
@@ -335,7 +360,7 @@
                 var i = 0;
                 var is_edit = '<?php echo $is_edit; ?>';
                 if (is_edit == '1') {
-                    Group_ID = '<?php echo $id; ?>';
+                    Group_ID = '<?php if($is_edit) {echo $id;} ?>';
                     populateEditFields(Group_ID);
                 }
             }
