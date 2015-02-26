@@ -31,7 +31,6 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                        //alert(JSON.stringify(returned_data));
                         $('#Nickname').text(returned_data['Nickname']);
                         $('#Licence').text(returned_data['Registration']);
                         $('#Make').text(returned_data['Make']);

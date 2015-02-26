@@ -45,10 +45,8 @@
                     'DBS_Issued':       		    document.getElementById('date-DBS_Issue_Date').value,
                     'Is_Volunteer':       			document.getElementById('boolean-Volunteer').value
                 };
-                alert(JSON.stringify(is_edit));
                 if (is_edit == '1') {
                     form_data['Driver_ID'] = '<?php echo $id; ?>';  
-                    alert(JSON.stringify('editting'));
                     $.ajax({
                         type: "POST",
                         url:"MySQL_Functions.php",
@@ -63,7 +61,6 @@
                     });
                 }
                 else{
-                    alert(JSON.stringify('adding'));
                     $.ajax({
                         type: "POST",
                         url:"MySQL_Functions.php",

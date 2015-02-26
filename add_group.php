@@ -118,7 +118,6 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                        //alert(JSON.stringify(returned_data));
                         document.getElementById('input-Name').value = returned_data['Name'];
                         document.getElementById('input-Tel_No').value = returned_data['Address_Tel'];
                         document.getElementById('input-Email').value = returned_data['Invoice_Email'];

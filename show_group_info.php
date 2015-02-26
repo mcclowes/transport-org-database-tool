@@ -31,7 +31,6 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                        //alert(JSON.stringify(returned_data));
                         $('#Name').text(returned_data['Name']);
                         $('#Tel_No').text(returned_data['Address_Tel']);
                         $('#Email').text(returned_data['Invoice_Email']);

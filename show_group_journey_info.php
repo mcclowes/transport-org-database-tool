@@ -33,7 +33,6 @@
                     },
                     dataType: "json",
                     success: function(returned_data) {
-                        //alert(JSON.stringify(returned_data));
                         $('#fName').text(returned_data['fName']);
                         $('#sName').text(returned_data['sName']);
                         $('#Tel_No').text(returned_data['Tel_No']);

@@ -70,7 +70,6 @@
                 
                 form_data['Pickups'] = pickups;
 
-                //alert(JSON.stringify(form_data));
             
                 if (is_edit == '1') {
                     form_data['Journey_ID'] = '<?php echo $id; ?>';  
@@ -517,7 +516,6 @@
             function showVCal(type) {
 
                 var jDate = document.getElementById('date-Journey_Date').value;
-                //alert(jDate);
                 var calUrl = "calendar_window.php?day=";
 
 
