@@ -38,18 +38,36 @@
                     'Section_19_Due':				document.getElementById('date-Permit_Expiry').value
                 };
 
-                $.ajax({
-                    type: "POST",
-                    url:"MySQL_Functions.php",
-                    data: {
-                        'form_type': 'addVehicle',
-                        'form_data': form_data
-                    },
-                    dataType: "json",
-                    success: function(returned_data) {
-                        window.location = 'index.php';
-                    }
-                });
+                if (is_edit == '1') {
+                    form_data['Vehicle_ID'] = '<?php echo $id; ?>';  
+
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'editVehicle',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            window.location = 'index.php';
+                        }
+                    });
+                }
+                else{
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'addVehicle',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            window.location = 'index.php';
+                        }
+                    });
+                }
             }
 
             function populateEditFields(Vehicle_ID) {

@@ -18,6 +18,7 @@
         ?>
 
         <script type="text/javascript">
+            is_edit = '<?php echo $is_edit; ?>';
             function submit() {
                 form_data = {
                     'Name':                         document.getElementById('input-Name').value,
@@ -74,19 +75,36 @@
                     'Concerned_Rurally_Isolated':	document.getElementById('boolean-Concerned_Rurally_Isolated').checked,
                     'Concerned_Other':				document.getElementById('input-Concerned_Other').value
                 };
-                
-                $.ajax({
-                    type: "POST",
-                    url:"MySQL_Functions.php",
-                    data: {
-                        'form_type': 'addGroup',
-                        'form_data': form_data
-                    },
-                    dataType: "json",
-                    success: function(returned_data) {
-                        window.location = 'index.php';
-                    }
-                });
+                if (is_edit == '1') {
+                    form_data['Group_ID'] = '<?php echo $id; ?>';  
+
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'editGroup',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            window.location = 'index.php';
+                        }
+                    });
+                }
+                else{
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'addGroup',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            window.location = 'index.php';
+                        }
+                    });
+                }
             }
 
 
@@ -121,7 +139,7 @@
                         document.getElementById('input-Invoice_Post_Code').value = returned_data['Invoice']['Post_Code'];
                         document.getElementById('input-Emergency_Name').value = returned_data['Emergency_Name'];
                         document.getElementById('input-Emergency_Tel').value = returned_data['Emergency_Tel'];   
-                        document.getElementById('input-Profitable').value = returned_data['Profitable'];
+                        document.getElementById('boolean-Profitable').value = returned_data['Profitable'];
                         document.getElementById('boolean-Community').value = returned_data['Community'];
                         document.getElementById('boolean-Social').value = returned_data['Social'];
                         document.getElementById('boolean-Statutory').value = returned_data['Statutory'];

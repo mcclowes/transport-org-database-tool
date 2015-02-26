@@ -18,6 +18,7 @@
         ?>
 
         <script type="text/javascript">
+            is_edit = '<?php echo $is_edit; ?>';
             function submit() {
                 form_data = {
                     'fName':                        document.getElementById('input-fName').value,
@@ -44,19 +45,38 @@
                     'DBS_Issued':       		    document.getElementById('date-DBS_Issue_Date').value,
                     'Is_Volunteer':       			document.getElementById('boolean-Volunteer').value
                 };
-                
-                $.ajax({
-                    type: "POST",
-                    url:"MySQL_Functions.php",
-                    data: {
-                        'form_type': 'addDriver',
-                        'form_data': form_data
-                    },
-                    dataType: "json",
-                    success: function(returned_data) {
-                        window.location = 'index.php';
-                    }
-                });
+                alert(JSON.stringify(is_edit));
+                if (is_edit == '1') {
+                    form_data['Driver_ID'] = '<?php echo $id; ?>';  
+                    alert(JSON.stringify('editting'));
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'editDriver',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            window.location = 'index.php';
+                        }
+                    });
+                }
+                else{
+                    alert(JSON.stringify('adding'));
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'addDriver',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            window.location = 'index.php';
+                        }
+                    });
+                }
             }
 
             function populateEditFields(Driver_ID) {

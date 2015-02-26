@@ -18,7 +18,7 @@
         ?>
 
         <script type="text/javascript">
-            var is_edit = '<?php echo $is_edit; ?>';
+            is_edit = '<?php echo $is_edit; ?>';
             
             function submit() {
                 form_data = {
@@ -42,7 +42,7 @@
                     'Details_Wheelchair_Type':      document.getElementById('dropdown-Details_Wheelchair_Type').value,
                     'Details_Wheelchair_Seat':      document.getElementById('dropdown-Details_Wheelchair_Seat').value,
                     'Details_Scooter':              document.getElementById('dropdown-Details_Scooter').value,
-                    'Details_Mobility_Aid':         document.getElementById('dropdown-Details_Mobility_Aid').value,
+                    'Details_Mobility_Aid':         document.getElementById('input-Details_Mobility_Aid').value,
                     'Details_Shopping_Trolley':     document.getElementById('dropdown-Details_Shopping_Trolley').value,
                     'Details_Guide_Dog':            document.getElementById('dropdown-Details_Guide_Dog').value,
                     'Details_People_Carrier':       document.getElementById('dropdown-Details_People_Carrier').value,
@@ -61,19 +61,38 @@
                     'Reasons_Wheelchair_Access':    document.getElementById('boolean-Reasons_Wheelchair_Access').checked,
                     'Reasons_Other':                document.getElementById('input-Reasons_Other').value
                 };
-                
-                $.ajax({
-                    type: "POST",
-                    url:"MySQL_Functions.php",
-                    data: {
-                        'form_type': 'addTCMember',
-                        'form_data': form_data
-                    },
-                    dataType: "json",
-                    success: function(returned_data) {
-                        $('#result').replaceWith('<div id="result">'+returned_data+'</div>');
-                    }
-                });
+
+                if (is_edit == '1') {
+                    form_data['TC_Member_ID'] = '<?php echo $id; ?>';
+                    alert(JSON.stringify(form_data));
+
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'editTCMember',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            window.location = 'index.php';
+                        }
+                    });
+                }
+                else{
+                    $.ajax({
+                        type: "POST",
+                        url:"MySQL_Functions.php",
+                        data: {
+                            'form_type': 'addTCMember',
+                            'form_data': form_data
+                        },
+                        dataType: "json",
+                        success: function(returned_data) {
+                            $('#result').replaceWith('<div id="result">'+returned_data+'</div>');
+                        }
+                    });
+                }
             }
 
             function populateEditFields(TC_Member_ID) {
@@ -89,6 +108,7 @@
                         //alert(JSON.stringify(returned_data));
                         document.getElementById('input-fName').value = returned_data['fName'];
                         document.getElementById('input-sName').value = returned_data['sName'];
+                        document.getElementById('date-DOB').value = returned_data['DOB'];
                         document.getElementById('dropdown-Addresses').value = returned_data['Address_ID'];
                         document.getElementById('input-Line1').value = returned_data['Address']['Line1'];
                         document.getElementById('input-Line2').value = returned_data['Address']['Line2'];
@@ -100,13 +120,11 @@
                         document.getElementById('input-Emergency_Name').value = returned_data['Emergency_Name'];
                         document.getElementById('input-Emergency_Tel').value = returned_data['Emergency_Tel'];
                         document.getElementById('input-Emergency_Relationship').value = returned_data['Emergency_Relationship'];
-                        document.getElementById('input-Capacity_Note').value = returned_data['Seating_Configurations'];
-                        document.getElementById('date-DOB').value = returned_data['DOB'];
                         document.getElementById('dropdown-Details_Wheelchair').value = returned_data['Details_Wheelchair'];
                         document.getElementById('dropdown-Details_Wheelchair_Type').value = returned_data['Details_Wheelchair_Type'];
                         document.getElementById('dropdown-Details_Wheelchair_Seat').value = returned_data['Details_Wheelchair_Seat'];
                         document.getElementById('dropdown-Details_Scooter').value = returned_data['Details_Scooter'];
-                        document.getElementById('dropdown-Details_Mobility_Aid').value = returned_data['Details_Mobility_Aid'];
+                        document.getElementById('input-Details_Mobility_Aid').value = returned_data['Details_Mobility_Aid'];
                         document.getElementById('dropdown-Details_Shopping_Trolley').value = returned_data['Details_Shopping_Trolley'];
                         document.getElementById('dropdown-Details_Guide_Dog').value = returned_data['Details_Guide_Dog'];
                         document.getElementById('dropdown-Details_People_Carrier').value = returned_data['Details_People_Carrier'];
@@ -358,6 +376,7 @@
 								<tr><td><label>What type of wheelchair do you use? </label></td><td>
 								<select id="dropdown-Details_Wheelchair_Type"> 
 									<option>...</option> 
+                                    <option value="none">None</option> 
 									<option value="folding">Folding</option> 
 									<option value="fixed">Fixed</option> 
 									<option value="power">Power</option>
@@ -374,13 +393,7 @@
 									<option value="yes">Yes</option> 
 									<option value="no">No</option>
 								</select></td></tr>
-								<tr><td><label>Do you use a mobility aid?</label></td><td>
-								<!--<select id="dropdown-Details_Mobility_Aid" onchange='CheckMobility(this.value);'>-->
-								<select id="dropdown-Details_Mobility_Aid">
-									<option>...</option> <option value="wheelchair">Walking frame</option> <option value="zimmerframe">Walking stick</option> 
-									<option value="wheelchair">Crutches</option> <option value="zimmerframe">Tri-walker</option> <option value="wheelchair">4-Wheeled walker</option>
-									<option value="other">Other</option>
-								</select></td></tr>
+								<tr><td><label>Do you use a mobility aid?</label></td><td><input type="text" id="input-Details_Mobility_Aid"/></br></td></tr>
 								<tr><td><label>If shopping, do you use a shopping trolley?</label></td><td>
 								<select id="dropdown-Details_Shopping_Trolley"> 
 									<option>...</option> 

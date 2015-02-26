@@ -175,6 +175,26 @@ switch ($type) {
 		echo json_encode($rdata);
 		break;
 
+	case 'editTCMemeber':
+		$rdata = editTCMemeber($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
+	case 'editVehicle':
+		$rdata = editVehicle($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
+	case 'editDriver':
+		$rdata = editDriver($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
+	case 'editGroup':
+		$rdata = editGroup($mysqli,$data);
+		echo json_encode($rdata);
+		break;
+
 	case 'deleteJourney':
 		$rdata = deleteJourney($mysqli,$data);
 		echo json_encode($rdata);
@@ -312,7 +332,7 @@ function getVehicles($mysqli){
 	$Vehicle = array();
 
 	if($statement = $mysqli->prepare(" SELECT Vehicle_ID, Nickname, Registration, Make, Model, Colour, Capacity_Passengers, Tax_Due, MOT_Due, Inspection_Due,
-										 Service_Due, Tail_Service_Due, Section_19_No, Section_19_Due, Seating_Configurations FROM  Vehicles WHERE Deleted = 'false';")){
+										 Service_Due, Tail_Service_Due, Section_19_No, Section_19_Due, Seating_Configurations FROM  Vehicles WHERE Deleted = 'false' ORDER BY Nickname;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Vehicle_ID, $Nickname,$Registration,$Make,$Model,$Colour,$Capacity_Passengers,$Tax_Due,$MOT_Due,$Inspection_Due,
@@ -379,7 +399,7 @@ function getDrivers($mysqli){
 	$Drivers = array();
 	$Driver = array();
 	if($statement = $mysqli->prepare(" SELECT Driver_ID, fName, sName, Address_ID, Tel_No, Mobile_No, DOB, Licence_No, Licence_Expires, Licence_Points, DBS_No, DBS_Issued, 
-										Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer FROM  Drivers WHERE Deleted = 'false';")){
+										Emergency_Name, Emergency_Tel, Emergency_Relationship, Is_Volunteer FROM  Drivers WHERE Deleted = 'false' ORDER BY sName;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Driver_ID, $fName, $sName, $Address_ID, $Tel_No, $Mobile_No, $DOB, $Licence_No, $Licence_Expires, $Licence_Points, $DBS_No, $DBS_Issued, 
@@ -494,7 +514,7 @@ function getGroups($mysqli){
 	$Group = array();
 	$Groups = array();
 
-	if($statement = $mysqli->prepare(" SELECT Group_ID, Name, Tel FROM  Groups WHERE Deleted = 'false';")){
+	if($statement = $mysqli->prepare(" SELECT Group_ID, Name, Tel FROM  Groups WHERE Deleted = 'false' ORDER BY Name;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($Group_ID,$Name,$Tel);
@@ -614,7 +634,7 @@ function getGroupJourneys($mysqli){
 			$Journey['Vehicle_ID'] = $Vehicle_ID;
 			$Journey['Vehicle_Name'] = $Vehicle['Nickname'];
 			$Journey['Driver_ID'] = $Driver_ID;
-			$Journey['Driver_Name'] = $Driver['fName']+' '+$Driver['sName'];
+			$Journey['Driver_Name'] = $Driver['fName'].' '.$Driver['sName'];
 
 			array_push($Journeys, $Journey);
 			}
@@ -753,7 +773,7 @@ function getTCMember($mysqli, $TC_Member_ID){
 function getTCMembers($mysqli){
 	$TC_Member = array();
 	$TC_Members = array();
-	if($statement = $mysqli->prepare(" SELECT TC_Member_ID, fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship  FROM  TC_Members WHERE Deleted = 'false';")){
+	if($statement = $mysqli->prepare(" SELECT TC_Member_ID, fName, sName, Address_ID, Tel_No, Emergency_Name, Emergency_Tel, Emergency_Relationship  FROM  TC_Members WHERE Deleted = 'false' ORDER BY sName;")){
 		$statement->execute();
 		$statement->store_result();
 		$statement->bind_result($TC_Member_ID, $fName, $sName, $Address_ID, $Tel_No, $Emergency_Name, $Emergency_Tel, $Emergency_Relationship);
@@ -1140,7 +1160,101 @@ function editJourney($mysqli,$Journey){
 	}
 	
 	return 'success';
+}
 
+function editTCMemeber($mysqli, $TC_Member){
+	if($TC_Member['Address_ID']>0){
+		$Address_ID = $TC_Member['Address_ID'];
+	}
+	else{
+		$Address_ID = addAddress($mysqli,$TC_Member['Address']);
+	}
+
+	if( $statement = $mysqli->prepare("UPDATE TC_Members SET fName = ?,  sName = ?,  Address_ID = ?,  Tel_No = ?,  Emergency_Name = ?,  Emergency_Tel = ?,  Emergency_Relationship = ?,  DOB = ?, 
+										Details_Wheelchair = ?,  Details_Wheelchair_Type = ?,  Details_Wheelchair_Seat = ?,  Details_Scooter = ?,  Details_Mobility_Aid = ?,  Details_Shopping_Trolley = ?,  
+										Details_Guide_Dog = ?,  Details_People_Carrier = ?,  Details_Assistant = ?,  Details_Travelcard = ?,  Reasons_Transport = ?,  Reasons_Bus_Stop = ?,  Reasons_Anxiety = ?, 
+										Reasons_Door = ?,  Reasons_Handrails = ?,  Reasons_Lift = ?,  Reasons_Level_Floors = ?,  Reasons_Low_Steps = ?,  Reasons_Assistance = ?,  Reasons_Board_Time = ?, 
+										Reasons_Wheelchair_Access = ?,  Reasons_Other = ? WHERE TC_Member_ID = ?") ){
+
+		$statement->bind_param('ssisssssssssssssssssssssssssssi',
+								$TC_Member['fName'],$TC_Member['sName'], $Address_ID,$TC_Member['Tel_No'],$TC_Member['Emergency_Name'],$TC_Member['Emergency_Tel'], $TC_Member['Emergency_Relationship'], $TC_Member['DOB'],
+								$TC_Member['Details_Wheelchair'], $TC_Member['Details_Wheelchair_Type'], $TC_Member['Details_Wheelchair_Seat'], $TC_Member['Details_Scooter'], $TC_Member['Details_Mobility_Aid'], $TC_Member['Details_Shopping_Trolley'], 
+								$TC_Member['Details_Guide_Dog'], $TC_Member['Details_People_Carrier'], $TC_Member['Details_Assistant'], $TC_Member['Details_Travelcard'],$TC_Member['Reasons_Transport'],$TC_Member['Reasons_Bus_Stop'],$TC_Member['Reasons_Anxiety'],
+								$TC_Member['Reasons_Door'],$TC_Member['Reasons_Handrails'],$TC_Member['Reasons_Lift'],$TC_Member['Reasons_Level_Floors'],$TC_Member['Reasons_Low_Steps'], $TC_Member['Reasons_Assistance'], $TC_Member['Reasons_Board_Time'],
+								$TC_Member['Reasons_Wheelchair_Access'], $TC_Member['Reasons_Other'],  $TC_Member['TC_Member_ID']);
+		$statement->execute();
+		$statement->store_result();
+	
+		return 'success!';	
+	}
+}
+
+function editVehicle($mysqli, $Vehicle){
+	if( $statement = $mysqli->prepare("UPDATE Vehicles SET Nickname = ?, Registration = ?, Make = ?, Model = ?, Colour = ?, Capacity_Passengers = ?, Tax_Due = ?, MOT_Due = ?, Inspection_Due = ?,
+										 Service_Due = ?, Tail_Service_Due = ?, Section_19_No = ?, Section_19_Due = ?, Seating_Configurations = ? WHERE Vehicle_ID = ?;") ){
+
+		$statement->bind_param("sssssissssssssi",$Vehicle['Nickname'],$Vehicle['Registration'],$Vehicle['Make'],$Vehicle['Model'],$Vehicle['Colour'],$Vehicle['Capacity_Passengers'],$Vehicle['Tax_Due'],$Vehicle['MOT_Due'],$Vehicle['Inspection_Due'],
+								$Vehicle['Service_Due'], $Vehicle['Tail_Service_Due'], $Vehicle['Section_19_No'], $Vehicle['Section_19_Due'], $Vehicle['Seating_Configurations'], $Vehicle['Vehicle_ID']);
+		$statement->execute();
+		$statement->store_result();
+		
+		return 'success!';
+	}
+}
+
+function editDriver($mysqli, $Driver){
+	if($Driver['Address_ID']>0){
+		$Address_ID = $Driver['Address_ID'];
+	}
+	else{
+		$Address_ID = addAddress($mysqli,$Driver['Address']);
+	}
+	
+	if( $statement = $mysqli->prepare("UPDATE Drivers SET fName = ?, sName = ?, Address_ID = ?, Tel_No = ?, Mobile_No = ?, DOB = ?, Licence_No = ?, Licence_Expires = ?, Licence_Points = ?, DBS_No = ?, DBS_Issued = ?, 
+										Emergency_Name = ?, Emergency_Tel = ?, Emergency_Relationship = ?, Is_Volunteer = ? WHERE Driver_ID = ?;") ){
+		
+		$statement->bind_param("ssisssssissssssi",$Driver['fName'],$Driver['sName'],$Address_ID,$Driver['Tel_No'], $Driver['Mobile_No'], $Driver['DOB'], $Driver['Licence_No'], $Driver['Licence_Expires'], $Driver['Licence_Points'], $Driver['DBS_No'], $Driver['DBS_Issued'], 
+										$Driver['Emergency_Name'],$Driver['Emergency_Tel'],$Driver['Emergency_Relationship'],$Driver['Is_Volunteer'], $Driver['Driver_ID']);
+		$statement->execute();
+		$statement->store_result();
+		
+		return 'success!';
+	}
+}
+
+function editGroup($mysqli,$Group){
+	if($Group['Address_ID']>0){
+		$Address_ID1 = $Group['Address_ID'];
+	}
+	else{
+		$Address_ID1 = addAddress($mysqli,$Group['Address']);
+	}
+
+	if($Group['Invoice_Address_ID']>0){
+		$Address_ID2 = $Group['Invoice_Address_ID'];
+	}
+	else{
+		$Address_ID2 = addAddress($mysqli,$Group['Invoice_Address']);
+	}
+
+	if( $statement = $mysqli->prepare("UPDATE Groups SET Name = ?, Address = ?, Tel = ?, Invoice_Email = ?, Invoice_Address = ?, Invoice_Tel = ?, Emergency_Name = ?, Emergency_Tel = ?, Profitable = ?, Community = ?, 
+										Social = ?, Statutory = ?, Charity_No = ?, Org_Aim = ?, Activities_Education = ?, Activities_Recreation = ?, Activities_Health = ?, Activities_Religion = ?, Activities_Social = ?, Activities_Inclusion = ?, 
+										Activities_Other = ?, Concerned_Physical = ?, Concerned_Learning = ?, Concerned_Mental_Health = ?, Concerned_Ethnic = ?, Concerned_Alcohol = ?, Concerned_Drug = ?, Concerned_HIV_AIDS = ?, 
+										Concerned_Socially_Isolated = ?, Concerned_Dementia = ?, Concerned_Elderly = ?, Concerned_Pre_School = ?, Concerned_Young = ?, Concerned_Women = ?, Concerned_Health = ?, 
+										Concerned_Rurally_Isolated = ?, Concerned_Other= ? WHERE Group_ID = ?;") ){
+
+
+		$statement->bind_param("sississsiiiisssssssssssssssssssssssssi",
+								$Group['Name'],$Address_ID1,$Group['Address_Tel'],$Group['Invoice_Email'], $Address_ID2,$Group['Invoice_Tel'],$Group['Emergency_Name'],$Group['Emergency_Tel'], $Group['Profitable'], $Group['Community'], 
+								$Group['Social'], $Group['Statutory'], $Group['Charity_No'], $Group['Org_Aim'], $Group['Activities_Education'], $Group['Activities_Recreation'], $Group['Activities_Health'], $Group['Activities_Religion'], $Group['Activities_Social'], $Group['Activities_Inclusion'],
+								$Group['Activities_Other'], $Group['Concerned_Physical'], $Group['Concerned_Learning'], $Group['Concerned_Mental_Health'], $Group['Concerned_Ethnic'], $Group['Concerned_Alcohol'], $Group['Concerned_Drug'], $Group['Concerned_HIV_AIDS'], 
+								$Group['Concerned_Socially_Isolated'], $Group['Concerned_Dementia'], $Group['Concerned_Elderly'], $Group['Concerned_Pre_School'], $Group['Concerned_Young'], $Group['Concerned_Women'], $Group['Concerned_Health'], 
+								$Group['Concerned_Rurally_Isolated'], $Group['Concerned_Other'], $Group['Group_ID']);
+		$statement->execute();
+		$statement->store_result();
+		
+		return 'success!';
+	}	
 }
 
 function deleteJourney($mysqli,$data){
