@@ -74,9 +74,7 @@
                         },
                         dataType: "json",
                         success: function(returned_data) {
-                            alert(JSON.stringify(form_data));
-                            alert(JSON.stringify(returned_data));
-                            window.location = 'index.php';
+                            window.location = 'manage_members.php';
                         }
                     });
                 }
@@ -90,7 +88,7 @@
                         },
                         dataType: "json",
                         success: function(returned_data) {
-                            $('#result').replaceWith('<div id="result">'+returned_data+'</div>');
+                            window.location = 'manage_members.php';
                         }
                     });
                 }

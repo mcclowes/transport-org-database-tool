@@ -50,7 +50,7 @@
                         },
                         dataType: "json",
                         success: function(returned_data) {
-                            window.location = 'index.php';
+                            window.location = 'manage_vehicles.php';
                         }
                     });
                 }
@@ -64,7 +64,7 @@
                         },
                         dataType: "json",
                         success: function(returned_data) {
-                            window.location = 'index.php';
+                            window.location = 'manage_vehicles.php';
                         }
                     });
                 }
